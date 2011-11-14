@@ -1,0 +1,64 @@
+package mypackage;
+
+interface Counter {
+    int next();
+}
+
+public class LocalInnerClass {
+
+    //private static Test monitor = new Test();
+    private int count = 0;
+
+    Counter getCounter(final String name) {
+
+        // Define a local inner class within the getCounter() method
+        class LocalCounter implements Counter {
+
+            public LocalCounter() {
+                // Local inner class can have a constructor
+                System.out.println("LocalCounter()");
+            }
+
+            public int next() {
+                System.out.print(name); // Access local final
+                return count++;
+            }
+        }
+        return new LocalCounter();
+    }
+
+    // We use an anonymous inner class here for doing the
+    // same thing
+    Counter getCounter2(final String name) {
+        return new Counter() {
+            // Anonymous inner class cannot have a named
+            // constructor, only an instance initializer:
+            {
+                System.out.println("Counter()");
+            }
+
+            public int next() {
+                System.out.print(name); // Access local final
+                return count++;
+            }
+        };
+    }
+
+    // Main method for testing
+    public static void main(String[] args) {
+        LocalInnerClass lic = new LocalInnerClass();
+
+        // Get counter using Local inner class
+        Counter c1 = lic.getCounter("Local inner ");
+        for (int i = 0; i < 5; i++) {
+            System.out.println(c1.next());
+        }
+
+        // Get counter using anonymous inner class
+        Counter c2 = lic.getCounter2("Anonymous inner ");
+        for (int i = 0; i < 5; i++) {
+            System.out.println(c2.next());
+        }
+ 
+    }
+}

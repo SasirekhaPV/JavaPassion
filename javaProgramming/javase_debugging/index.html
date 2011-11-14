@@ -1,0 +1,972 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <script src="index_files/tigris" type="text/javascript"></script>
+  <link rel="stylesheet" type="text/css" href="index_files/netbeans.css">
+  <title>LAB-1052: Java editing, refactoring, and debugging using
+NetBeans</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="SourceCastVersion" content="2.6.2.4.10">
+  <meta name="keywords"
+ content="NetBeans, IDE, Platform, free, open source, developer">
+  <meta name="description"
+ value="A template for writing tutorials for netbeans.org">
+  <link rel="stylesheet" href="index_files/netbeans_002.css">
+  <meta name="author" content="Sang Shin">
+  <style type="text/css">
+#search {height:100%;}
+#topmodule {align:right;}
+  </style>
+  <script language="JavaScript" type="text/javascript">
+<!--
+function get_sc_login() {
+  var sclogin = "guest";
+  return (sclogin);
+}
+var username=get_sc_login();
+//-->
+  </script>
+</head>
+<body onload="loginfocus()" class="composite">
+<!-- begin TopTabs --><!-- end TopTabs --><!-- start NavCol --><!-- end NavCol --><!-- Servlet-Specific template --><!-- Show servlet name if it is a servlet -->
+<br>
+<br>
+<h1 style="text-align: center;">Java Editing, Refactoring, and
+Debugging using NetBeans</h1>
+<div class="articledate" style="margin-left: 0px; text-align: center;"><a
+ href="http://www.javapassion.com/SangSchedule.html#Bio">Sang Shin</a>,
+<a href="http://micmacfr.homeunix.org/">Michèle Garoche</a>,
+<a href="http://www.javapassion.com/">www.javapassion.com</a><a
+ href="mailto:sangshinpassion@gmail.com"><i>
+</i></a></div>
+<p style="text-align: center;"><span style="text-decoration: underline;"><span
+ style="font-weight: bold;"><img alt=""
+ src="index_files/sangshin2010.jpg" style="width: 99px; height: 99px;">
+<img alt="" src="index_files/Michele.jpg"
+ style="width: 100px; height: 100px;"></span></span><a
+ href="http://www.javapassion.com/j2ee"><br>
+</a></p>
+<p><br>
+</p>
+<div style="margin-left: 40px;">It is said developers spend significant
+their time in editing, debugging, and refactoring of the code.&nbsp; In
+this hands-on lab, you are going to explore some of the features of the
+NetBeans IDE in these areas.&nbsp; The lab is by no means exhaustive.<br>
+</div>
+<p></p>
+<p><br>
+</p>
+<p align="center"><b>Expected duration: 90 minutes</b></p>
+<div class="indent">
+<h3 class="tutorial">Resources</h3>
+<ul>
+  <li><a href="http://www.youtube.com/watch?v=joWldbcp1So">Using the
+NetBeans Debugger</a> youtube presentation<br>
+  </li>
+  <li><a href="http://netbeans.org/features/java/debugger.html">NetBeans
+IDE 6.9 Features - Debugger</a> from netbeans.org</li>
+  <li><a
+ href="http://netbeans.org/kb/docs/java/debug-stepinto-screencast.html">Visual
+step into action in NetBeans</a> video presentation from netbeans.org</li>
+  <li><a
+ href="http://netbeans.org/kb/docs/java/debug-evaluator-screencast.html">Using
+code snippet evaluator in the NetBeans debugger</a> video presentation
+from netbeans.org</li>
+  <li><a
+ href="http://netbeans.org/kb/docs/java/debug-multithreaded-screencast.html">Multithread
+debugging with the NetBeans IDE</a> video presentation from netbeans.org</li>
+  <li><a
+ href="http://netbeans.org/kb/docs/java/debug-deadlock-screencast.html">Deadlock
+detection using NetBeans debugger</a> video presentation from
+netbeans.org</li>
+</ul>
+<br>
+<h3 class="tutorial"><a name="Change_Log"></a>Change Log<br>
+</h3>
+<ul>
+  <li>Sep. 3rd, 2010: Created<br>
+  </li>
+</ul>
+<br>
+<h3 class="tutorial">Tutorial Exercises</h3>
+<ul>
+  <li><a href="#Exercise_0">Exercise 0: Build "<span
+ style="font-weight: bold; color: rgb(51, 51, 255);">MyInputFromKeyboardJOptionPaneProject</span>"
+sample
+application </a><a href="index.html#Exercise_1"> (10 minutes)</a> </li>
+  <li><a href="#Exercise_1">Exercise 1: Exercise editing features (20
+minutes)</a><br>
+  </li>
+  <li><a href="#Exercise_2:_Exercise_code_navigation">Exercise 2:
+Exercise code navigation </a><a href="index.html#Exercise_1"> (20
+minutes)</a> </li>
+  <li><a href="#Exercise_3">Exercise 3: Debugging </a><a
+ href="index.html#Exercise_1"> (20 minutes)</a> </li>
+  <li><a href="#Exercise_4">Exercise 4: Project management </a><a
+ href="index.html#Exercise_1"> (20 minutes)</a></li>
+  <li><a href="#Homework_Exercise">Homework
+Exercise</a></li>
+</ul>
+</div>
+<br>
+<h2><a name="Exercise_0"></a>Exercise 0: Build
+"MyInputFromKeyboardJOptionPaneProject" sample
+application<br>
+</h2>
+<p style="margin-left: 40px;">In this exercise, you are going to build
+"MyInputFromKeyboardJOptionPaneProject" sample application that comes
+with the hands-on lab zip file.&nbsp; We are going to use this simple
+application for exercising debugging and refactoring features of
+NetBeans.<br>
+</p>
+<p style="margin-left: 40px;">0. Start NetBeans IDE.&nbsp; <br>
+1. Open <span style="font-weight: bold; color: rgb(51, 51, 255);">MyInputFromKeyboardJOptionPaneProject</span>
+NetBeans project.&nbsp; <br>
+</p>
+<div style="margin-left: 40px;">
+<ul>
+  <li>Select <span style="font-weight: bold;">File</span>-&gt;<span
+ style="font-weight: bold;">Open Project (Ctrl+Shift+O)</span>. The <span
+ style="font-weight: bold;">Open Project</span> dialog box appears.</li>
+  <li>Browse down to <span style="font-weight: bold;">&lt;LAB_UNZIPPED_DIRECTORY&gt;/javase_debugging/samples</span>
+directory.&nbsp; <br>
+  </li>
+  <ul>
+    <li>Windows: If you unzipped the <span style="font-weight: bold;">1052_javase_debugging.zip</span>
+file under
+C:\
+directory, the directory to which you want
+to browse down should be <span style="font-weight: bold;">C:\javase_debugging\samples.</span></li>
+    <li>Solaris/Linux: If you unzipped the <span
+ style="font-weight: bold;">1052_javase_debugging.zip</span>
+file under $HOME
+directory, the directory to which you want
+to browse down should be <span style="font-weight: bold;">$HOME/javase_debugging/samples.</span><span
+ style="font-weight: bold;"></span></li>
+  </ul>
+  <li>Select <span style="font-weight: bold; color: rgb(51, 51, 255);">MyInputFromKeyboardJOptionPaneProject</span>.&nbsp;
+  </li>
+  <li>Click <span style="font-weight: bold;">Open Project Folder</span>.&nbsp;
+The <span style="font-weight: bold;">MyInputFromKeyboardJOptionPaneProject</span>
+project node appears under <span style="font-weight: bold;">Projects </span>tab
+window.</li>
+</ul>
+</div>
+<p style="margin-left: 40px;">2 Build and run <span
+ style="font-weight: bold;">MyInputFromKeyboardJOptionPaneProject </span>project.
+<br>
+</p>
+<div style="margin-left: 40px;">
+<ul>
+  <li>Right-click <span style="font-weight: bold;">MyInputFromKeyboardJOptionPaneProject</span>
+project and select <span style="font-weight: bold;">Run</span>.</li>
+  <li>Enter yourname.</li>
+  <li>Click OK.<br>
+  </li>
+</ul>
+<img alt="" src="index_files/0_hello1.png"
+ style="width: 297px; height: 124px;"><br>
+<ul>
+  <li>Observe that that message dialog box appears with your name.<br>
+  </li>
+</ul>
+<img alt="" src="index_files/0_hello2.png"
+ style="width: 268px; height: 118px;"><br>
+<br>
+<br>
+<br>
+<br>
+</div>
+<!-- ===================================================================================== -->
+<h2><a name="Exercise_1"></a>Exercise 1: Exercise editing features<br>
+</h2>
+<i></i>
+<p style="margin-left: 40px;">In this exercise, you are going to
+explore various editing features of NetBeans IDE.<br>
+</p>
+<ul style="margin-left: 40px;">
+</ul>
+<ol style="margin-left: 40px;">
+  <li><a href="#1.1">Refactoring</a></li>
+  <li><a href="#1.2">Error stripe</a></li>
+  <li><a href="#1.3">Code templates</a></li>
+  <li><a href="#1.4">CamelHump code completion</a></li>
+</ol>
+<ul style="margin-left: 40px;">
+</ul>
+<br>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.1"></a>(1.1)
+Refactoring<br>
+</h3>
+<p style="margin-left: 40px;">1. Open <span style="font-weight: bold;"><span
+ style="color: rgb(51, 51, 255);">InputFromKeyboardJOptionPane.java</span>
+</span>under
+<span style="font-weight: bold;">MyInputFromKeyboardJOptionPaneProject-&gt;Source
+Packages-&gt;org.me.hello</span>.<br>
+2. Select <span style="font-weight: bold;"><span
+ style="color: rgb(255, 0, 0);">name</span> </span>string and
+right-click it.&nbsp; Select <span style="font-weight: bold;">Refactor
+</span>and then <span style="font-weight: bold;">Rename</span>.<br>
+</p>
+<p style="margin-left: 40px;"><img alt=""
+ src="index_files/0_hello11.png" style="width: 834px; height: 776px;"><br>
+</p>
+<p style="margin-left: 40px;"><br>
+3. In the <span style="font-weight: bold;">Rename Local Vraible name</span>
+dialog box, type <span style="font-weight: bold;"><span
+ style="color: rgb(255, 0, 0);">username</span> </span>in
+the <span style="font-weight: bold;">New Name</span> field. Click <span
+ style="font-weight: bold;">Refactor</span>.<br>
+</p>
+<p style="margin-left: 40px;"><img alt=""
+ src="index_files/0_hello12.png" style="width: 526px; height: 285px;"><br>
+</p>
+<p style="margin-left: 40px;"><br>
+4.&nbsp; Observe the result of refactoring of renaming.<br>
+</p>
+<p style="margin-left: 40px;"><img alt=""
+ src="index_files/0_hello13.png" style="width: 834px; height: 776px;"><br>
+</p>
+<p style="margin-left: 40px;">5.&nbsp; Right-click <span
+ style="font-weight: bold;">MyInputFromKeyboardJOptionPaneProject </span>project
+node and select <span style="font-weight: bold;">Run</span>.&nbsp;
+Observe that the
+application behaves the same.</p>
+<p style="margin-left: 40px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_1">return to top of
+the exercise</a>
+</p>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.2"></a>(1.2)
+Error
+stripe<br>
+</h3>
+<p style="margin-left: 40px;">1. Open <span style="font-weight: bold;">InputFromKeyboardJOptionPane.java.<br>
+</span>2. Create some compile errors&nbsp; in various places of the
+code&nbsp; and see Error stripes are displayed in the right side of the
+editor.&nbsp; In the example below,&nbsp; a random string, <span
+ style="font-weight: bold;">x</span>, is
+entered in random place to generate a compile error for the sake of
+this exercise.<br>
+</p>
+<p style="margin-left: 40px;"><img alt=""
+ src="index_files/0_hello14.png" style="width: 834px; height: 760px;"><br>
+</p>
+<p style="margin-left: 40px;"><br>
+3. Click <span style="font-weight: bold;">CTRL-Z (Undo)</span> until
+above compile error is gone.</p>
+<p style="margin-left: 40px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_1">return to top of
+the exercise</a>
+</p>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.3"></a>(1.3)
+Code
+templates<br>
+</h3>
+<p style="margin-left: 40px;">1. Select <span
+ style="font-weight: bold;">Tools </span>from the menu bar.<br>
+2. Select <span style="font-weight: bold;">Options</span>. The <span
+ style="font-weight: bold;">Options</span> dialog box appears.</p>
+<p style="margin-left: 40px;"><img alt=""
+ src="index_files/0_hello15.png" style="width: 834px; height: 760px;"><br>
+</p>
+<p style="margin-left: 40px;"><br>
+3. Select <span style="font-weight: bold;">Editor</span><br>
+4. Select <span style="font-weight: bold;">Code_Templates</span> tab
+window.&nbsp; Choose Java for the Language.<br>
+</p>
+<p style="margin-left: 40px;"><img alt=""
+ src="index_files/0_hello16.png" style="width: 766px; height: 652px;"><br>
+</p>
+<p style="margin-left: 40px;">5. Click <span style="font-weight: bold;">New</span>.</p>
+<p style="margin-left: 40px;"><img alt=""
+ src="index_files/0_hello17.png" style="width: 766px; height: 652px;"><br>
+</p>
+<p style="margin-left: 40px;">6. In the <span
+ style="font-weight: bold;">New Code Template Dialog</span>
+box, type <span style="font-weight: bold; color: rgb(255, 0, 0);">stringx</span>
+for the <span style="font-weight: bold;">Abbreviation </span>field.
+Click <span style="font-weight: bold;">OK</span>.</p>
+<p style="margin-left: 40px;"><img alt=""
+ src="index_files/0_hello18.png" style="width: 312px; height: 129px;"><br>
+</p>
+<p style="margin-left: 40px;">7. In the Expanded <span
+ style="font-weight: bold;">Text: </span>textarea, type
+in <span style="font-weight: bold; color: rgb(255, 0, 0);">String
+x;&nbsp; //This is my test
+code abbreviation</span>.&nbsp; Click <span style="font-weight: bold;">OK.&nbsp;
+</span><br>
+</p>
+<p style="margin-left: 40px;"><img alt=""
+ src="index_files/0_hello19.png" style="width: 766px; height: 652px;"><br>
+</p>
+<p style="margin-left: 40px;">8. In the <span
+ style="font-weight: bold;">InputFromKeyboardJOptionPane.java</span>,&nbsp;
+type <span style="font-weight: bold;">stringx </span>and press <span
+ style="font-weight: bold;">Tab</span> key. You should
+see the expanded code.<br>
+</p>
+<p style="margin-left: 40px;"><img alt=""
+ src="index_files/0_hello20.png" style="width: 834px; height: 760px;"><br>
+</p>
+<p style="margin-left: 40px;"><br>
+9. In the <span style="font-weight: bold;">InputFromKeyboardJOptionPane.java</span>
+code, type <span style="font-weight: bold;">trycatch&nbsp; </span>and
+press <span style="font-weight: bold;">Tab </span>key and see
+it gets expanded
+as well. <br>
+</p>
+<p style="margin-left: 40px;"><img alt=""
+ src="index_files/0_hello21.png" style="width: 834px; height: 760px;"><br>
+</p>
+<p style="margin-left: 40px;"><span style="font-weight: bold;"><img
+ alt="" src="index_files/0_hello6.png"
+ style="width: 834px; height: 760px;"></span><br>
+</p>
+<p style="margin-left: 40px;">10.<span style="font-weight: bold;"> Undo
+</span>the changes by pressing
+CTRL+Z.</p>
+<p style="margin-left: 40px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_1">return to top of
+the exercise</a><br>
+<br>
+</p>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.4"></a>(1.4)
+CamelHump code completion<br>
+</h3>
+<p style="margin-left: 40px;">1. In the <span
+ style="font-weight: bold;">InputFromKeyboardJOptionPane.java</span>
+code, type
+<span style="font-weight: bold;">ISR </span>and press <span
+ style="font-weight: bold;">CTRL-SPACE</span>.&nbsp; You should see the
+two Java APIs that
+starts with the I, S, and R as starting capital letters.<br>
+</p>
+<p style="margin-left: 40px;"><img alt=""
+ src="index_files/0_hello22.png" style="width: 834px; height: 760px;">
+<br>
+</p>
+<p style="margin-left: 40px;">2. Undo the changes by pressing CTRL+Z.<br>
+</p>
+<p style="margin-left: 40px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_1">return to top of
+the exercise</a><br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Tutorial_Exercises">return to
+top of the document</a><br>
+<br>
+<br>
+</p>
+<!-- ===================================================================================== -->
+<h2><a name="Exercise_2:_Exercise_code_navigation"></a>Exercise 2:
+Exercise code navigation<br>
+</h2>
+<p style="margin-left: 40px;">In this exercise, you will exercise the
+following code navigation
+features of NetBeans IDE.<br>
+</p>
+<ul style="margin-left: 40px;">
+</ul>
+<ol style="margin-left: 40px;">
+  <li><a href="#2.1">Go to Type (Ctrl+O)</a></li>
+  <li><a href="#2.2">Select document in</a></li>
+  <li><a href="#2.3">Hyperlinking</a></li>
+  <li><a href="#2.4">Jump list (Alt+Left, Alt+Right)</a></li>
+  <li><a href="#2.5">Bookmarking</a></li>
+  <li><a href="#2.6">Select a tab</a><br>
+  </li>
+</ol>
+<ul style="margin-left: 40px;">
+</ul>
+<div style="margin-left: 40px;" class="indent">
+<h3 class="tutorial"><a name="2.1"></a>(2.1) Go to Type
+(Alt+Shift+O)<br>
+</h3>
+<p>1. Select <span style="font-weight: bold;">Navigate </span>from
+the menu bar and then select <span style="font-weight: bold;">Go to
+Type (Ctrl+O)</span>.&nbsp; The <span style="font-weight: bold;">Go
+to Type</span> dialog box appears.</p>
+<p><img alt="" src="index_files/0_hello7.png"
+ style="width: 834px; height: 742px;"><br>
+</p>
+2. Type <span style="font-weight: bold;"><span
+ style="color: rgb(255, 0, 0);">Input</span> </span>and see all
+the
+classes whose name starts with <span style="font-weight: bold;">Input</span>.
+<br>
+<br>
+<img alt="" src="index_files/0_hello23.png"
+ style="width: 508px; height: 435px;"><br>
+<p>3. Type<span style="font-weight: bold;"> <span
+ style="color: rgb(255, 0, 0);"> F</span></span> at the end.
+Observe <span style="font-weight: bold;">InputFromKeyboardJOptionPane.java</span>
+code displayed in
+the editor window.<br>
+</p>
+<p><img alt="" src="index_files/0_hello24.png"
+ style="width: 508px; height: 435px;"><br>
+</p>
+<p>4. Observe that the <span style="font-weight: bold;">InputFromKeyboardJOptionPane
+</span>class&nbsp; is now displayed in the editor window.
+</p>
+<p><img alt="" src="index_files/0_hello25.png"
+ style="width: 822px; height: 742px;"></p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_2">return to top of
+the exercise</a><br>
+<br>
+</p>
+</div>
+<div style="margin-left: 40px;" class="indent">
+<h3 class="tutorial"><a name="2.2"></a>(2.2) Select document in<br>
+</h3>
+<p>1.&nbsp; Right-click in any point of <span
+ style="font-weight: bold;">InputFromKeyboardJOptionPane.java</span>
+code and
+choose&nbsp; <span style="font-weight: bold;">Select in</span> and <span
+ style="font-weight: bold;">Files</span>.&nbsp; <br>
+</p>
+<p><img alt="" src="index_files/0_hello26.png"
+ style="width: 822px; height: 742px;"><br>
+</p>
+<p>2.&nbsp; Observe that the the Files view gets displayed.<br>
+</p>
+<p><img alt="" src="index_files/0_hello27.png"
+ style="width: 822px; height: 742px;"><br>
+</p>
+<p>3. Right-click in any point of <span style="font-weight: bold;">InputFromKeyboardJOptionPane.java</span>
+code and choose&nbsp; <span style="font-weight: bold;">Select in</span>
+and <span style="font-weight: bold;">Projects</span>. <br>
+</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_2">return to top of
+the exercise</a><br>
+<br>
+</p>
+</div>
+<div style="margin-left: 40px;" class="indent">
+<h3 class="tutorial"><a name="2.3"></a>(2.3) Hyperlinking</h3>
+<p>1. In the <span style="font-weight: bold;">InputFromKeyboardJOptionPane.java</span>
+code, move the cursor to <span style="font-weight: bold;">String </span>while
+holding down the <span style="font-weight: bold;">CTRL
+</span>key.&nbsp; The <span style="font-weight: bold;">String </span>string
+will turns into a hyperlink. (It might take a couple of seconds.)<br>
+</p>
+<p><img alt="" src="index_files/0_hello28.png"
+ style="width: 822px; height: 742px;"><br>
+</p>
+<p>2. Click the <span style="font-weight: bold;">String </span>string.&nbsp;
+You will see the source code of the <span style="font-weight: bold;">String
+</span>class.<br>
+<br>
+3. Try the same for Serializable.&nbsp; You should see the source code
+of the java.io.Serializable interface.<br>
+</p>
+<p><img alt="" src="index_files/0_hello29.png"
+ style="width: 822px; height: 742px;"><br>
+</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_2">return to top of
+the exercise</a>
+</p>
+<p><br>
+</p>
+<h3 class="tutorial"><a name="2.4"></a>(2.4) Jump list
+(Alt+Left, Alt+Right)</h3>
+<br>
+1. While <span style="font-weight: bold;">InputFromKeyboardJOptionPane.java</span>
+code
+is in the editor, Press <span style="font-weight: bold;">Alt+Left</span>.&nbsp;
+You will see previous screen.<br>
+2. Press Alt+Right and Alt+Right to go and back and forth.<br>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_2">return to top of
+the exercise</a><br>
+<br>
+<h3 class="tutorial"><a name="2.5"></a>(2.5) Bookmarking</h3>
+<br>
+1. While <span style="font-weight: bold;">InputFromKeyboardJOptionPane.java</span>
+code
+is in the editor,&nbsp; move your cursor in the gray color vertical
+strip in the editor window and right-click it.<br>
+2. Select <span style="font-weight: bold;">Bookmark </span>and then
+select <span style="font-weight: bold;">Toggle Bookmark (Ctrl+Shift+M)</span>.<br>
+<br>
+<img alt="" src="index_files/0_hello30.png"
+ style="width: 822px; height: 742px;"><br>
+<br>
+3. Move your cursor in another location of the gray colored vertical
+bar and make another bookmark. <br>
+4. Press&nbsp;<span style="font-weight: bold;"></span> and<span
+ style="font-weight: bold;"> Ctrl+Shift+Period</span> or<span
+ style="font-weight: bold;"> Ctrl+Shift+Comma</span> to go to these
+bookmarked
+locations.<br>
+<br>
+<img alt="" src="index_files/0_hello31.png"
+ style="width: 822px; height: 742px;"><br>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_2">return to top of
+the exercise</a><br>
+<br>
+<h3 class="tutorial"><a name="2.6"></a>(2.6) Select a tab</h3>
+<br>
+1. Click vertical downward arrow and see the list of all the files. <br>
+2. Select a file.<br>
+<br>
+<img alt="" src="index_files/0_hello36.png"
+ style="width: 811px; height: 666px;"><br>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_2">return to top of
+the exercise</a><br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Tutorial_Exercises">return to
+top of the document</a><br>
+</div>
+<p style="margin-left: 40px;"></p>
+<div class="indent">
+<div class="indent">
+<p><br>
+</p>
+</div>
+<p> </p>
+</div>
+<!-- ======================================================================================= -->
+<h2><a name="Exercise_3"></a>Exercise 3: Debugging<br>
+</h2>
+<p style="margin-left: 40px;">In this exercise, you will exercise the
+following features of NetBeans IDE.<br>
+</p>
+<ul>
+  <ul>
+  </ul>
+  <ol>
+    <li><a href="#Source_level_debugging_of_the_JSP_page">Source level
+JSP page debugging</a></li>
+  </ol>
+</ul>
+<br>
+<ul>
+  <ul>
+  </ul>
+</ul>
+<div style="margin-left: 40px;" class="indent">
+<h3 class="tutorial"><a name="3.1"></a>(3.1) Source
+level debugging of the JSP page<br>
+</h3>
+<p>0. Make sure <span style="font-weight: bold;">MyInputFromKeyboardJOptionPaneProject
+</span>project
+is the Main project.&nbsp; (A project node in <span
+ style="font-weight: bold;">bold </span>font is the Main
+project.)&nbsp; If it is not, right click
+MyInputFromKeyboardJOptionPaneProject and select <span
+ style="font-weight: bold;">Set Main Project</span>.</p>
+<p><img alt="" src="index_files/0_hello37.png"
+ style="width: 811px; height: 666px;"></p>
+<p>1. Open <span style="font-weight: bold;">public class
+InputFromKeyboardJOptionPane.java&nbsp;</span> in the
+editor window.<br>
+2. To make a breakpoint on the <span style="font-weight: bold;">String
+msg = "Hello " + username + "!";</span> line (at line number 15 below),
+move your cursor to the location of the
+gray
+colored vertical bar of the line&nbsp; and click.&nbsp; The dark pink
+colored bar indicates that the breakpoint is created.<br>
+</p>
+<p><img alt="" src="index_files/0_hello38.png"
+ style="width: 811px; height: 666px;"><br>
+</p>
+<p>3.&nbsp; Right click <span style="font-weight: bold;">MyInputFromKeyboardJOptionPaneProject
+</span>project
+node and select<span style="font-weight: bold;"> Debug</span>.&nbsp;
+NetBeans will rebuild and deploy the application
+for
+debugging.<br>
+</p>
+<p><img alt="" src="index_files/0_hello39.png"
+ style="width: 811px; height: 666px;"><br>
+</p>
+<p>4. When a dialog prompts you to enter your name, enter a name and
+click <span style="font-weight: bold;">OK</span> button.<br>
+</p>
+<p><img alt="" src="index_files/0_hello40.png"
+ style="width: 297px; height: 124px;"><br>
+</p>
+<p>5. Note that the breakpoint is hit.&nbsp; <br>
+6. Observe that <span style="font-weight: bold;">Variables</span> tab
+window gets displayed in the bottom of the IDE. Observe that the <span
+ style="font-weight: bold;">username </span>variable is set with your
+name, Sang Shin, in the example below.<br>
+</p>
+<p><img alt="" src="index_files/0_hello41.png"
+ style="width: 811px; height: 666px;"></p>
+<p>7. You can change the value of the variables.&nbsp; Change the value
+of the <span style="font-weight: bold;">username </span>variable to
+something else, <span style="font-weight: bold;">Daniel Shin</span>,
+in the example below. Make sure you press the Return key after the
+change so that the change is recorded in the debugging session as shown
+below.&nbsp; The dark green bar indicates that the change has been
+recorded.<br>
+</p>
+<p><img alt="" src="index_files/0_hello44.png"
+ style="width: 811px; height: 666px;"><br>
+</p>
+<p>7.&nbsp; Select <span style="font-weight: bold;">Debug </span>from
+the top-level menu bar and select <span style="font-weight: bold;">Step
+Over</span>&nbsp; (or press <span style="font-weight: bold;">F8 </span>key)
+to step
+over.<br>
+</p>
+<p><img alt="" src="index_files/0_hello43.png"
+ style="width: 811px; height: 666px;"><br>
+</p>
+<p>8. Observe that another local variable, <span
+ style="font-weight: bold;">msg</span>, is now set with <span
+ style="font-weight: bold;">Hello, Daniel Shin</span>.<br>
+</p>
+<p><img alt="" src="index_files/0_hello45.png"
+ style="width: 811px; height: 678px;"><br>
+</p>
+<p>9. Select <span style="font-weight: bold;">Debug </span>from the
+top-level menu bar and select <span style="font-weight: bold;">Continue</span>&nbsp;
+(or press <span style="font-weight: bold;">F5 </span>key) to continue.</p>
+<p><img alt="" src="index_files/0_hello46.png"
+ style="width: 811px; height: 678px;"><br>
+</p>
+<p>10. Observe that the debugging session is over (since we did not
+have any more breakpoints).<br>
+</p>
+<img alt="" src="index_files/0_hello47.png"
+ style="width: 268px; height: 118px;"><br>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_3">return to top of
+the exercise</a><br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Tutorial_Exercises">return to
+top of the document</a><br>
+<br>
+</div>
+<br>
+<br>
+<h2><a name="Exercise_4"></a>Exercise 4: Project management<br>
+</h2>
+<p style="margin-left: 40px;">In this exercise, you will do various
+project management such as
+following:<br>
+</p>
+<ul style="margin-left: 40px;">
+</ul>
+<ol style="margin-left: 40px;">
+  <li><a href="#4.1">Copying a project</a></li>
+  <li><a href="#4.2">Renaming a project</a></li>
+  <li><a href="#4.3">Delete a project</a></li>
+  <li><a href="#4.4">Run the application at the command line</a></li>
+</ol>
+<br>
+<ul style="margin-left: 40px;">
+</ul>
+<div style="margin-left: 40px;" class="indent">
+<h3 class="tutorial"><a name="4.1"></a>(4.1) Copying a project<br>
+</h3>
+<p>1. Right click <span style="font-weight: bold;">MyInputFromKeyboardJOptionPaneProject
+</span>project
+and select <span style="font-weight: bold;">Copy</span>.<br>
+</p>
+<p><img alt="" src="index_files/0_hello32.png"
+ style="width: 822px; height: 742px;"><br>
+</p>
+<p>2.&nbsp; In the <span style="font-weight: bold;">Copy Project</span>
+dialog box, type in a new project name, <span
+ style="font-weight: bold;">MyInputFromKeyboardJOptionPaneProject_Copy</span>,
+in this example.
+Click <span style="font-weight: bold;">Copy </span>button.<br>
+</p>
+<p><img alt="" src="index_files/0_hello33.png"
+ style="width: 463px; height: 354px;"><br>
+</p>
+<p>3. Observe that <span style="font-weight: bold;">MyInputFromKeyboardJOptionPaneProject_Copy</span>
+project now gets
+created.<br>
+</p>
+<p><img alt="" src="index_files/0_hello34.png"
+ style="width: 822px; height: 742px;"><br>
+</p>
+<p>4. Right click MyInputFromKeyboardJOptionPaneProject_Copy project
+and
+Run.<br>
+</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_4">return to top of
+the exercise</a>
+</p>
+</div>
+<div style="margin-left: 40px;" class="indent">
+<h3 class="tutorial"><a name="4.2"></a>(4.2) Rename a project<br>
+</h3>
+<p>1. Right click <span style="font-weight: bold;">MyInputFromKeyboardJOptionPaneProject_Copy
+</span>project
+and select <span style="font-weight: bold;">Rename Project</span>.<br>
+2. In the Rename Project dialog box, give it a new name, <span
+ style="font-weight: bold;">MyInputFromKeyboardJOptionPaneProject_Copy2</span>,
+and click Rename.<br>
+3. Observe that the project name has been changed.<br>
+</p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_4">return to top of
+the exercise</a>
+</p>
+</div>
+<div style="margin-left: 40px;" class="indent">
+<h3 class="tutorial"><a name="4.3"></a>(4.3) Deleting a project<br>
+</h3>
+<p>1. Right click <span style="font-weight: bold;">MyInputFromKeyboardJOptionPaneProject_Copy2
+</span>project
+and select <span style="font-weight: bold;">Delete</span>.<br>
+2. In the <span style="font-weight: bold;">Delete Project</span>
+dialog box, select <span style="font-weight: bold;">Also Delete Source
+Under ..</span>. if you want to delete source code as well.<br>
+</p>
+<p><img alt="" src="index_files/0_hello35.png"
+ style="width: 576px; height: 227px;"></p>
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_4">return to top of
+the exercise</a><br>
+<br>
+</p>
+</div>
+<div style="margin-left: 40px;" class="indent">
+<h3 class="tutorial"><a name="4.4"></a>(4.4) Run
+the application at the command line<br>
+</h3>
+<p>1. Right click the project and select <span
+ style="font-weight: bold;">Build </span>or <span
+ style="font-weight: bold;">Clean and Build</span>.<br>
+</p>
+<img alt="" src="index_files/0_hello48.png"
+ style="width: 811px; height: 678px;"><br>
+<br>
+2. Observe that a jar file has been created.<br>
+<br>
+<img alt="" src="index_files/0_hello49.png"
+ style="width: 811px; height: 678px;"><br>
+<br>
+3. Run the application at the command line.<br>
+<p></p>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">java -jar
+"C:\handson_javase\javase_debugging\samples\MyInputFromKeyboardJOptionPaneProject\dist\MyInputFromKeyboardJOptionPaneProject.jar"<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p><img alt="" src="index_files/0_hello50.png"
+ style="width: 805px; height: 683px;"><br>
+</p>
+</div>
+<div style="margin-left: 40px;">4. Observe that the application gets
+run.<br>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_4">return to top of
+the exercise</a><br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Tutorial_Exercises">return to
+top of the document</a><br>
+<span style="font-weight: bold;"></span></div>
+<span style="font-weight: bold;"><br>
+</span>
+<h2><a name="Homework_Exercise"></a>Homework Exercise <br>
+</h2>
+<br>
+<div style="margin-left: 40px;"><span style="color: rgb(0, 0, 0);">There
+is no homework for this topic.</span></div>
+<div style="margin-left: 40px;"><br>
+<div style="margin-left: 40px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp; <a href="../ajaxbasics2/index.html#Tutorial_Exercises">return
+to the top</a></div>
+</div>
+<br>
+<span style="font-weight: bold;"><br>
+<br>
+<br>
+</span>
+</body>
+</html>

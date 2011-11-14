@@ -1,0 +1,2961 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <script src="index_files/tigris.txt" type="text/javascript"></script>
+  <link rel="stylesheet" type="text/css" href="index_files/netbeans.css">
+  <title>LAB-1010: Tour of java.lang.* classes</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="SourceCastVersion" content="2.6.2.4.10">
+  <meta name="keywords"
+ content="NetBeans, IDE, Platform, free, open source, developer">
+  <link rel="stylesheet" href="index_files/netbeans_002.css">
+  <meta name="author" content="Sang Shin">
+  <style type="text/css">
+#search {height:100%;}
+#topmodule {align:right;}
+  </style>
+  <script language="JavaScript" type="text/javascript">
+<!--
+function get_sc_login() {
+  var sclogin = "guest";
+  return (sclogin);
+}
+var username=get_sc_login();
+//-->
+  </script>
+</head>
+<body onload="loginfocus()" class="composite">
+<!-- begin TopTabs --><!-- end TopTabs --><!-- start NavCol --><!-- end NavCol --><!-- Servlet-Specific template --><!-- Show servlet name if it is a servlet -->
+<br>
+<br>
+<h1 style="text-align: center;">Tour of&nbsp; java.lang.* classes<br>
+</h1>
+<div class="articledate" style="margin-left: 0px; text-align: center;"><a
+ href="http://www.javapassion.com/SangShinSchedule.html#Bio">Sang Shin</a>,&nbsp;
+<a href="http://www.javapassion.com/">www.javapassion.com</a><a
+ href="mailto:sang.shin@sun.com"><i><br>
+</i></a></div>
+<p style="text-align: center;"><img alt=""
+ src="index_files/sangshin2009.jpg" style="width: 88px; height: 101px;"><br>
+</p>
+<div style="margin-left: 40px;">The java.lng.* package provides classes
+that are fundamental to the design of the Java
+programming language.&nbsp;
+This hands-on lab takes you through the
+important classes of Provides classes that are fundamental to the
+design of the Java
+programming language.
+.<br>
+</div>
+<p><br>
+</p>
+<p></p>
+<p align="center"><b>Expected duration: 140 minutes</b></p>
+<div class="indent"><br>
+<h3 class="tutorial">Resources<br>
+</h3>
+<ul>
+  <li>ProcessBuilder</li>
+  <ul>
+    <li><a
+ href="http://download.oracle.com/javase/1.5.0/docs/api/java/lang/ProcessBuilder.html">ProcessBuilder</a>
+class API <br>
+    </li>
+    <li><a
+ href="http://www.java-tips.org/java-se-tips/java.util/from-runtime.exec-to-processbuilder.html">From
+Runtime.exec() to ProcessBuilder</a> article</li>
+    <li><a href="http://www.rgagnon.com/javadetails/java-0014.html">Execute
+an external program</a> tutorial</li>
+    <li><a
+ href="http://www.javabeat.net/tips/8-using-the-new-process-builder-class.html">Using
+the new ProcessBuilder class</a> tutorial<br>
+    </li>
+  </ul>
+</ul>
+<br>
+<br>
+<h3 class="tutorial"><a name="Change_Log"></a>Change Log<br>
+</h3>
+<ul>
+  <li>Feb 27th, 2007: Homework is added</li>
+  <li>Sep. 13th, 2007: Some correction is made</li>
+  <li>Jan. 10th, 2009: NetBeans 6.5 is used</li>
+  <li>July 14th, 2010: Tested with NetBeans 6.9, lab zip file name is
+changed (Sang Shin)</li>
+  <li>Dec. 4th, 2010: Added ProcessBuilder exercise (Sang Shin)</li>
+  <li>Feb. 22ndm 2011: Some cosmetic changes are made (Sang Shin)</li>
+  <li>Aug.&nbsp; 23rd, 2011: Exercises are modified (Sang Shin)<br>
+  </li>
+</ul>
+<br>
+<h3 class="tutorial"><a name="Tutorial_Exercises"></a>Lab Exercises</h3>
+<ul>
+  <li><a href="#Exercise_0">Exercise 0: String, StringBuffer classes</a><br>
+  </li>
+  <li><a href="#Exercise_1">Exercise 1: Wrapper classes, Various data
+types, Math class (20 minutes)</a><br>
+  </li>
+  <li><a href="#Exercise_2">Exercise 2: System properties (20 minutes)</a><br>
+  </li>
+  <li><a href="#Exercise_3">Exercise 3: System class
+(20 minutes)</a></li>
+  <li><a href="#Exercise_4">Exercise 4: Runtime class (20 minutes)</a></li>
+  <li><a href="#Exercise_5">Exercise 5: Runtime class 2
+(20 minutes)</a></li>
+  <li><a href="#Exercise_6">Exercise 6: ProcessBuilder class
+with Output stream (20 minutes)</a></li>
+  <li><a href="#Exercise_7">Exercise 7: ProcessBuilder class
+with Error stream (20 minutes)</a></li>
+  <li><a href="#Homework">Homework Exercise</a></li>
+</ul>
+<br>
+</div>
+<br>
+<br>
+<h2><a name="Exercise_0"></a>Exercise 0: String class, StringBuffer
+Class<br>
+</h2>
+<p style="margin-left: 40px;">In this exercise, you are going to
+explore String and StringBuffer classes.<br>
+</p>
+<ol style="margin-left: 40px;">
+  <li><a href="index.html#0.1">String constructors</a></li>
+  <li><a href="#0.2">String class methods</a><br>
+  </li>
+  <li><a href="#0.3">String object comparison</a></li>
+  <li><a href="#0.4">String lexicographical comparsion</a><br>
+  </li>
+  <li><a href="index.html#0.5">StringBuffer class</a><br>
+  </li>
+</ol>
+<br>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="0.1"></a>(0.1)&nbsp;
+String constructors<br>
+</h3>
+<br>
+<div style="margin-left: 40px;">
+1. Open <span style="font-weight: bold;">StringConstructors</span>
+NetBeans project.&nbsp; <br>
+</div>
+<ul style="margin-left: 40px;">
+  <li>Select <span style="font-weight: bold;">File</span>-&gt;<span
+ style="font-weight: bold;">Open Project (Ctrl+Shift+O)</span>. The <span
+ style="font-weight: bold;">Open Project</span> dialog box appears.</li>
+  <li>Browse down to <span style="font-weight: bold;">&lt;LAB_UNZIPPED_DIRECTORY&gt;/javase_lang/samples
+    </span>directory.&nbsp; <br>
+  </li>
+  <ul>
+    <li>If you unzipped the <span style="font-weight: bold;">1010_javase_lang.zip</span>
+file under <span style="font-weight: bold;">C:\handsonlabs</span>
+directory under Windows, the directory to which you want
+to browse down should be <span style="font-weight: bold;">C:\handsonlabs\javase_lang\samples</span></li>
+    <li>If you unzipped the <span style="font-weight: bold;">1010_javase_lang.zip</span>
+file under <span style="font-weight: bold;">$HOME/handsonlabs</span>
+directory under Solaris/Linux, the directory to which you want
+to browse down should be <span style="font-weight: bold;">$HOME/handsonlabs/javase_lang/samples.</span><span
+ style="font-weight: bold;"></span></li>
+  </ul>
+  <li>Select <span style="font-weight: bold; color: rgb(255, 0, 0);">StringConstructors</span>.&nbsp;
+  </li>
+  <li>Click <span style="font-weight: bold;">Open Project</span>.&nbsp;
+    <br>
+  </li>
+  <li>Observe that the&nbsp;<span style="font-weight: bold;">StringConstructors</span>
+project node appears under <span style="font-weight: bold;">Projects </span>tab
+window.</li>
+</ul>
+<p style="margin-left: 40px;">2. Build and run<span
+ style="font-weight: bold;"></span>
+project. <br>
+</p>
+<ul style="margin-left: 40px;">
+  <li>Right-click <span style="font-weight: bold;">StringConstructors</span>
+project and select <span style="font-weight: bold;">Run</span>.</li>
+  <li>Observe the result in the Output window.</li>
+</ul>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">hello<br>
+world<br>
+ell<br>
+hello<br>
+hello<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+3. Study the code.<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">class StringConstructors {<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; public static void main(String args[]) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+ style="font-weight: bold;">String s1 = new String();&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; //empty string</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char chars[] = { 'h', 'e',
+'l', 'l', 'o'};&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+ style="font-weight: bold;"> String s2 = new String(chars);&nbsp;&nbsp;
+//s2="hello";</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; byte bytes[] = { 'w', 'o',
+'r', 'l', 'd' };<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+ style="font-weight: bold;">String s3 = new
+String(bytes);&nbsp;&nbsp;&nbsp; //s3="world"</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+String s4 = new String(chars, 1, 3);</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+String s5 = new String(s2);</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String s6 = s2;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(s1);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(s2);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(s3);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(s4);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(s5);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(s6);<br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; <br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<div style="margin-left: 40px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="index.html#Exercise_0">return to top of the exercise</a>
+</div>
+<br>
+</div>
+<br>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="0.2"></a>(0.2)&nbsp;
+String class methods<br>
+</h3>
+<br>
+<div style="margin-left: 40px;">
+1. Open <span style="font-weight: bold;">StringDemo</span>
+NetBeans project.&nbsp; <br>
+</div>
+<ul style="margin-left: 40px;">
+  <li>Select <span style="font-weight: bold;">File</span>-&gt;<span
+ style="font-weight: bold;">Open Project (Ctrl+Shift+O)</span>. The <span
+ style="font-weight: bold;">Open Project</span> dialog box appears.</li>
+  <li>Browse down to <span style="font-weight: bold;">&lt;LAB_UNZIPPED_DIRECTORY&gt;/javase_lang/samples
+    </span>directory.&nbsp; <br>
+  </li>
+  <li>Select <span style="font-weight: bold; color: rgb(255, 0, 0);">StringDemo</span>.&nbsp;
+  </li>
+  <li>Click <span style="font-weight: bold;">Open Project</span>.&nbsp;
+    <br>
+  </li>
+  <li>Observe that the&nbsp;<span style="font-weight: bold;">StringDemo</span>
+project node appears under <span style="font-weight: bold;">Projects </span>tab
+window.</li>
+</ul>
+<p style="margin-left: 40px;">2. Build and run<span
+ style="font-weight: bold;"></span>
+project. <br>
+</p>
+<ul style="margin-left: 40px;">
+  <li>Right-click <span style="font-weight: bold;">StringDemo</span>
+project and select <span style="font-weight: bold;">Run</span>.</li>
+  <li>Observe the result in the Output window.</li>
+</ul>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">name: Jonathan<br>
+3rd character of name: n<br>
+charArr = Hi XX<br>
+charArr2 =&nbsp;&nbsp;&nbsp;&nbsp; Jo<br>
+Length of name: 8<br>
+Replace a's with e's in name: Jonethen<br>
+A substring of name: Jo<br>
+Trim "&nbsp; a b c d e f&nbsp;&nbsp; ": "a b c d e f"<br>
+String representation of boolean expression 10&gt;10: false<br>
+String representation of boolean expression 10&lt;100: true<br>
+name: Jonathan<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+</div>
+<div style="margin-left: 40px;">3. Study the code<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">class StringDemo {<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; public static void main(String args[]) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String name = "Jonathan";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("name: "
++ name);<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //&nbsp; Return the char
+value at the specified index.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("3rd
+character of name: " +<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+ style="font-weight: bold;"> name.charAt(2)</span>); // n<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Convert the string to a
+new character array.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char charArr[] = <span
+ style="font-weight: bold;">"Hi XX".toCharArray();</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.print("charArr =
+");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (char c: charArr) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.print(c);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char charArr2[] = new
+char[20];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+ style="font-weight: bold;">"Jonathan".getChars(0, 2, charArr2, 3);</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.print("charArr2 =
+");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (char c: charArr2) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.print(c);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // String length<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("Length
+of name: " +<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <span style="font-weight: bold;">name.length()</span>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("Replace
+a's with e's in name: " +<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <span style="font-weight: bold;">name.replace('a', 'e')</span>);&nbsp;
+// Jonethen<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Returns a new string that
+is a substring of this string. <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // The substring begins at
+the specified beginIndex and <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // extends to the character
+at index endIndex - 1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("A
+substring of name: " +<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <span style="font-weight: bold;">name.substring(0, 2)</span>); //
+Jo<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("Trim
+\"&nbsp; a b c d e f&nbsp;&nbsp; \": \"" +<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+ style="font-weight: bold;"> "&nbsp; a b c d e f&nbsp;&nbsp; ".trim()</span>
++ "\"");&nbsp; // a b c d e f<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("String
+representation of boolean expression 10&gt;10: " <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
++ <span style="font-weight: bold;">String.valueOf(10&gt;10)</span>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // toString method is
+implicitly called in the println<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // method<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("String
+representation of boolean expression 10&lt;100: " <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
++ (10&lt;100));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Note there's no change in
+the String object name<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // even after applying all
+these methods. <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("name: "
++ name);<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<div style="margin-left: 40px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="index.html#Exercise_0">return to top of the exercise</a>
+</div>
+<br>
+</div>
+<br>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="0.3"></a>(0.3)&nbsp;
+String object comparison<br>
+</h3>
+<br>
+<div style="margin-left: 40px;">
+1. Open <span style="font-weight: bold;">StringObjectComparison</span>
+NetBeans project.&nbsp; <br>
+</div>
+<ul style="margin-left: 40px;">
+  <li>Select <span style="font-weight: bold;">File</span>-&gt;<span
+ style="font-weight: bold;">Open Project (Ctrl+Shift+O)</span>. The <span
+ style="font-weight: bold;">Open Project</span> dialog box appears.</li>
+  <li>Browse down to <span style="font-weight: bold;">&lt;LAB_UNZIPPED_DIRECTORY&gt;/javase_lang/samples
+    </span>directory.&nbsp; <br>
+  </li>
+  <li>Select <span style="font-weight: bold; color: rgb(255, 0, 0);">StringObjectComparison</span>.&nbsp;
+  </li>
+  <li>Click <span style="font-weight: bold;">Open Project</span>.&nbsp;
+    <br>
+  </li>
+  <li>Observe that the <span style="font-weight: bold;">StringObjectComparison</span>
+project node appears under <span style="font-weight: bold;">Projects </span>tab
+window.</li>
+</ul>
+<p style="margin-left: 40px;">2. Build and run<span
+ style="font-weight: bold;"></span>
+project. <br>
+</p>
+<ul style="margin-left: 40px;">
+  <li>Right-click <span style="font-weight: bold;">StringObjectComparison</span>
+project and select <span style="font-weight: bold;">Run</span>.</li>
+  <li>Observe the result in the Output window.</li>
+</ul>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">Is string1 == string2? false<br>
+Is string3 == string4? true<br>
+Is Jonathan equal to Jonathan? true<br>
+Is Jonathan equal to jonathan? false<br>
+Is Jonathan equal to jonathan (ignore case)? true<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+</div>
+<div style="margin-left: 40px;">3. Study the code<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">class StringObjectComparison {<br>
+      <br>
+&nbsp;&nbsp;&nbsp; public static void main(String args[]) {<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Compare two String
+objects instances<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+ style="font-weight: bold;">String string1 = new String("JPassion");</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+String string2 = new String("JPassion");</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("Is
+string1 == string2? " +<span style="font-weight: bold;"> (string1 ==
+string2)</span>);&nbsp; // false<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Compare Sting literal.
+String literal is a single String instance<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+ style="font-weight: bold;"> String string3 = "JPassion";</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+String string4 = "JPassion";</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("Is
+string3 == string4? " + <span style="font-weight: bold;">(string3 ==
+string4))</span>;&nbsp; // true &nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Use equals method of
+String class<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String name = "Jonathan";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("Is
+Jonathan equal to Jonathan? "<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
++ <span style="font-weight: bold;">name.equals("Jonathan")</span>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("Is
+Jonathan equal to jonathan? "<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
++ <span style="font-weight: bold;">name.equals("jonathan")</span>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("Is
+Jonathan equal to jonathan (ignore case)? " <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
++<span style="font-weight: bold;"> name.equalsIgnoreCase("jonathan")</span>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; }<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<div style="margin-left: 40px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="index.html#Exercise_0">return to top of the exercise</a>
+</div>
+<br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="0.4"></a>(0.4)&nbsp;
+String lexicographical comparison <br>
+</h3>
+<br>
+<div style="margin-left: 40px;">
+1. Open <span style="font-weight: bold;">StringLexComparison </span>NetBeans
+project.&nbsp; <br>
+</div>
+<ul style="margin-left: 40px;">
+  <li>Select <span style="font-weight: bold;">File</span>-&gt;<span
+ style="font-weight: bold;">Open Project (Ctrl+Shift+O)</span>. The <span
+ style="font-weight: bold;">Open Project</span> dialog box appears.</li>
+  <li>Browse down to <span style="font-weight: bold;">&lt;LAB_UNZIPPED_DIRECTORY&gt;/javase_lang/samples
+    </span>directory.&nbsp; <br>
+  </li>
+  <li>Select <span style="font-weight: bold; color: rgb(255, 0, 0);">StringLexComparison</span>.&nbsp;
+  </li>
+  <li>Click <span style="font-weight: bold;">Open Project</span>.&nbsp;
+    <br>
+  </li>
+  <li>Observe that the <span style="font-weight: bold;">StringLexComparison</span>
+project node appears under <span style="font-weight: bold;">Projects </span>tab
+window.</li>
+</ul>
+<p style="margin-left: 40px;">2. Build and run<span
+ style="font-weight: bold;"></span>
+project. <br>
+</p>
+<ul style="margin-left: 40px;">
+  <li>Right-click <span style="font-weight: bold;">StringLexComparison</span>
+project and select <span style="font-weight: bold;">Run</span>.</li>
+  <li>Observe the result in the Output window.</li>
+</ul>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">name: Jonathan<br>
+Jonathan compared to Solomon: -9<br>
+Solomon compared to Jonathan: 9<br>
+Jonathan compared to jonathan: -32<br>
+Jonathan compared case ignored: 0<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+</div>
+<div style="margin-left: 40px;">3. Study the code<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">class StringLexComparison {<br>
+      <br>
+&nbsp;&nbsp;&nbsp; public static void main(String args[]) {<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String name = "Jonathan";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("name: "
++ name);<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Character that first
+appears alphabetically<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // has lower unicode value <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("Jonathan
+compared to Solomon: "<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
++ <span style="font-weight: bold;">name.compareTo("Solomon")</span>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("Solomon
+compared to Jonathan: "<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
++ <span style="font-weight: bold;">"Solomon".compareTo("Jonathan")</span>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // 'J' has lower unicode
+value compared to 'j' <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("Jonathan
+compared to jonathan: "<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
++ <span style="font-weight: bold;">name.compareTo("jonathan")</span>);<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("Jonathan
+compared case ignored:"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
++ name.compareToIgnoreCase("jonathan"));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; }<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<div style="margin-left: 40px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="index.html#Exercise_0">return to top of the exercise</a><br>
+<br>
+</div>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="0.5"></a>(0.5)&nbsp;
+StringBuffer class<br>
+</h3>
+<br>
+<div style="margin-left: 40px;">
+1. Open <span style="font-weight: bold;">StringBuffer </span>NetBeans
+project.&nbsp; <br>
+</div>
+<ul style="margin-left: 40px;">
+  <li>Select <span style="font-weight: bold;">File</span>-&gt;<span
+ style="font-weight: bold;">Open Project (Ctrl+Shift+O)</span>. The <span
+ style="font-weight: bold;">Open Project</span> dialog box appears.</li>
+  <li>Browse down to <span style="font-weight: bold;">&lt;LAB_UNZIPPED_DIRECTORY&gt;/javase_lang/samples
+    </span>directory.&nbsp; <br>
+  </li>
+  <li>Select <span style="font-weight: bold; color: rgb(255, 0, 0);">StringBuffer</span>.&nbsp;
+  </li>
+  <li>Click <span style="font-weight: bold;">Open Project</span>.&nbsp;
+    <br>
+  </li>
+  <li>Observe that the <span style="font-weight: bold;">StringBuffer</span>
+project node appears under <span style="font-weight: bold;">Projects </span>tab
+window.</li>
+</ul>
+<p style="margin-left: 40px;">2. Build and run<span
+ style="font-weight: bold;"></span>
+project. <br>
+</p>
+<ul style="margin-left: 40px;">
+  <li>Right-click <span style="font-weight: bold;">StringBuffer</span>
+project and select <span style="font-weight: bold;">Run</span>.</li>
+  <li>Observe the result in the Output window.</li>
+</ul>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">sb = Jonathan<br>
+capacity of sb: 24<br>
+append 'O' to sb: JonathanO<br>
+sb = JonathanO<br>
+3rd character of sb: n<br>
+getChars method: Hi Jo<br>
+Insert 'jo' at the 3rd cell: JojonathanO<br>
+Delete 'jo' at the 3rd cell: JonathanO<br>
+length of sb: 9<br>
+replace: Jon Ong<br>
+substring (1st two characters): Jon<br>
+implicit toString(): Jon Ong<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+</div>
+<div style="margin-left: 40px;">3. Study the code<br>
+</div>
+<div style="margin-left: 40px;"><br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">class StringBufferDemo {<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp; public static void main(String args[]) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; StringBuffer sb = new
+StringBuffer("Jonathan");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("sb = " + sb);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* initial capacity is 16 */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("capacity of sb:
+"+sb.capacity());<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("append \'O\' to sb:
+" + <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+sb.append('O'));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("sb = " + sb);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("3rd character of sb:
+" + <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+sb.charAt(2));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char charArr[] = "Hi XX".toCharArray();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Need to add 1 to the endSrc index of
+getChars */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sb.getChars(0, 2, charArr, 3);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.print("getChars method: ");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(charArr);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("Insert \'jo\' at the
+3rd cell: " <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
++ sb.insert(2, "jo"));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("Delete \'jo\' at the
+3rd cell: " <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
++ sb.delete(2,4));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("length of sb: " +
+sb.length());<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("replace: " +<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+sb.replace(3, 9, " Ong"));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Need to add 1 to the endIndex
+parameter of <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; substring*/<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("substring (1st two
+characters): " <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
++ sb.substring(0, 3));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("implicit toString():
+" + sb);<br>
+&nbsp;&nbsp; }<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+</div>
+<div style="margin-left: 40px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="index.html#Exercise_0">return to top of the exercise</a>
+</div>
+<br>
+<br>
+<h2><a name="Exercise_1"></a>Exercise 1: Wrapper classes, Math class<br>
+</h2>
+<ul style="margin-left: 40px;">
+</ul>
+<ol style="margin-left: 40px;">
+</ol>
+<p style="margin-left: 40px;">In this exercise, you are going to use
+various classes.<br>
+</p>
+<ol style="margin-left: 40px;">
+  <li><a href="#1.1">Boolean class</a></li>
+  <li><a href="#1.2">Various data types</a><br>
+  </li>
+  <li><a href="#1.3">Math class</a><br>
+  </li>
+</ol>
+<br>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.1"></a>(1.1)
+Wrapper classes<br>
+</h3>
+<div style="margin-left: 40px;"><br>
+1. Open <span style="font-weight: bold;">WrapperExampleClasses</span>
+NetBeans project.&nbsp; <br>
+</div>
+<ul style="margin-left: 40px;">
+  <li>Select <span style="font-weight: bold;">File</span>-&gt;<span
+ style="font-weight: bold;">Open Project (Ctrl+Shift+O)</span>. The <span
+ style="font-weight: bold;">Open Project</span> dialog box appears.</li>
+  <li>Browse down to <span style="font-weight: bold;">&lt;LAB_UNZIPPED_DIRECTORY&gt;/javase_lang/samples
+    </span>directory.&nbsp; <br>
+  </li>
+  <li>Select <span style="font-weight: bold; color: rgb(255, 0, 0);">WrapperExampleClasses</span>.&nbsp;
+  </li>
+  <li>Click <span style="font-weight: bold;">Open Project</span>.&nbsp;
+    <br>
+  </li>
+  <li>Observe that the <span style="font-weight: bold;">WrapperExampleClasses</span>
+project node appears under <span style="font-weight: bold;">Projects </span>tab
+window.</li>
+</ul>
+<p style="margin-left: 40px;">2. Build and run<span
+ style="font-weight: bold;"></span>
+project. <br>
+</p>
+<ul style="margin-left: 40px;">
+  <li>Right-click <span style="font-weight: bold;">WrapperExampleClasses</span>
+project and select <span style="font-weight: bold;">Run</span>.</li>
+  <li>Observe the result in the Output window.</li>
+</ul>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">booleanVar = false<br>
+booleanObj = true<br>
+booleanObj2 = false<br>
+compare 2 wrapper objects: false<br>
+booleanVar = true<br>
+intObject = 5<br>
+intPrimitive2 = 5<br>
+longObject = 5<br>
+longPrimitive2 = 5<br>
+doubleObject = 5.0<br>
+doublePrimitive2 = 5.0<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+</div>
+<div style="margin-left: 40px;">3. Study the code.<br>
+<br>
+</div>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">class WrapperClassExamples {<br>
+      <br>
+&nbsp;&nbsp;&nbsp; public static void main(String args[]) {<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; boolean booleanVar = 1 &gt;
+2;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Boolean booleanObj = new
+Boolean("TRue");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Boolean booleanObj2 = new
+Boolean(booleanVar);<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("booleanVar = " + booleanVar);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("booleanObj = " + booleanObj);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("booleanObj2 = "<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
++ booleanObj2);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("compare
+2 wrapper objects: "<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
++ booleanObj.equals(booleanObj2));<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* object to primitive */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; booleanVar =
+booleanObj.booleanValue();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("booleanVar = " + booleanVar);<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int intPrimitive = 5;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Integer intObject = new
+Integer(intPrimitive);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("intObject = " + intObject);<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int intPrimitive2 =
+intObject.intValue();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("intPrimitive2 = " + intPrimitive2);<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; long longPrimitive = 5;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Long longObject = new
+Long(longPrimitive);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("longObject = " + longObject);<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; long longPrimitive2 =
+longObject.longValue();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("longPrimitive2 = " + longPrimitive2);<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; double doublePrimitive = 5;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Double doubleObject = new
+Double(doublePrimitive);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("doubleObject = " + doubleObject);<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; double doublePrimitive2 =
+doubleObject.doubleValue();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("doublePrimitive2 = " + doublePrimitive2);<br>
+      <br>
+&nbsp;&nbsp;&nbsp; }<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<span style="color: rgb(51, 51, 255); font-weight: bold;"></span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#Exercise_1">return to top of the exercise</a><br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.2"></a>(1.2)
+Various data types<br>
+</h3>
+<div style="margin-left: 40px;"><br>
+1. Open <span style="font-weight: bold;">DataTypes</span>
+NetBeans project.&nbsp; <br>
+</div>
+<ul style="margin-left: 40px;">
+  <li>Select <span style="font-weight: bold;">File</span>-&gt;<span
+ style="font-weight: bold;">Open Project (Ctrl+Shift+O)</span>. The <span
+ style="font-weight: bold;">Open Project</span> dialog box appears.</li>
+  <li>Browse down to <span style="font-weight: bold;">&lt;LAB_UNZIPPED_DIRECTORY&gt;/javase_lang/samples
+    </span>directory.&nbsp; <br>
+  </li>
+  <li>Select <span style="font-weight: bold; color: rgb(255, 0, 0);">DataTypes</span>.&nbsp;
+  </li>
+  <li>Click <span style="font-weight: bold;">Open Project</span>.&nbsp;
+    <br>
+  </li>
+  <li>Observe that the <span style="font-weight: bold;">DataTypes</span>
+project node appears under <span style="font-weight: bold;">Projects </span>tab
+window.</li>
+</ul>
+<p style="margin-left: 40px;">2. Build and run<span
+ style="font-weight: bold;"></span>
+project. <br>
+</p>
+<ul style="margin-left: 40px;">
+  <li>Right-click <span style="font-weight: bold;">DataTypes</span>
+project and select <span style="font-weight: bold;">Run</span>.</li>
+  <li>Observe the result in the Output window.</li>
+</ul>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">Java Mania<br>
+abc<br>
+4<br>
+-9223372036854775808<br>
+3.4028235E38<br>
+3.141592653589793<br>
+true<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+3. Study the code<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">public class DataTypes {<br>
+      <br>
+&nbsp;&nbsp;&nbsp; public static void main(String[] args) {<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String stringData = "Java
+Mania";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println(stringData);<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char[] charArrayData = {'a',
+'b', 'c'};<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println(charArrayData);<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int integerData = 4;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println(integerData);<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; long longData =
+Long.MIN_VALUE;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(longData);<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; float floatData =
+Float.MAX_VALUE;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println(floatData);<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; double doubleData = Math.PI;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println(doubleData);<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; boolean booleanData = true;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println(booleanData);<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="index.html#Exercise_1">return to top of the exercise</a><br>
+<br>
+</div>
+<p style="margin-left: 40px;"></p>
+<p style="margin-left: 40px;"><span style="font-weight: bold;"></span></p>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.3"></a>(1.3)
+Math class<br>
+</h3>
+<br>
+<div style="margin-left: 40px;">1. Open <span
+ style="font-weight: bold;">MathDemo</span>
+NetBeans project.&nbsp; <br>
+</div>
+<ul style="margin-left: 40px;">
+  <li>Select <span style="font-weight: bold;">File</span>-&gt;<span
+ style="font-weight: bold;">Open Project (Ctrl+Shift+O)</span>. The <span
+ style="font-weight: bold;">Open Project</span> dialog box appears.</li>
+  <li>Browse down to <span style="font-weight: bold;">&lt;LAB_UNZIPPED_DIRECTORY&gt;/javase_lang/samples
+    </span>directory.&nbsp; <br>
+  </li>
+  <li>Select <span style="font-weight: bold; color: rgb(255, 0, 0);">MathDemo</span>.&nbsp;
+  </li>
+  <li>Click <span style="font-weight: bold;">Open Project</span>.&nbsp;
+    <br>
+  </li>
+  <li>Observe that the <span style="font-weight: bold;">MathDemo</span>
+project node appears under <span style="font-weight: bold;">Projects </span>tab
+window.</li>
+</ul>
+<p style="margin-left: 40px;">2. Build and run<span
+ style="font-weight: bold;"></span>
+project. <br>
+</p>
+<ul style="margin-left: 40px;">
+  <li>Right-click <span style="font-weight: bold;">MathDemo</span>
+project and select <span style="font-weight: bold;">Run</span>.</li>
+  <li>Observe the result in the Output window.</li>
+</ul>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">absolute value of -5: 5<br>
+absolute value of 5: 5<br>
+random number(max is 10): 8.589864358896323<br>
+max of 3.5 and 1.2: 3.5<br>
+min of 3.5 and 1.2: 1.2<br>
+ceiling of 3.5: 4.0<br>
+floor of 3.5: 3.0<br>
+e raised to 1: 2.7182818284590455<br>
+log 10: 2.302585092994046<br>
+10 raised to 3: 1000.0<br>
+rounded off value of pi: 3<br>
+square root of 5 = 2.23606797749979<br>
+10 radian = 572.9577951308232 degrees<br>
+sin(90): 1.0<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+</div>
+<div style="margin-left: 40px;">3. Study the code<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">class MathDemo {<br>
+&nbsp;&nbsp;&nbsp; public static void main(String args[]) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("absolute
+value of -5: " +&nbsp; <span style="font-weight: bold;">Math.abs(-5)</span>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("absolute
+value of 5: " +&nbsp; <span style="font-weight: bold;">Math.abs(5)</span>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("random
+number(max is 10): " +<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <span style="font-weight: bold;">Math.random()</span>*10);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("max of
+3.5 and 1.2: " +<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <span style="font-weight: bold;">Math.max(3.5,1.2)</span>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("min of
+3.5 and 1.2: " +<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <span style="font-weight: bold;">Math.min(3.5,1.2)</span>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("ceiling
+of 3.5: " +<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <span style="font-weight: bold;">Math.ceil(3.5)</span>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("floor of
+3.5: " +<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+ style="font-weight: bold;">
+Math.floor(3.5)</span>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("e raised
+to 1: " +<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <span style="font-weight: bold;">Math.exp(1)</span>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("log 10:
+" + <span style="font-weight: bold;">Math.log(10)</span>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("10
+raised to 3: " +<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <span style="font-weight: bold;">Math.pow(10,3)</span>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("rounded
+off value of pi: " +<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <span style="font-weight: bold;">Math.round(Math.PI)</span>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("square
+root of 5 = " +<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <span style="font-weight: bold;">Math.sqrt(5)</span>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("10
+radian = " +<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <span style="font-weight: bold;">Math.toDegrees(10)</span> + "
+degrees");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("sin(90):
+" +<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <span style="font-weight: bold;">Math.sin(Math.toRadians(90)</span>));<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+Code-1.41: MathDemo.java<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="index.html#Exercise_1">return to top of the exercise</a><br>
+</div>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <a href="index.html#Tutorial_Exercises">return
+to the top</a><br>
+<div style="margin-left: 40px;"><br>
+</div>
+<><br>
+<br>
+<br>
+</>
+<!-- ===================================================================================== -->
+<h2><a name="Exercise_2"></a>Exercise 2: System Properties <br>
+</h2>
+<br>
+<div style="margin-left: 40px;">In this exercise, you are going to
+learn how to get and set system properties.<span
+ style="font-weight: bold;"></span><br>
+<ol>
+  <li><a href="#2.1">Display user name property</a><br>
+  </li>
+  <li><a href="#2.2">Display all system properties</a><br>
+  </li>
+  <li><a href="#2.3">Set system property</a><br>
+  </li>
+</ol>
+</div>
+<br>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="2.1"></a>(2.1)
+Display user name property<br>
+</h3>
+<div style="margin-left: 40px;"><br>
+</div>
+<div style="margin-left: 40px;">1. Open <span
+ style="font-weight: bold;">UserNameTest</span>
+NetBeans project.&nbsp; <br>
+</div>
+<ul style="margin-left: 40px;">
+  <li>Select <span style="font-weight: bold;">File</span>-&gt;<span
+ style="font-weight: bold;">Open Project (Ctrl+Shift+O)</span>. The <span
+ style="font-weight: bold;">Open Project</span> dialog box appears.</li>
+  <li>Browse down to <span style="font-weight: bold;">&lt;LAB_UNZIPPED_DIRECTORY&gt;/javase_lang/samples
+    </span>directory.&nbsp; <br>
+  </li>
+  <li>Select <span style="font-weight: bold; color: rgb(255, 0, 0);">UserNameTest</span>.&nbsp;
+  </li>
+  <li>Click <span style="font-weight: bold;">Open Project</span>.&nbsp;
+    <br>
+  </li>
+  <li>Observe that the <span style="font-weight: bold;">UserNameTest</span>
+project node appears under <span style="font-weight: bold;">Projects </span>tab
+window.</li>
+</ul>
+<p style="margin-left: 40px;">2. Build and run<span
+ style="font-weight: bold;"></span>
+project. <br>
+</p>
+<ul style="margin-left: 40px;">
+  <li>Right-click <span style="font-weight: bold;">UserNameTest</span>
+project and select <span style="font-weight: bold;">Run</span>.</li>
+  <li>Observe the result in the Output window.</li>
+</ul>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">user.name property = Sang<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+3. Study the code<br>
+<ul>
+</ul>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">public class UserNameTest {<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; public static void main(String[] args) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String name = <span
+ style="font-weight: bold;">System.getProperty("user.name")</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("user.name property = " + name);<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+Figure-2.23: Result of running UserNameTest application<br>
+<br>
+4. Display and study the Javadoc of <span style="font-weight: bold;">System
+</span>class.<br>
+<br>
+<img alt="" src="index_files/10_new9.png"
+ style="width: 873px; height: 792px;"><br>
+<span style="color: rgb(51, 51, 255); font-weight: bold;"></span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="index.html#Exercise_2">return to top of the exercise</a><br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="2.2"></a>(2.2)
+Display system properties<br>
+</h3>
+<div style="margin-left: 40px;">
+<br>
+</div>
+<div style="margin-left: 40px;">1. Open <span
+ style="font-weight: bold;">DisplaySystemProps</span>
+NetBeans project.&nbsp; <br>
+</div>
+<ul style="margin-left: 40px;">
+  <li>Select <span style="font-weight: bold;">File</span>-&gt;<span
+ style="font-weight: bold;">Open Project (Ctrl+Shift+O)</span>. The <span
+ style="font-weight: bold;">Open Project</span> dialog box appears.</li>
+  <li>Browse down to <span style="font-weight: bold;">&lt;LAB_UNZIPPED_DIRECTORY&gt;/javase_lang/samples
+    </span>directory.&nbsp; <br>
+  </li>
+  <li>Select <span style="font-weight: bold; color: rgb(255, 0, 0);">DisplaySystemProps</span>.&nbsp;
+  </li>
+  <li>Click <span style="font-weight: bold;">Open Project</span>.&nbsp;
+    <br>
+  </li>
+  <li>Observe that the <span style="font-weight: bold;">DisplaySystemProps</span>
+project node appears under <span style="font-weight: bold;">Projects </span>tab
+window.</li>
+</ul>
+<p style="margin-left: 40px;">2. Build and run<span
+ style="font-weight: bold;"></span>
+project. <br>
+</p>
+<ul style="margin-left: 40px;">
+  <li>Right-click <span style="font-weight: bold;">DisplaySystemProps</span>
+project and select <span style="font-weight: bold;">Run</span>.</li>
+  <li>Observe the result in the Output window.</li>
+</ul>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">-- listing properties --<br>
+java.runtime.name=Java(TM) SE Runtime Environment<br>
+sun.boot.library.path=C:\Java\jdk1.6.0_17\jre\bin<br>
+java.vm.version=14.3-b01<br>
+java.vm.vendor=Sun Microsystems Inc.<br>
+java.vendor.url=http://java.sun.com/<br>
+path.separator=;<br>
+java.vm.name=Java HotSpot(TM) Client VM<br>
+file.encoding.pkg=sun.io<br>
+user.country=US<br>
+sun.java.launcher=SUN_STANDARD<br>
+sun.os.patch.level=<br>
+java.vm.specification.name=Java Virtual Machine Specification<br>
+user.dir=C:\1passion.labs\handson_javase\javas...<br>
+java.runtime.version=1.6.0_17-b04<br>
+java.awt.graphicsenv=sun.awt.Win32GraphicsEnvironment<br>
+java.endorsed.dirs=C:\Java\jdk1.6.0_17\jre\lib\endorsed<br>
+os.arch=x86<br>
+java.io.tmpdir=C:\Users\Sang\AppData\Local\Temp\<br>
+line.separator=<br>
+      <br>
+java.vm.specification.vendor=Sun Microsystems Inc.<br>
+user.variant=<br>
+os.name=Windows 7<br>
+sun.jnu.encoding=Cp1252<br>
+java.library.path=C:\Java\jdk1.6.0_17\jre\bin;.;C:\Wind...<br>
+java.specification.name=Java Platform API Specification<br>
+java.class.version=50.0<br>
+sun.management.compiler=HotSpot Client Compiler<br>
+os.version=6.1<br>
+user.home=C:\Users\Sang<br>
+user.timezone=<br>
+java.awt.printerjob=sun.awt.windows.WPrinterJob<br>
+file.encoding=Cp1252<br>
+java.specification.version=1.6<br>
+user.name=Sang<br>
+java.class.path=C:\1passion.labs\handson_javase\javas...<br>
+java.vm.specification.version=1.0<br>
+sun.arch.data.model=32<br>
+java.home=C:\Java\jdk1.6.0_17\jre<br>
+java.specification.vendor=Sun Microsystems Inc.<br>
+user.language=en<br>
+awt.toolkit=sun.awt.windows.WToolkit<br>
+java.vm.info=mixed mode, sharing<br>
+java.version=1.6.0_17<br>
+java.ext.dirs=C:\Java\jdk1.6.0_17\jre\lib\ext;C:\Wi...<br>
+sun.boot.class.path=C:\1passion.labs\handson_javase\javas...<br>
+java.vendor=Sun Microsystems Inc.<br>
+file.separator=\<br>
+java.vendor.url.bug=http://java.sun.com/cgi-bin/bugreport...<br>
+sun.cpu.endian=little<br>
+sun.io.unicode.encoding=UnicodeLittle<br>
+sun.desktop=windows<br>
+sun.cpu.isalist=pentium_pro+mmx pentium_pro pentium+m...<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+Code-2.21: DisplaySystemProps.java<br>
+<br>
+3. Study the code<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">import java.util.Properties;<br>
+      <br>
+public class DisplaySystemProps {<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; public static void main(String[] args) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Get all system properties
+and display them.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Properties p1 =
+System.getProperties();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p1.list(System.out);<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+</div>
+<div style="margin-left: 40px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="index.html#Exercise_2">return to top of the exercise</a><br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="2.3"></a>(2.3)
+Set System properties<br>
+</h3>
+<div style="margin-left: 40px;">
+<br>
+1. Create a new NetBeans project<br>
+<ul>
+  <li>Select <span style="font-weight: bold;">File</span>-&gt;<span
+ style="font-weight: bold;">New Project (Ctrl+Shift+N)</span>. The <span
+ style="font-weight: bold;">New Project</span> dialog box appears.</li>
+  <li>Under <span style="font-weight: bold;">Choose Project</span>
+pane,
+select <span style="font-weight: bold;">Java </span>under <span
+ style="font-weight: bold;">Categories </span>and <span
+ style="font-weight: bold;">Java Application</span> under <span
+ style="font-weight: bold;">Projects</span>. <br>
+  </li>
+  <li>Click <span style="font-weight: bold;">Next</span>.</li>
+</ul>
+<ul>
+  <li>Under <span style="font-weight: bold;">Name and Location</span>
+pane, for the <span style="font-weight: bold;">Project Name</span>
+field, type in <span style="font-weight: bold;"><span
+ style="color: rgb(51, 51, 255);">SetSystemProperties</span> </span>as
+project name.</li>
+  <li>For <span style="font-weight: bold;">Create Main Class</span>
+field, type in <span style="font-weight: bold;"><span
+ style="color: rgb(51, 51, 255);">SetSystemProperties</span></span>.&nbsp;
+    <br>
+  </li>
+  <li>Click <span style="font-weight: bold;">Finish</span>.</li>
+</ul>
+<img alt="" src="index_files/10_new3.png"
+ style="width: 737px; height: 507px;"><br>
+Figure-2.31: New Java Application<br>
+<ul>
+  <li>Observe that <span style="font-weight: bold;">SetSystemProperties
+    </span>project
+appears and IDE generated <span style="font-weight: bold;">SetSystemProperties.java</span>
+is displayed in the source editor window of NetBeans IDE.</li>
+</ul>
+2. Modify the IDE generated <span style="font-weight: bold;">SetSystemProperties.java
+</span>as shown in Code-2.32 below.&nbsp; Study the code by paying
+special attention to the bold fonted parts.&nbsp; <br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><span
+ style="color: rgb(0, 0, 0);"><span style="font-weight: bold;">import
+java.io.FileInputStream;<br>
+import java.io.IOException;<br>
+import java.util.Properties;<br>
+      <br>
+      </span>public class SetSystemProperties {<br>
+      <span style="font-weight: bold;"><br>
+&nbsp;&nbsp;&nbsp;</span> /**<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * @param args the command line arguments<br>
+&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp; public static void main(String[] args) {<span
+ style="font-weight: bold;"><br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FileInputStream propFile =
+null;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Properties p = null;<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // set up new properties
+object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // from file
+"myProperties.txt"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; try {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+propFile = new FileInputStream(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+"myProperties.txt");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p =
+new Properties(System.getProperties());<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+p.load(propFile);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } catch (IOException e) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println(e);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // set a property through
+setProperty() method<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p.setProperty("myKey1",
+"myValue1");<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // set the system properties<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.setProperties(p);<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // display new properties<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.getProperties().list(System.out);<br>
+&nbsp;&nbsp;&nbsp; </span>}<br>
+}</span><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+Code-2.32: SetSystemProperties.java<br>
+<br>
+3. Provide <span style="font-weight: bold;">myProperties.txt</span> as
+an input file.<br>
+<ul>
+  <li>Right click&nbsp;<span style="font-weight: bold;"> </span><span
+ style="font-weight: bold;"><span style="color: rgb(51, 51, 255);">SetSystemProperties
+    </span></span>project
+and select <span style="font-weight: bold;">New-&gt;Other</span>.</li>
+</ul>
+<img alt="" src="index_files/10_new5.png"
+ style="width: 817px; height: 762px;"><br>
+Figure-2.34: New-&gt;Other<br>
+<ul>
+  <li>Observe the <span style="font-weight: bold;">New File</span>
+dialog box appears.</li>
+  <li>Choose <span style="font-weight: bold;">Other </span>under <span
+ style="font-weight: bold;">Categories </span>and <span
+ style="font-weight: bold;">Empty File</span> under <span
+ style="font-weight: bold;">File Types</span>.&nbsp; (Figure-2.35 below)</li>
+</ul>
+<img alt="" src="index_files/10_new1.png"
+ style="width: 737px; height: 507px;"><br>
+Figure-2.35: Create Empty File<br>
+<ul>
+  <li>Observe that the <span style="font-weight: bold;">New Empty File</span>
+dialog box appears.</li>
+  <li>For the <span style="font-weight: bold;">File Name</span> field,
+type in <span style="font-weight: bold; color: rgb(255, 0, 0);">myProperties.txt</span>.</li>
+  <li>Click Finish.<br>
+  </li>
+</ul>
+<img alt="" src="index_files/10_new6.png"
+ style="width: 737px; height: 507px;"><br>
+<ul>
+  <li>Observe that the empty<span style="font-weight: bold;">
+myProperties.txt</span> appears in the editor window.</li>
+  <li>Cut and paste the contents from the input file (File-2.36) below
+to the
+empty file.</li>
+</ul>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">subliminal.message=Buy Java Now!<br>
+myown.property=Life is worth living with Passion!<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+File-2.36: myProperties.txt<br>
+<br>
+<img alt="" src="index_files/10_new7.png"
+ style="width: 817px; height: 762px;"><br>
+<br>
+4. Build and run the project<br>
+<ul>
+  <li>Right click <span style="font-weight: bold;">SetSystemProperties
+    </span>project
+and select <span style="font-weight: bold;">Run</span>. </li>
+  <li>Observe the result in the <span style="font-weight: bold;">Output
+    </span>window.
+(Figure-2.37 below)</li>
+</ul>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">-- listing properties --<br>
+java.runtime.name=Java(TM) SE Runtime Environment<br>
+sun.boot.library.path=C:\Java\jdk1.6.0_17\jre\bin<br>
+java.vm.version=14.3-b01<br>
+java.vm.vendor=Sun Microsystems Inc.<br>
+java.vendor.url=http://java.sun.com/<br>
+path.separator=;<br>
+java.vm.name=Java HotSpot(TM) Client VM<br>
+file.encoding.pkg=sun.io<br>
+user.country=US<br>
+sun.java.launcher=SUN_STANDARD<br>
+sun.os.patch.level=<br>
+java.vm.specification.name=Java Virtual Machine Specification<br>
+user.dir=C:\1passion.labs\handson_javase\javas...<br>
+java.runtime.version=1.6.0_17-b04<br>
+      <span style="font-weight: bold; color: rgb(255, 0, 0);">myKey1=myValue1</span><br>
+java.awt.graphicsenv=sun.awt.Win32GraphicsEnvironment<br>
+java.endorsed.dirs=C:\Java\jdk1.6.0_17\jre\lib\endorsed<br>
+os.arch=x86<br>
+java.io.tmpdir=C:\Users\Sang\AppData\Local\Temp\<br>
+line.separator=<br>
+      <br>
+java.vm.specification.vendor=Sun Microsystems Inc.<br>
+user.variant=<br>
+os.name=Windows 7<br>
+      <span style="font-weight: bold; color: rgb(255, 0, 0);">myown.property=Life
+is worth living with Passion!</span><br>
+sun.jnu.encoding=Cp1252<br>
+      <span style="font-weight: bold; color: rgb(255, 0, 0);">subliminal.message=Buy
+Java Now!</span><br>
+java.library.path=C:\Java\jdk1.6.0_17\bin;.;C:\Windows\...<br>
+java.specification.name=Java Platform API Specification<br>
+java.class.version=50.0<br>
+sun.management.compiler=HotSpot Client Compiler<br>
+os.version=6.1<br>
+user.home=C:\Users\Sang<br>
+user.timezone=<br>
+java.awt.printerjob=sun.awt.windows.WPrinterJob<br>
+file.encoding=UTF-8<br>
+java.specification.version=1.6<br>
+user.name=Sang<br>
+java.class.path=C:\1passion.labs\handson_javase\javas...<br>
+java.vm.specification.version=1.0<br>
+sun.arch.data.model=32<br>
+java.home=C:\Java\jdk1.6.0_17\jre<br>
+java.specification.vendor=Sun Microsystems Inc.<br>
+user.language=en<br>
+awt.toolkit=sun.awt.windows.WToolkit<br>
+java.vm.info=mixed mode, sharing<br>
+java.version=1.6.0_17<br>
+java.ext.dirs=C:\Java\jdk1.6.0_17\jre\lib\ext;C:\Wi...<br>
+sun.boot.class.path=C:\Java\jdk1.6.0_17\jre\lib\resources...<br>
+java.vendor=Sun Microsystems Inc.<br>
+file.separator=\<br>
+java.vendor.url.bug=http://java.sun.com/cgi-bin/bugreport...<br>
+sun.cpu.endian=little<br>
+sun.io.unicode.encoding=UnicodeLittle<br>
+sun.desktop=windows<br>
+sun.cpu.isalist=pentium_pro+mmx pentium_pro pentium+m...<br>
+BUILD SUCCESSFUL (total time: 0 seconds)<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+Figure-2.37: Result of running SetSystemProperties application<br>
+<br>
+<img alt="" src="index_files/10_new8.png"
+ style="width: 845px; height: 744px;"><br>
+<br>
+<span style="color: rgb(51, 51, 255); font-weight: bold;">Solution</span>:
+This exercise up to this point is provided as a ready-to-open-and-run
+NetBeans project as part of hands-on lab zip file. You can find it as <span
+ style="font-weight: bold;">&lt;LAB_UNZIPPED_DIRECTORY&gt;/java_lang/samples/</span><span
+ style="font-weight: bold;">SetSystemProperties</span><span
+ style="font-weight: bold;">.&nbsp;
+</span>You can just open it and run it. <br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="index.html#Exercise_2">return to top of the exercise</a><br>
+</div>
+<div style="margin-left: 40px;"><br>
+</div>
+<div style="margin-left: 40px;"><br>
+<br>
+</div>
+<br>
+<h2><a name="Exercise_3"></a>Exercise 3: System class<br>
+</h2>
+<br>
+<div style="margin-left: 40px;">In this exercise, you are going to
+explore other methods of the System class.<br>
+</div>
+<p style="margin-left: 40px;"></p>
+<ul>
+  <ul>
+  </ul>
+  <ol>
+    <li><a href="#3.1">Call methods of the System class</a><br>
+    </li>
+    <li><a href="#3.2">Get environment variables</a><br>
+    </li>
+  </ol>
+</ul>
+<br>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="3.1"></a>(3.1)
+Call methods of the System class<br>
+</h3>
+<br>
+<div style="margin-left: 40px;">1. Open <span
+ style="font-weight: bold;">SystemClass </span>NetBeans project.&nbsp;
+<br>
+</div>
+<ul style="margin-left: 40px;">
+  <li>Select <span style="font-weight: bold;">File</span>-&gt;<span
+ style="font-weight: bold;">Open Project (Ctrl+Shift+O)</span>. The <span
+ style="font-weight: bold;">Open Project</span> dialog box appears.</li>
+  <li>Browse down to <span style="font-weight: bold;">&lt;LAB_UNZIPPED_DIRECTORY&gt;/javase_lang/samples
+    </span>directory.&nbsp; <br>
+  </li>
+  <li>Select <span style="font-weight: bold;">SystemClass</span></li>
+  <li>Click <span style="font-weight: bold;">Open Project</span>.&nbsp;
+    <br>
+  </li>
+  <li>Observe that the <span style="font-weight: bold;">SystemClass </span>project
+node appears under <span style="font-weight: bold;">Projects </span>tab
+window.</li>
+</ul>
+<div style="margin-left: 40px;">3. Build and run the project<br>
+<ul>
+  <li>Right click <span style="font-weight: bold;">SystemClass </span>project
+and select <span style="font-weight: bold;">Run</span>. </li>
+  <li>Observe the result in the <span style="font-weight: bold;">Output
+    </span>window.
+(Figure-3.12 below)</li>
+</ul>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">Time for manual copy: 44 ms.<br>
+Time for copy utility provided: 5 ms.<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+Figure-3.12: Result of running SystemClass application<br>
+<br>
+3. Study the code.<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">import java.io.*;<br>
+      <br>
+class SystemClass {<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp; public static void main(String args[]) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+throws IOException {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int arr1[] = new int[1050000];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int arr2[] = new int[1050000];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; long startTime, endTime;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* initialize arr1 */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (int i = 0; i &lt; arr1.length; i++)
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; arr1[i] = i + 1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* copying manually */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-weight: bold;">startTime
+= System.currentTimeMillis();</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (int i = 0; i &lt; arr1.length; i++)
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; arr2[i] = arr1[i];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; endTime = System.currentTimeMillis();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("Time for manual
+copy: " + <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(endTime-startTime) + " ms.");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* using the copy utility provided by
+java */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; startTime = System.currentTimeMillis();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.arraycopy(arr1, 0, arr2, 0,
+arr1.length);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; endTime = System.currentTimeMillis();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("Time for copy
+utility provided: " + <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(endTime-startTime) + " ms.");<br>
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.gc();&nbsp;&nbsp;&nbsp; //request garbage collector to work</span><span
+ style="font-weight: bold;"></span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.exit(0);</span><br>
+&nbsp;&nbsp; }<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+Code-3.11: SystemClass.java<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="index.html#Exercise_3">return to top of the exercise</a><br>
+<br>
+</div>
+<br>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="3.2"></a>(3.2)
+Get environment variables<br>
+</h3>
+<div style="margin-left: 40px;"><br>
+</div>
+<div style="margin-left: 40px;">1. Open <span
+ style="font-weight: bold;">SystemClass2 </span>NetBeans
+project.&nbsp; <br>
+</div>
+<ul style="margin-left: 40px;">
+  <li>Select <span style="font-weight: bold;">File</span>-&gt;<span
+ style="font-weight: bold;">Open Project (Ctrl+Shift+O)</span>. The <span
+ style="font-weight: bold;">Open Project</span> dialog box appears.</li>
+  <li>Browse down to <span style="font-weight: bold;">&lt;LAB_UNZIPPED_DIRECTORY&gt;/javase_lang/samples
+    </span>directory.&nbsp; <br>
+  </li>
+  <li>Select <span style="font-weight: bold;">SystemClass2</span></li>
+  <li>Click <span style="font-weight: bold;">Open Project</span>.&nbsp;
+    <br>
+  </li>
+  <li>Observe that the <span style="font-weight: bold;">SystemClass2 </span>project
+node appears under <span style="font-weight: bold;">Projects </span>tab
+window.</li>
+</ul>
+<div style="margin-left: 40px;">2. Build and run the project<br>
+<ul>
+  <li>Right click <span style="font-weight: bold;">SystemClass2 </span>project
+and select <span style="font-weight: bold;">Run</span>. </li>
+  <li>Observe the result in the <span style="font-weight: bold;">Output
+    </span>window.
+(Figure-3.22 below)</li>
+</ul>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">System environment variables =
+{PROCESSOR_ARCHITECTURE=x86, LOGONSERVER=\\PASSION2, HOMEDRIVE=C:,
+HOMEPATH=\Documents and Settings\sang, SESSIONNAME=Console,
+TMP=C:\DOCUME~1\sang\LOCALS~1\Temp, windir=C:\WINDOWS,
+PROCESSOR_IDENTIFIER=x86 Family 15 Model 72 Stepping 2, AuthenticAMD,
+SystemDrive=C:, USERPROFILE=C:\Documents and Settings\sang,
+PATHEXT=.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH,
+CommonProgramFiles=C:\Program Files\Common Files, =::=::\,
+NUMBER_OF_PROCESSORS=2, ComSpec=C:\WINDOWS\system32\cmd.exe,
+COMPUTERNAME=PASSION2, OS=Windows_NT, USERNAME=sang,
+TEMP=C:\DOCUME~1\sang\LOCALS~1\Temp, USERDOMAIN=PASSION2,
+ALLUSERSPROFILE=C:\Documents and Settings\All Users,
+PROCESSOR_LEVEL=15, SystemRoot=C:\WINDOWS, APPDATA=C:\Documents and
+Settings\sang\Application Data,
+Path=d:\bin;c:\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\Program
+Files\ATI Technologies\ATI.ACE\;"C:\Program
+Files\Java\jdk1.5.0_06"\bin;c:\cygwin\bin;C:\Sun\AppServer9\bin;;C:\PROGRA~1\COMMON~1\MUVEET~1\030625,
+JAVA_HOME="C:\Program Files\Java\jdk1.5.0_06", FP_NO_HOST_CHECK=NO,
+PROCESSOR_REVISION=4802, ProgramFiles=C:\Program Files}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+Figure-3.22: Result of running SystemClass2 application<br>
+<br>
+3. Study the code<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">import java.util.Map;<br>
+      <br>
+class SystemClass2 {<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp; public static void main(String args[]){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="font-weight: bold;">Map
+m1 = System.getenv();</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("System
+environment variables = " + m1);<br>
+&nbsp;<br>
+&nbsp;&nbsp; }<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+Code-3.21: SystemClass2.java<br>
+</div>
+<div style="margin-left: 40px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="index.html#Exercise_3">return to top of the exercise</a>
+</div>
+<br>
+<h3 style="margin-left: 40px;" class="tutorial">Summary</h3>
+<div style="margin-left: 40px;"><br>
+In this exercise, you have learned how to invoke methods of System
+class.<br>
+<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp; <a href="index.html#Tutorial_Exercises">return
+to the top</a><br>
+<br>
+</div>
+<h2><a name="Exercise_4"></a>Exercise 4: Runtime class<br>
+</h2>
+<br>
+<div style="margin-left: 40px;">In this exercise, you are going to run
+OS specific programs using Runtime class.<br>
+</div>
+<ul>
+  <ol>
+    <li><a href="#4.1">Run OS specific program</a></li>
+    <li><a href="#4.2">Memory related methods of the Runtime class</a><br>
+    </li>
+  </ol>
+</ul>
+<br>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="4.1"></a>(4.1)
+Run OS specific program<br>
+</h3>
+<br>
+<div style="margin-left: 40px;">1. Open&nbsp;<span
+ style="font-weight: bold;">RunOSProgram</span><span
+ style="font-weight: bold;"> </span>NetBeans project.&nbsp; <br>
+</div>
+<ul style="margin-left: 40px;">
+  <li>Select <span style="font-weight: bold;">File</span>-&gt;<span
+ style="font-weight: bold;">Open Project (Ctrl+Shift+O)</span>. The <span
+ style="font-weight: bold;">Open Project</span> dialog box appears.</li>
+  <li>Browse down to <span style="font-weight: bold;">&lt;LAB_UNZIPPED_DIRECTORY&gt;/javase_lang/samples
+    </span>directory.&nbsp; <br>
+  </li>
+  <li>Select <span style="font-weight: bold;">RunOSProgram</span></li>
+  <li>Click <span style="font-weight: bold;">Open Project</span>.&nbsp;
+    <br>
+  </li>
+  <li>Observe that the&nbsp;<span style="font-weight: bold;">RunOSProgram</span><span
+ style="font-weight: bold;"> </span>project node appears under <span
+ style="font-weight: bold;">Projects </span>tab
+window.<br>
+  </li>
+</ul>
+<div style="margin-left: 40px;">2. Build and run the project<br>
+<ul>
+  <li>Right click <span style="font-weight: bold;">RunOSProgram </span>project
+and select <span style="font-weight: bold;">Run</span>. </li>
+  <li>Observe that a OS specific program gets run.&nbsp; (Figure-4.12
+below)<br>
+  </li>
+</ul>
+<img alt="" src="index_files/1_linkedlistdemo2.png"
+ style="width: 724px; height: 519px;"><br>
+Figure-4.12: Notepad program under Windows platform gets executed<br>
+<br>
+3. Study the code<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">class RunOSProgram {<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; public static void main(String args[]) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+ style="font-weight: bold;">Runtime rt = Runtime.getRuntime();</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Process proc;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; try {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if
+(System.getProperty("os.name").startsWith("Windows")){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// Run a OS specific program<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <span style="font-weight: bold;">proc = rt.exec("notepad");</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+ style="font-weight: bold;"> proc = rt.exec("gedit");</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+proc.waitFor();&nbsp;&nbsp;&nbsp; //try removing this line<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } catch (Exception e) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("notepad is an unknown command.");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; <br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+Code-4.11: RunOSProgram.java<span
+ style="color: rgb(51, 51, 255); font-weight: bold;"></span><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="index.html#Exercise_4">return to top of the exercise</a><br>
+<br>
+</div>
+<br>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="4.2"></a>(4.2)
+Memory related methods of Runtime class <br>
+</h3>
+<div style="margin-left: 40px;"><br>
+</div>
+<div style="margin-left: 40px;">1. Open <span
+ style="font-weight: bold;">RuntimeClass</span><span
+ style="font-weight: bold;"> </span>NetBeans project.&nbsp; <br>
+</div>
+<ul style="margin-left: 40px;">
+  <li>Select <span style="font-weight: bold;">File</span>-&gt;<span
+ style="font-weight: bold;">Open Project (Ctrl+Shift+O)</span>. The <span
+ style="font-weight: bold;">Open Project</span> dialog box appears.</li>
+  <li>Browse down to <span style="font-weight: bold;">&lt;LAB_UNZIPPED_DIRECTORY&gt;/javase_lang/samples
+    </span>directory.&nbsp; <br>
+  </li>
+  <li>Select <span style="font-weight: bold;">RuntimeClass</span></li>
+  <li>Click <span style="font-weight: bold;">Open Project</span>.&nbsp;
+    <br>
+  </li>
+  <li>Observe that the <span style="font-weight: bold;">RuntimeClass</span><span
+ style="font-weight: bold;"> </span>project node appears under <span
+ style="font-weight: bold;">Projects </span>tab
+window.</li>
+</ul>
+<div style="margin-left: 40px;">2. Build and run the project<br>
+<ul>
+  <li>Right click&nbsp;<span style="font-weight: bold;">RuntimeClass</span><span
+ style="font-weight: bold;"> </span>project
+and select <span style="font-weight: bold;">Run</span>. </li>
+  <li>Observe the result in the <span style="font-weight: bold;">Output
+    </span>window.
+(Figure-4.22 below)</li>
+</ul>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">Maximum amount of memory that
+the Java virtual machine will attempt to use = 66650112 bytes<br>
+Total amount of memory currently available for current and future
+objects, measured in bytes = 2031616 bytes<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+Figure-4.22: Result of running RuntimeClass application<br>
+<br>
+3. Study the code <br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">class RuntimeClass {<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; public static void main(String args[]) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Runtime rt =
+Runtime.getRuntime();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+ style="font-weight: bold;"> long maxMemory = rt.maxMemory();</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+long totalMemory = rt.totalMemory();</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("Maximum
+amount of memory that the Java virtual machine will attempt to use = "
++ maxMemory + " bytes");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("Total
+amount of memory currently available for current and future objects,
+measured in bytes = " + totalMemory + " bytes");<br>
+&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; <br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+Code-4.21: RuntimeClass.java<span
+ style="color: rgb(51, 51, 255); font-weight: bold;"></span><br>
+</div>
+<div style="margin-left: 40px;">
+<div style="margin-left: 40px;"><br>
+</div>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="index.html#Exercise_4">return to top of the exercise</a>
+</div>
+<br>
+<h3 style="margin-left: 40px;" class="tutorial">Summary</h3>
+<div style="margin-left: 40px;"><br>
+In this exercise, you have learned how to use memory related methods of
+the Runtime class.<br>
+<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp; <a href="index.html#Tutorial_Exercises">return
+to the top</a></div>
+<div style="margin-left: 40px;"><br>
+</div>
+<br>
+<br>
+<br>
+<h2><a name="Exercise_5"></a>Exercise 5: Runtime class 2<br>
+</h2>
+<p style="margin-left: 40px;">Every Java application has a single
+instance of class <span style="font-weight: bold;">Runtime </span>class
+that allows the application to
+interface with the environment in which the application is running. The
+current runtime instance can be obtained from the <span
+ style="font-weight: bold;">getRuntime()</span> static method of the <span
+ style="font-weight: bold;">Runtime </span>class.&nbsp; In this
+exercise, we are going to execute "<span style="font-weight: bold;">javap
+-private java.lang.String"</span> on both in terminal window and
+through the <span style="font-weight: bold;">exec()</span> methof of
+the <span style="font-weight: bold;">Runtime </span>instance. </p>
+<ul>
+  <ol>
+    <li><a href="#5.1">Open, Build, and
+run the project<br>
+      </a></li>
+    <li><a href="#5.2">Study the project<br>
+      </a></li>
+  </ol>
+</ul>
+<div style="margin-left: 40px;"><span
+ style="color: rgb(51, 51, 255); font-weight: bold;"></span><br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial">(5.0) Experiment with
+"javap" command<br>
+</h3>
+<div style="margin-left: 40px;"><br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">C:\Users\Sang&gt;javap -help<br>
+Usage: javap &lt;options&gt; &lt;classes&gt;...<br>
+      <br>
+where options include:<br>
+&nbsp;&nbsp;
+-c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Disassemble the code<br>
+&nbsp;&nbsp; -classpath &lt;pathlist&gt;&nbsp;&nbsp;&nbsp;&nbsp;
+Specify where to find user class files<br>
+&nbsp;&nbsp; -extdirs
+&lt;dirs&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Override location of installed extensions<br>
+&nbsp;&nbsp;
+-help&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Print this usage message<br>
+&nbsp;&nbsp;
+-J&lt;flag&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Pass &lt;flag&gt; directly to the runtime system<br>
+&nbsp;&nbsp;
+-l&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Print line number and local variable tables<br>
+&nbsp;&nbsp;
+-public&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Show only public classes and members<br>
+&nbsp;&nbsp;
+-protected&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Show protected/public classes and members<br>
+&nbsp;&nbsp;
+-package&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Show package/protected/public classes<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+and members (default)<br>
+&nbsp;&nbsp;
+-private&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Show all classes and members<br>
+&nbsp;&nbsp;
+-s&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Print internal type signatures<br>
+&nbsp;&nbsp; -bootclasspath &lt;pathlist&gt; Override location of class
+files loaded<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+by the bootstrap class loader<br>
+&nbsp;&nbsp;
+-verbose&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Print stack size, number of locals and args for methods<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+If verifying, print reasons for failure<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">C:\Users\Sang&gt;<span
+ style="font-weight: bold;">javap -private java.lang.String</span><br>
+Compiled from "String.java"<br>
+public final class java.lang.String extends java.lang.Object implements
+java.io.Serializable,j<br>
+&nbsp;&nbsp;&nbsp; private final char[] value;<br>
+&nbsp;&nbsp;&nbsp; private final int offset;<br>
+&nbsp;&nbsp;&nbsp; private final int count;<br>
+&nbsp;&nbsp;&nbsp; private int hash;<br>
+&nbsp;&nbsp;&nbsp; private static final long serialVersionUID;<br>
+&nbsp;&nbsp;&nbsp; private static final java.io.ObjectStreamField[]
+serialPersistentFields;<br>
+&nbsp;&nbsp;&nbsp; public static final java.util.Comparator
+CASE_INSENSITIVE_ORDER;<br>
+&nbsp;&nbsp;&nbsp; public java.lang.String();<br>
+&nbsp;&nbsp;&nbsp; public java.lang.String(java.lang.String);<br>
+&nbsp;&nbsp;&nbsp; public java.lang.String(char[]);<br>
+&nbsp;&nbsp;&nbsp; public java.lang.String(char[], int, int);<br>
+&nbsp;&nbsp;&nbsp; public java.lang.String(int[], int, int);<br>
+&nbsp;&nbsp;&nbsp; public java.lang.String(byte[], int, int, int);<br>
+&nbsp;&nbsp;&nbsp; public java.lang.String(byte[], int);<br>
+&nbsp;&nbsp;&nbsp; private static void checkBounds(byte[], int, int);<br>
+&nbsp;&nbsp;&nbsp; public java.lang.String(byte[], int, int,
+java.lang.String)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; throws
+java.io.Unsupport<br>
+&nbsp;&nbsp;&nbsp; public java.lang.String(byte[], int, int,
+java.nio.charset.Charset);<br>
+&nbsp;&nbsp;&nbsp; public java.lang.String(byte[],
+java.lang.String)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; throws
+java.io.UnsupportedEncoding<br>
+&nbsp;&nbsp;&nbsp; public java.lang.String(byte[],
+java.nio.charset.Charset);<br>
+&nbsp;&nbsp;&nbsp; public java.lang.String(byte[], int, int);<br>
+&nbsp;&nbsp;&nbsp; public java.lang.String(byte[]);<br>
+&nbsp;&nbsp;&nbsp; public java.lang.String(java.lang.StringBuffer);<br>
+&nbsp;&nbsp;&nbsp; public java.lang.String(java.lang.StringBuilder);<br>
+&nbsp;&nbsp;&nbsp; java.lang.String(int, int, char[]);<br>
+&nbsp;&nbsp;&nbsp; public int length();<br>
+&nbsp;&nbsp;&nbsp; public boolean isEmpty();<br>
+&nbsp;&nbsp;&nbsp; public char charAt(int);<br>
+&nbsp;&nbsp;&nbsp; public int codePointAt(int);<br>
+&nbsp;&nbsp;&nbsp; public int codePointBefore(int);<br>
+&nbsp;&nbsp;&nbsp; public int codePointCount(int, int);<br>
+&nbsp;&nbsp;&nbsp; public int offsetByCodePoints(int, int);<br>
+&nbsp;&nbsp;&nbsp; void getChars(char[], int);<br>
+&nbsp;&nbsp;&nbsp; public void getChars(int, int, char[], int);<br>
+&nbsp;&nbsp;&nbsp; public void getBytes(int, int, byte[], int);<br>
+&nbsp;&nbsp;&nbsp; public byte[]
+getBytes(java.lang.String)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; throws
+java.io.UnsupportedEncodingException<br>
+&nbsp;&nbsp;&nbsp; public byte[] getBytes(java.nio.charset.Charset);<br>
+&nbsp;&nbsp;&nbsp; public byte[] getBytes();<br>
+&nbsp;&nbsp;&nbsp; public boolean equals(java.lang.Object);<br>
+&nbsp;&nbsp;&nbsp; public boolean contentEquals(java.lang.StringBuffer);<br>
+&nbsp;&nbsp;&nbsp; public boolean contentEquals(java.lang.CharSequence);<br>
+&nbsp;&nbsp;&nbsp; public boolean equalsIgnoreCase(java.lang.String);<br>
+&nbsp;&nbsp;&nbsp; public int compareTo(java.lang.String);<br>
+&nbsp;&nbsp;&nbsp; public int compareToIgnoreCase(java.lang.String);<br>
+&nbsp;&nbsp;&nbsp; public boolean regionMatches(int, java.lang.String,
+int, int);<br>
+&nbsp;&nbsp;&nbsp; public boolean regionMatches(boolean, int,
+java.lang.String, int, int);<br>
+&nbsp;&nbsp;&nbsp; public boolean startsWith(java.lang.String, int);<br>
+&nbsp;&nbsp;&nbsp; public boolean startsWith(java.lang.String);<br>
+&nbsp;&nbsp;&nbsp; public boolean endsWith(java.lang.String);<br>
+&nbsp;&nbsp;&nbsp; public int hashCode();<br>
+&nbsp;&nbsp;&nbsp; public int indexOf(int);<br>
+&nbsp;&nbsp;&nbsp; public int indexOf(int, int);<br>
+&nbsp;&nbsp;&nbsp; public int lastIndexOf(int);<br>
+&nbsp;&nbsp;&nbsp; public int lastIndexOf(int, int);<br>
+&nbsp;&nbsp;&nbsp; public int indexOf(java.lang.String);<br>
+&nbsp;&nbsp;&nbsp; public int indexOf(java.lang.String, int);<br>
+&nbsp;&nbsp;&nbsp; static int indexOf(char[], int, int, char[], int,
+int, int);<br>
+&nbsp;&nbsp;&nbsp; public int lastIndexOf(java.lang.String);<br>
+&nbsp;&nbsp;&nbsp; public int lastIndexOf(java.lang.String, int);<br>
+&nbsp;&nbsp;&nbsp; static int lastIndexOf(char[], int, int, char[],
+int, int, int);<br>
+&nbsp;&nbsp;&nbsp; public java.lang.String substring(int);<br>
+&nbsp;&nbsp;&nbsp; public java.lang.String substring(int, int);<br>
+&nbsp;&nbsp;&nbsp; public java.lang.CharSequence subSequence(int, int);<br>
+&nbsp;&nbsp;&nbsp; public java.lang.String concat(java.lang.String);<br>
+&nbsp;&nbsp;&nbsp; public java.lang.String replace(char, char);<br>
+&nbsp;&nbsp;&nbsp; public boolean matches(java.lang.String);<br>
+&nbsp;&nbsp;&nbsp; public boolean contains(java.lang.CharSequence);<br>
+&nbsp;&nbsp;&nbsp; public java.lang.String
+replaceFirst(java.lang.String, java.lang.String);<br>
+&nbsp;&nbsp;&nbsp; public java.lang.String replaceAll(java.lang.String,
+java.lang.String);<br>
+&nbsp;&nbsp;&nbsp; public java.lang.String
+replace(java.lang.CharSequence, java.lang.CharSequence);<br>
+&nbsp;&nbsp;&nbsp; public java.lang.String[] split(java.lang.String,
+int);<br>
+&nbsp;&nbsp;&nbsp; public java.lang.String[] split(java.lang.String);<br>
+&nbsp;&nbsp;&nbsp; public java.lang.String
+toLowerCase(java.util.Locale);<br>
+&nbsp;&nbsp;&nbsp; public java.lang.String toLowerCase();<br>
+&nbsp;&nbsp;&nbsp; public java.lang.String
+toUpperCase(java.util.Locale);<br>
+&nbsp;&nbsp;&nbsp; public java.lang.String toUpperCase();<br>
+&nbsp;&nbsp;&nbsp; public java.lang.String trim();<br>
+&nbsp;&nbsp;&nbsp; public java.lang.String toString();<br>
+&nbsp;&nbsp;&nbsp; public char[] toCharArray();<br>
+&nbsp;&nbsp;&nbsp; public static java.lang.String
+format(java.lang.String, java.lang.Object[]);<br>
+&nbsp;&nbsp;&nbsp; public static java.lang.String
+format(java.util.Locale, java.lang.String, java.lang.Object<br>
+&nbsp;&nbsp;&nbsp; public static java.lang.String
+valueOf(java.lang.Object);<br>
+&nbsp;&nbsp;&nbsp; public static java.lang.String valueOf(char[]);<br>
+&nbsp;&nbsp;&nbsp; public static java.lang.String valueOf(char[], int,
+int);<br>
+&nbsp;&nbsp;&nbsp; public static java.lang.String copyValueOf(char[],
+int, int);<br>
+&nbsp;&nbsp;&nbsp; public static java.lang.String copyValueOf(char[]);<br>
+&nbsp;&nbsp;&nbsp; public static java.lang.String valueOf(boolean);<br>
+&nbsp;&nbsp;&nbsp; public static java.lang.String valueOf(char);<br>
+&nbsp;&nbsp;&nbsp; public static java.lang.String valueOf(int);<br>
+&nbsp;&nbsp;&nbsp; public static java.lang.String valueOf(long);<br>
+&nbsp;&nbsp;&nbsp; public static java.lang.String valueOf(float);<br>
+&nbsp;&nbsp;&nbsp; public static java.lang.String valueOf(double);<br>
+&nbsp;&nbsp;&nbsp; public native java.lang.String intern();<br>
+&nbsp;&nbsp;&nbsp; public int compareTo(java.lang.Object);<br>
+&nbsp;&nbsp;&nbsp; static {};<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<img alt="" src="index_files/10_new10.png"
+ style="width: 931px; height: 710px;"><br>
+<br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_5">return to top of
+the exercise</a><br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="5.1"></a>(5.1)
+Build and run the project<br>
+</h3>
+<p style="margin-left: 40px;">
+1. Open <span style="font-weight: bold;">Runtime</span>
+NetBeans project.&nbsp; <br>
+</p>
+<ul style="margin-left: 40px;">
+  <li>Select <span style="font-weight: bold;">File</span>-&gt;<span
+ style="font-weight: bold;">Open Project (Ctrl+Shift+O)</span>. The <span
+ style="font-weight: bold;">Open Project</span> dialog box appears.</li>
+  <li>Browse down to <span style="font-weight: bold;">&lt;LAB_UNZIPPED_DIRECTORY&gt;/javase_lang/samples
+    </span>directory.&nbsp; <br>
+  </li>
+  <li>Select <span style="font-weight: bold; color: rgb(255, 0, 0);">Runtime</span>.&nbsp;
+  </li>
+  <li>Click <span style="font-weight: bold;">Open Project</span>.&nbsp;
+    <br>
+  </li>
+  <li>Observe that the <span style="font-weight: bold;">Runtime</span>
+project node appears under <span style="font-weight: bold;">Projects </span>tab
+window.</li>
+</ul>
+<p style="margin-left: 40px;">
+</p>
+<p style="margin-left: 40px;">2. Build and run <span
+ style="font-weight: bold;">Runtime</span>
+project. <br>
+</p>
+<ul style="margin-left: 40px;">
+  <li>Right-click <span style="font-weight: bold;">Runtime</span>
+project and select <span style="font-weight: bold;">Run</span>.</li>
+  <li>Observe the result in the Output window.</li>
+</ul>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">Compiled from "String.java"<br>
+public final class java.lang.String extends java.lang.Object implements
+java.io.Serializable,java.lang.Comparable,java.lang.CharSequence{<br>
+&nbsp;&nbsp;&nbsp; private final char[] value;<br>
+&nbsp;&nbsp;&nbsp; private final int offset;<br>
+&nbsp;&nbsp;&nbsp; private final int count;<br>
+&nbsp;&nbsp;&nbsp; private int hash;<br>
+&nbsp;&nbsp;&nbsp; private static final long serialVersionUID;<br>
+&nbsp;&nbsp;&nbsp; private static final java.io.ObjectStreamField[]
+serialPersistentFields;<br>
+&nbsp;&nbsp;&nbsp; public static final java.util.Comparator
+CASE_INSENSITIVE_ORDER;<br>
+&nbsp;&nbsp;&nbsp; public java.lang.String();<br>
+&nbsp;&nbsp;&nbsp; public java.lang.String(java.lang.String);<br>
+&nbsp;&nbsp;&nbsp; ...<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; public static java.lang.String valueOf(float);<br>
+&nbsp;&nbsp;&nbsp; public static java.lang.String valueOf(double);<br>
+&nbsp;&nbsp;&nbsp; public native java.lang.String intern();<br>
+&nbsp;&nbsp;&nbsp; public int compareTo(java.lang.Object);<br>
+&nbsp;&nbsp;&nbsp; static {};<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="#Exercise_5">return to top of
+the exercise</a><br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="5.2"></a>(5.2)
+Study the code</h3>
+<br>
+<div style="margin-left: 40px;">1. Main.java<br>
+<br>
+</div>
+<table style="width: 100%; text-align: left; margin-left: 40px;"
+ border="1" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">import java.io.*;<br>
+      <br>
+public class Main {<br>
+      <br>
+&nbsp;&nbsp;&nbsp; public static void main(String args[]) throws
+Exception {<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+ style="font-weight: bold;">String[] commandArray =
+{<span style="color: rgb(255, 0, 0);">"javap", "-private",</span></span><br
+ style="font-weight: bold; color: rgb(255, 0, 0);">
+      <span style="font-weight: bold;"><span
+ style="color: rgb(255, 0, 0);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+"java.lang.String"</span>};</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+String[] environment =
+{"path=;",</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+"path=C:\\Java\\jdk1.6.0_18\\bin;"};</span><br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+ style="font-weight: bold;">Runtime runtime =
+Runtime.getRuntime();</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Process process = <span style="color: rgb(255, 0, 0);">runtime.exec(commandArray,
+environment);</span></span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+writeProcessOutput(process);</span><br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+&nbsp;&nbsp;&nbsp; static void writeProcessOutput(Process process)
+throws Exception {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; InputStreamReader tempReader
+= new InputStreamReader(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+new BufferedInputStream(process.getInputStream()));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BufferedReader reader = new
+BufferedReader(tempReader);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while (true) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+String line = reader.readLine();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if
+(line == null) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println(line);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="#Exercise_5">return to top of
+the exercise</a><br>
+<br>
+<br>
+<h2><a name="Exercise_6"></a>Exercise 6: ProcessBuilder class<br>
+</h2>
+<p style="margin-left: 40px;">Before JDK 5.0, the only way to fork off
+a process and execute it local to the user runtime was to use the<span
+ style="font-weight: bold;">
+exec()</span> method of the <span style="font-weight: bold;">java.lang.Runtime</span>
+class.&nbsp; JDK 5.0 adds a new
+way of executing a command in a separate process, through a class
+called <span style="font-weight: bold;">ProcessBuilder</span>.&nbsp;
+Runtime.exec approach doesn't necessarily
+make it easy to customize and invoke subprocesses.&nbsp; The new
+ProcessBuilder class simplifies things. Through various methods in the
+class, you can easily modify the environment variables for a process
+and start the process.<br>
+</p>
+<p style="margin-left: 40px;">All its standard io (i.e. stdin, stdout,
+stderr) operations will be redirected to the parent process through
+three streams (getOutputStream(), getInputStream(),
+getErrorStream()).&nbsp; The parent process uses these streams to feed
+input to and get output from the subprocess<br>
+</p>
+<ul>
+  <ol>
+    <li><a href="#6.1">Open, Build, and
+run the project<br>
+      </a></li>
+    <li><a href="#6.2">Study the project<br>
+      </a></li>
+  </ol>
+</ul>
+<div style="margin-left: 40px;"><span
+ style="color: rgb(51, 51, 255); font-weight: bold;"></span><br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="6.1"></a>(6.1)
+Build and run the project<br>
+</h3>
+<p style="margin-left: 40px;">
+1. Open <span style="font-weight: bold;">ProcessBuilder</span>
+NetBeans project.&nbsp; <br>
+</p>
+<ul style="margin-left: 40px;">
+  <li>Select <span style="font-weight: bold;">File</span>-&gt;<span
+ style="font-weight: bold;">Open Project (Ctrl+Shift+O)</span>. The <span
+ style="font-weight: bold;">Open Project</span> dialog box appears.</li>
+  <li>Browse down to <span style="font-weight: bold;">&lt;LAB_UNZIPPED_DIRECTORY&gt;/javase_lang/samples
+    </span>directory.&nbsp; <br>
+  </li>
+  <li>Select <span style="font-weight: bold; color: rgb(255, 0, 0);">ProcessBuilder</span>.&nbsp;
+  </li>
+  <li>Click <span style="font-weight: bold;">Open Project</span>.&nbsp;
+    <br>
+  </li>
+  <li>Observe that the <span style="font-weight: bold;">ProcessBuilder</span>
+project node appears under <span style="font-weight: bold;">Projects </span>tab
+window.</li>
+</ul>
+<p style="margin-left: 40px;">
+</p>
+<p style="margin-left: 40px;">2. Build and run <span
+ style="font-weight: bold;">ProcessBuilder</span>
+project. <br>
+</p>
+<ul style="margin-left: 40px;">
+  <li>Right-click <span style="font-weight: bold;">ProcessBuilder</span>
+project and select <span style="font-weight: bold;">Run</span>.</li>
+  <li>Observe the result in the Output window.</li>
+</ul>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">Compiled from "String.java"<br>
+public final class java.lang.String extends java.lang.Object implements
+java.io.Serializable,java.lang.Comparable,java.lang.CharSequence{<br>
+&nbsp;&nbsp;&nbsp; private final char[] value;<br>
+&nbsp;&nbsp;&nbsp; private final int offset;<br>
+&nbsp;&nbsp;&nbsp; private final int count;<br>
+&nbsp;&nbsp;&nbsp; private int hash;<br>
+&nbsp;&nbsp;&nbsp; private static final long serialVersionUID;<br>
+&nbsp;&nbsp;&nbsp; private static final java.io.ObjectStreamField[]
+serialPersistentFields;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp; ...<br>
+&nbsp;&nbsp;&nbsp; public static java.lang.String valueOf(char);<br>
+&nbsp;&nbsp;&nbsp; public static java.lang.String valueOf(int);<br>
+&nbsp;&nbsp;&nbsp; public static java.lang.String valueOf(long);<br>
+&nbsp;&nbsp;&nbsp; public static java.lang.String valueOf(float);<br>
+&nbsp;&nbsp;&nbsp; public static java.lang.String valueOf(double);<br>
+&nbsp;&nbsp;&nbsp; public native java.lang.String intern();<br>
+&nbsp;&nbsp;&nbsp; public int compareTo(java.lang.Object);<br>
+&nbsp;&nbsp;&nbsp; static {};<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+</div>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="#Exercise_6">return to top of
+the exercise</a><br>
+<br>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="6.2"></a>(6.2)
+Study the code</h3>
+<br>
+<div style="margin-left: 40px;">1. Main.java<br>
+<br>
+</div>
+<table style="width: 100%; text-align: left; margin-left: 40px;"
+ border="1" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">import java.io.*;<br>
+import java.util.*;<br>
+      <br>
+public class Main {<br>
+      <br>
+&nbsp;&nbsp;&nbsp; public static void main(String args[]) throws
+Exception {<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+ style="font-weight: bold;"> ProcessBuilder processBuilder = new
+ProcessBuilder("javap", "-private",</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+"java.lang.String");</span><br style="font-weight: bold;">
+      <br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// The options for manipulating the environment include adding
+environment</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// variables with the put() method, and removing them with the remove()</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// method.</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Map&lt;String, String&gt; environment = processBuilder.environment();</span><br
+ style="font-weight: bold;">
+      <br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+environment.put("path", ";"); // Clearing the path variable;</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+environment.put("path", "C:\\Java\\jdk1.6.0_18\\bin;");</span><br
+ style="font-weight: bold;">
+      <br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// If you want the process to start in a different directory, you don't</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// pass a File in as a command line argument. Instead, you set the
+process</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// processBuilder's working directory by passing the File to the
+directory()</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// method. (This does not have any impact to the result of this</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// example code.)</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+processBuilder.directory(new File("/tmp"));</span><br
+ style="font-weight: bold;">
+      <br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// With ProcessBuilder, you call start() to execute the command. Prior</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// to calling start(), you can manipulate how the Process will be
+created.</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Process process = processBuilder.start();</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; writeProcessOutput(process);<br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+&nbsp;&nbsp;&nbsp; // Get the output from the subprocess and then
+display.<br>
+&nbsp;&nbsp;&nbsp; static void writeProcessOutput(Process process)
+throws Exception {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //
+"process.getInputStream()" gets the input stream of the subprocess.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // The stream obtains data
+piped from the standard output stream of the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // process represented by
+this Process object.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; InputStreamReader tempReader
+= new InputStreamReader(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+new BufferedInputStream(<span style="font-weight: bold;">process.getInputStream()</span>));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BufferedReader reader = new
+BufferedReader(tempReader);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while (true) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+String line = reader.readLine();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if
+(line == null) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println(line);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div style="margin-left: 40px;"><br>
+</div>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="#Exercise_6">return to top of
+the exercise</a><br>
+<h2><a name="Exercise_7"></a>Exercise 7: ProcessBuilder_ErrorStream
+class<br>
+</h2>
+<p style="margin-left: 40px;">getErrorStream() method gets the error
+stream of the subprocess. The stream obtains data piped from the error
+output stream of the process represented by this <code>Process</code>
+object.
+</p>
+<ul>
+  <ol>
+    <li><a href="#7.1">Open, Build, and
+run the project<br>
+      </a></li>
+    <li><a href="#7.2">Study the project<br>
+      </a></li>
+  </ol>
+</ul>
+<div style="margin-left: 40px;"><span
+ style="color: rgb(51, 51, 255); font-weight: bold;"></span><br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="7.1"></a>(7.1)
+Build and run the project<br>
+</h3>
+<p style="margin-left: 40px;">
+1. Open <span style="font-weight: bold;">ProcessBuilder_ErrorStream</span>
+NetBeans project.&nbsp; <br>
+</p>
+<ul style="margin-left: 40px;">
+  <li>Select <span style="font-weight: bold;">File</span>-&gt;<span
+ style="font-weight: bold;">Open Project (Ctrl+Shift+O)</span>. The <span
+ style="font-weight: bold;">Open Project</span> dialog box appears.</li>
+  <li>Browse down to <span style="font-weight: bold;">&lt;LAB_UNZIPPED_DIRECTORY&gt;/javase_lang/samples
+    </span>directory.&nbsp; <br>
+  </li>
+  <li>Select <span style="font-weight: bold; color: rgb(255, 0, 0);">ProcessBuilder_ErrorStream</span>.&nbsp;
+  </li>
+  <li>Click <span style="font-weight: bold;">Open Project</span>.&nbsp;
+    <br>
+  </li>
+  <li>Observe that the <span style="font-weight: bold;">ProcessBuilder_ErrorStream</span>
+project node appears under <span style="font-weight: bold;">Projects </span>tab
+window.</li>
+</ul>
+<p style="margin-left: 40px;">
+</p>
+<p style="margin-left: 40px;">2. Build and run <span
+ style="font-weight: bold;">ProcessBuilder_ErrorStream</span>
+project. <br>
+</p>
+<ul style="margin-left: 40px;">
+  <li>Right-click <span style="font-weight: bold;">ProcessBuilder_ErrorStream</span>
+project and select <span style="font-weight: bold;">Run</span>.</li>
+  <li>Observe the result in the Output window.</li>
+</ul>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">----- Start capturoing error
+through process.getErrorStream() <br>
+ERROR:Could not find java.lang.junkClass<br>
+----- Stop capturoing error through process.getErrorStream() <br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="#Exercise_7">return to top of
+the exercise</a><br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="7.2"></a>(7.2)
+Study the code</h3>
+<br>
+<div style="margin-left: 40px;">1. Main.java<br>
+<br>
+</div>
+<table style="width: 100%; text-align: left; margin-left: 40px;"
+ border="1" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">import java.io.*;<br>
+import java.util.*;<br>
+      <br>
+public class Main {<br>
+      <br>
+&nbsp;&nbsp;&nbsp; public static void main(String args[]) throws
+Exception {<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight: bold;">&nbsp;
+// Create an error situation when running javap passing an invalid</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// class</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ProcessBuilder processBuilder = new ProcessBuilder("javap", "-private",</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+"<span style="color: rgb(255, 0, 0);">java.lang.junkClass"</span>);&nbsp;&nbsp;
+// This class does not exist</span><br style="font-weight: bold;">
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // The options for
+manipulating the environment include adding environment<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // variables with the put()
+method, and removing them with the remove()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // method.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Map&lt;String, String&gt;
+environment = processBuilder.environment();<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; environment.put("path",
+";"); // Clearing the path variable;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; environment.put("path",
+"C:\\Java\\jdk1.6.0_18\\bin;");<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // With ProcessBuilder, you
+call start() to execute the command. Prior<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // to calling start(), you
+can manipulate how the Process will be created.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Process process =
+processBuilder.start();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; writeProcessOutput(process);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; writeProcessError(process);<br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp; // Get the output from the subprocess and then
+display.<br>
+&nbsp;&nbsp;&nbsp; static void writeProcessOutput(Process process)
+throws Exception {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //
+"process.getInputStream()" gets the input stream of the subprocess.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // The stream obtains data
+piped from the standard output stream of the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // process represented by
+this Process object.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; InputStreamReader tempReader
+= new InputStreamReader(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+new BufferedInputStream(process.getInputStream()));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BufferedReader reader = new
+BufferedReader(tempReader);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while (true) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+String line = reader.readLine();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if
+(line == null) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println(line);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+&nbsp;&nbsp;&nbsp; <span style="font-weight: bold;">// Get the error
+from the subprocess and then display</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; static void
+writeProcessError(Process process) throws Exception {</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("----- Start capturoing error through
+process.getErrorStream() ");</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+InputStreamReader tempReader = new InputStreamReader(</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+new BufferedInputStream(<span style="color: rgb(255, 0, 0);">process.getErrorStream()</span>));</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+BufferedReader reader = new BufferedReader(tempReader);</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+while (true) {</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+String line = reader.readLine();</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+if (line == null) {</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+break;</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+}</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println(line);</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+}</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("----- Stop capturoing error through
+process.getErrorStream() ");</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; }</span><br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div style="margin-left: 40px;"><br>
+</div>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="#Exercise_7">return to top of
+the exercise</a><br>
+<br>
+<h2><a name="Homework_exercise"></a><a name="Homework"></a>Homework
+exercise<br>
+</h2>
+<br>
+<div style="margin-left: 40px;">1. Build a NetBeans project called <span
+ style="font-weight: bold;">MyOwnProject </span>performing the
+following tasks.<br>
+<ul>
+  <li>Write a program in which the following properties are added to a
+Properties object called <span style="font-weight: bold;">myProperties</span>.&nbsp;
+Use <span style="font-weight: bold;">setProperty()</span>
+method.&nbsp; <br>
+  </li>
+  <ul>
+    <li>mykey20=myValue20</li>
+    <li>mykey30=myValue30</li>
+    <li>mykey40=myValue40</li>
+  </ul>
+  <li>Display the properties via <span style="font-weight: bold;">list()</span>
+method.<br>
+  </li>
+</ul>
+<br>
+</div>
+<div style="margin-left: 40px;">2. Send the following files to <a
+ href="mailto:javaprogramminghomework@javapassion.com">javaprogramminghomework@javapassion.com</a>
+with <span style="font-weight: bold;">Subject </span>as <span
+ style="font-weight: bold;"></span><span style="font-weight: bold;">java_lang.</span><br>
+<span style="font-weight: bold;"></span></div>
+<ul style="margin-left: 40px;">
+  <li>Zip file of the<span style="font-weight: bold;"> MyOwnProject</span>
+NetBeans project.&nbsp; (Someone else
+should be able to open and run it as a NetBeans project.)&nbsp; You can
+use your favorite zip utility or you can use "jar" utility that comes
+with JDK as following.<br>
+  </li>
+  <ul>
+    <li>cd &lt;parent directory that contains <span
+ style="font-weight: bold;">MyOwnProject</span>
+directory&gt;
+(assuming you named your project as <span style="font-weight: bold;">MyOwnProject</span>)<br>
+    </li>
+    <li>jar cvf MyOwnProject.zip MyOwnProject
+(<span style="font-weight: bold;">MyOwnProject </span>should
+contain <span style="font-weight: bold;">nbproject </span>directory)</li>
+  </ul>
+  <li>Captured output screen&nbsp;<span style="font-weight: bold;"> </span>-
+name it as <span style="font-weight: bold;">java_lang.gif</span>
+or <span style="font-weight: bold;">java_lang</span><span
+ style="font-weight: bold;">.jpg</span> (or java_lang.&lt;whatever
+graphics format&gt;)</li>
+  <ul>
+    <li>Any screen capture that shows that your program is working is
+good enough.&nbsp; No cosmetic polishment is required.</li>
+  </ul>
+  <li>If you decide to use
+different IDE other than NetBeans, the zip
+file should contain all the files that are needed for rebuilding the
+project.</li>
+</ul>
+<br>
+<p> </p>
+<!-- ======================================================================================== -->
+</body>
+</html>

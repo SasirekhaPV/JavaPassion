@@ -1,0 +1,1407 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <script src="index_files/tigris.txt" type="text/javascript"></script>
+  <link rel="stylesheet" type="text/css" href="index_files/netbeans.css">
+  <title>LAB-1015: Java Utility Classes</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="SourceCastVersion" content="2.6.2.4.10">
+  <meta name="keywords"
+ content="NetBeans, IDE, Platform, free, open source, developer">
+  <link rel="stylesheet" href="index_files/netbeans_002.css">
+  <meta name="author" content="Sang Shin">
+  <style type="text/css">
+#search {height:100%;}
+#topmodule {align:right;}
+  </style>
+  <script language="JavaScript" type="text/javascript">
+<!--
+function get_sc_login() {
+  var sclogin = "guest";
+  return (sclogin);
+}
+var username=get_sc_login();
+//-->
+  </script>
+</head>
+<body onload="loginfocus()" class="composite">
+<!-- begin TopTabs --><!-- end TopTabs --><!-- start NavCol --><!-- end NavCol --><!-- Servlet-Specific template --><!-- Show servlet name if it is a servlet -->
+<br>
+<br>
+<h1 style="text-align: center;">Java Utility Classes<br>
+</h1>
+<div class="articledate" style="margin-left: 0px; text-align: center;"><a
+ href="http://www.javapassion.com/SangShinSchedule.html#Bio">Sang Shin</a>,
+<a href="http://www.javapassion.com/">www.javapassion.com</a><span
+ style="color: rgb(0, 0, 0);"></span><a href="mailto:sang.shin@sun.com"><i>
+</i></a></div>
+<p style="text-align: center;"><img alt=""
+ src="index_files/sangshin2009.jpg" style="width: 88px; height: 101px;"><br>
+</p>
+<div style="margin-left: 40px;">The JDK package comes with many utility
+classes.&nbsp; In this lab, you are going to explore a few of them,
+Date and Calendar classes, etc.<br>
+</div>
+<p><br>
+</p>
+<p></p>
+<p align="center"><b>Expected duration: 100 minutes<br>
+</b></p>
+<center><br>
+</center>
+<p align="center"><br>
+</p>
+<div class="indent">
+<h3 class="tutorial">Resources<br>
+</h3>
+<ul>
+  <li>Date and Calendar classes<br>
+  </li>
+  <ul>
+    <li><a
+ href="http://www.xmission.com/%7Egoodhill/dates/datedeprecation.htm">Is
+java.util.Date Deprecated?</a> article (Aug. 2004) - rating (4 out of 5)<br>
+    </li>
+  </ul>
+</ul>
+<br>
+<br>
+<h3 class="tutorial"><a name="Change_Log"></a>Change Log<br>
+</h3>
+<ul>
+  <li>Oct. 27th, 2010: Created</li>
+  <li>Dec. 4th, 2010: ProcesssBuilder exercise is moved to
+1010_javase_lang.zip. (Sang Shin)<br>
+  </li>
+  <li>Feb. 22nd, 2011: Exercise 5: Properties exercise is added (Sang
+Shin)</li>
+  <li>Feb. 26th, 2011: Homework is clarified (Sang Shin)</li>
+  <li>Oct. 10th, 2011: Exercise 5.3 (PropertiesDemo2) is added (Sang
+Shin)<br>
+  </li>
+</ul>
+<br>
+<br>
+<h3 class="tutorial"><a name="Tutorial_Exercises"></a>Lab Exercises</h3>
+<ul>
+  <li><a href="#Exercise_1">Exercise 1: Date class (20 minutes)</a></li>
+  <li><a href="#Exercise_2">Exercise 2: Calendar and GregorianCalendar
+classes (20 minutes)</a></li>
+  <li><a href="#Exercise_3">Exercise 3: Calendar and Date conversion
+(20 minutes)</a></li>
+  <li><a href="#Exercise_4">Exercise 4: DateFormat and SimpleDateFormat
+classes (20 minutes)</a></li>
+  <li><a href="index.html#Exercise_5">Exercise 5: Properties class (20
+minutes)</a></li>
+  <li><a href="#Homework">Homework Exercise</a></li>
+</ul>
+<ul>
+</ul>
+</div>
+<br>
+<h2><a name="Exercise_1"></a>Exercise 1: Date class<br>
+</h2>
+<p style="margin-left: 40px;">A Date object represents a specific
+instant in time with millisecond precision. It contains long value of
+milliseconds since 1970-01-01 00:00:00.00 GMT.<br>
+</p>
+<ul>
+  <ol>
+    <li><a href="#1.1">Open, Build, and run the project<br>
+      </a></li>
+    <li><a href="#1.2">Study the code</a></li>
+  </ol>
+</ul>
+<br>
+<ul>
+  <ol>
+  </ol>
+</ul>
+<ul>
+  <ol>
+  </ol>
+</ul>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.1"></a>(1.1)
+Build and run the project<br>
+</h3>
+<p style="margin-left: 40px;">0. Start the NetBeans IDE if you have
+not done so.<br>
+1. Open <span style="font-weight: bold;">Date</span>
+NetBeans project.&nbsp; <br>
+</p>
+<ul style="margin-left: 40px;">
+  <li>Select <span style="font-weight: bold;">File</span>-&gt;<span
+ style="font-weight: bold;">Open Project (Ctrl+Shift+O)</span>. The <span
+ style="font-weight: bold;">Open Project</span> dialog box appears.</li>
+  <li>Browse down to <span style="font-weight: bold;">&lt;LAB_UNZIPPED_DIRECTORY&gt;/javase_utilclasses/samples
+    </span>directory.&nbsp; <br>
+  </li>
+  <ul>
+    <li>If you unzipped the <span style="font-weight: bold;">1006_javase_utilclasses.zip</span>
+file under <span style="font-weight: bold;">C:\handsonlabs</span>
+directory under Windows, the directory to which you want
+to browse down should be <span style="font-weight: bold;">C:\handsonlabs\javase_utilclasses\samples</span></li>
+    <li>If you unzipped the <span style="font-weight: bold;">1006_javase_utilclasses.zip</span>
+file under <span style="font-weight: bold;">$HOME/handsonlabs</span>
+directory under Solaris/Linux, the directory to which you want
+to browse down should be <span style="font-weight: bold;">$HOME/handsonlabs/javase_utilclasses/samples.</span><span
+ style="font-weight: bold;"></span></li>
+  </ul>
+  <li>Select <span style="font-weight: bold; color: rgb(255, 0, 0);">Date</span>.&nbsp;
+  </li>
+  <li>Click <span style="font-weight: bold;">Open Project</span>.&nbsp;
+    <br>
+  </li>
+  <li>Observe that the <span style="font-weight: bold;">Date</span>
+project node appears under <span style="font-weight: bold;">Projects </span>tab
+window.</li>
+</ul>
+<p style="margin-left: 40px;"></p>
+<p style="margin-left: 40px;">2. Build and run <span
+ style="font-weight: bold;">Date</span>
+project. <br>
+</p>
+<ul style="margin-left: 40px;">
+  <li>Right-click <span style="font-weight: bold;">Date</span>
+project and select <span style="font-weight: bold;">Run</span>.</li>
+  <li>Observe the result in the Output window.</li>
+</ul>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">Current date and time is
+1289516300682<br>
+Current date and time is Thu Nov 11 17:58:20 EST 2010<br>
+It took 18 milliseconds</td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_1">return to top of
+the exercise</a><br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.2"></a>(1.2)
+Study the code</h3>
+<div style="margin-left: 40px;"><br>
+1. Main.java<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">import java.util.Date;<br>
+      <br>
+public class Main {<br>
+      <br>
+&nbsp; public static void main(String[] args) {<br>
+      <br>
+&nbsp;&nbsp;&nbsp; // Returns the number of milliseconds since January
+1, 1970, 00:00:00<br>
+&nbsp;&nbsp;&nbsp; // GMT represented by this Date object.<br>
+&nbsp;&nbsp;&nbsp; <span style="font-weight: bold;">Date d1 = new
+Date();</span><br>
+&nbsp;&nbsp;&nbsp; System.out.println("Current date and time is " +
+d1.getTime());<br>
+      <br>
+&nbsp;&nbsp;&nbsp; // <span style="font-weight: bold;">"toSring()"
+converts Date object into Calendar
+internally</span><br>
+&nbsp;&nbsp;&nbsp; // using default local time zone and locale.&nbsp;
+It displays it<br>
+&nbsp;&nbsp;&nbsp; // using "dow mon dd hh:mm:ss zzz yyyy" format.<br>
+&nbsp;&nbsp;&nbsp; System.out.println("Current date and time is " +<span
+ style="font-weight: bold;">
+d1.toString()</span>);<br>
+      <br>
+&nbsp;&nbsp;&nbsp;<span style="font-weight: bold;"> Date d2 = new
+Date();</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; long
+elapsed_time = d2.getTime() - d1.getTime();</span><br>
+&nbsp;&nbsp;&nbsp; System.out.println("It took " + elapsed_time<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + "
+milliseconds");<br>
+&nbsp; }<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_1">return to top of
+the exercise</a><br>
+</div>
+<div style="margin-left: 40px;"><br>
+</div>
+<br>
+<h2><a name="Exercise_2"></a>Exercise 2: Calendar &amp;
+GregorianCalendar classes<br>
+</h2>
+<p style="margin-left: 40px;">Calendar is an abstract base class for
+converting a moment in time (Date object) and a set of integer fields
+such as YEAR, MONTH, DAY, HOUR, and so on.&nbsp; GregorianCalendar
+converts a moment in time (Date object) to a particular year, month,
+day, hour, minute, second etc considering which timezone to use, when
+the daylight savings begins, when the older Julian calendar switched to
+the Gregorian calendar.<br>
+</p>
+<ul>
+  <ol>
+    <li><a href="index.html#2.1">Open, Build, and run the project<br>
+      </a></li>
+    <li><a href="index.html#2.2">Study the code<br>
+      </a></li>
+  </ol>
+</ul>
+<div style="margin-left: 40px;"><span
+ style="color: rgb(51, 51, 255); font-weight: bold;"></span><br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="2.1"></a>(2.1)
+Build and run the project<br>
+</h3>
+<p style="margin-left: 40px;">
+1. Open <span style="font-weight: bold;">Calendar</span>
+NetBeans project.&nbsp; <br>
+</p>
+<ul style="margin-left: 40px;">
+  <li>Select <span style="font-weight: bold;">File</span>-&gt;<span
+ style="font-weight: bold;">Open Project (Ctrl+Shift+O)</span>. The <span
+ style="font-weight: bold;">Open Project</span> dialog box appears.</li>
+  <li>Browse down to <span style="font-weight: bold;">&lt;LAB_UNZIPPED_DIRECTORY&gt;/javase_utilclasses/samples
+    </span>directory.&nbsp; <br>
+  </li>
+  <li>Select <span style="font-weight: bold; color: rgb(255, 0, 0);">Calendar</span>.&nbsp;
+  </li>
+  <li>Click <span style="font-weight: bold;">Open Project</span>.&nbsp;
+    <br>
+  </li>
+  <li>Observe that the <span style="font-weight: bold;">Calendar</span>
+project node appears under <span style="font-weight: bold;">Projects </span>tab
+window.</li>
+</ul>
+<p style="margin-left: 40px;">
+</p>
+<p style="margin-left: 40px;">2. Build and run <span
+ style="font-weight: bold;">Calendar</span>
+project. <br>
+</p>
+<ul style="margin-left: 40px;">
+  <li>Right-click <span style="font-weight: bold;">Calendar</span>
+project and select <span style="font-weight: bold;">Run</span>.</li>
+  <li>Observe the result in the Output window.&nbsp; Observe that the
+Calendar object has many fields including timezone.<br>
+  </li>
+</ul>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">Current date and time is <span
+ style="font-weight: bold;">java.util.GregorianCalendar[time=1291576498128,areFieldsSet=true,areAllFieldsSet=true,lenient=true,<span
+ style="color: rgb(255, 0, 0);">zone=sun.util.calendar.ZoneInfo[id="America/New_York",</span>offset=-18000000,dstSavings=3600000,useDaylight=true,transitions=235,lastRule=java.util.SimpleTimeZone[id=America/New_York,offset=-18000000,dstSavings=3600000,useDaylight=true,startYear=0,startMode=3,startMonth=2,startDay=8,startDayOfWeek=1,startTime=7200000,startTimeMode=0,endMode=3,endMonth=10,endDay=1,endDayOfWeek=1,endTime=7200000,endTimeMode=0]],firstDayOfWeek=1,minimalDaysInFirstWeek=1,ERA=1,YEAR=2010,MONTH=11,WEEK_OF_YEAR=50,WEEK_OF_MONTH=2,DAY_OF_MONTH=5,DAY_OF_YEAR=339,DAY_OF_WEEK=1,DAY_OF_WEEK_IN_MONTH=1,AM_PM=1,HOUR=2,HOUR_OF_DAY=14,MINUTE=14,SECOND=58,MILLISECOND=128,ZONE_OFFSET=-18000000,DST_OFFSET=0]</span><br>
+Display name of the Month field in defaule locale = December<br>
+Display name of the Month field in French = décembre<br>
+c1.get(Calendar.HOUR_OF_DAY) = 14<br>
+c1.get(Calendar.DAY_OF_MONTH) = 5<br>
+c1.rightnow.get(Calendar.DAY_OF_YEAR = 339<br>
+c1.get(Calendar.DAY_OF_WEEK_IN_MONTH) = 1<br>
+c1.get(Calendar.DATE) = 5<br>
+c1.get(Calendar.HOUR) = 2<br>
+c1.get(Calendar.MONTH) = 11<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_2">return to top of
+the exercise</a><br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="2.2"></a>(2.2)
+Study the code</h3>
+<br>
+<div style="margin-left: 40px;">1. Main.java<br>
+<br>
+</div>
+<table style="width: 100%; text-align: left; margin-left: 40px;"
+ border="1" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">import java.util.Calendar;<br>
+import java.util.Locale;<br>
+      <br>
+public class Main {<br>
+      <br>
+&nbsp;&nbsp;&nbsp; public static void main(String[] args) {<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight: bold;">&nbsp;&nbsp;
+// Gets a calendar using the
+default time zone and locale.</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// The Calendar returned is
+based on the current time in the</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// default time zone with
+the default locale.</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Calendar rightnow =
+Calendar.getInstance();</span><br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Observe all the fields
+that a Calendar object maintains<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("Current
+date and time is " + rightnow.toString());<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Display the name of the
+month field in a particular locale<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("Display
+name of the Month field in defaule locale = " + rightnow.getDisplayName(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Calendar.MONTH,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Calendar.LONG,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+ style="font-weight: bold;">
+Locale.getDefault()))</span>;<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Display the name of the
+month field in a particular locale<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("Display
+name of the Month field in French = " + rightnow.getDisplayName(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Calendar.MONTH,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Calendar.LONG,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <span style="font-weight: bold;">Locale.FRENCH));</span><br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("c1.get(Calendar.HOUR_OF_DAY) = " +
+rightnow.get(Calendar.HOUR_OF_DAY));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("c1.get(Calendar.DAY_OF_MONTH) = " +
+rightnow.get(Calendar.DAY_OF_MONTH));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("c1.rightnow.get(Calendar.DAY_OF_YEAR = " +
+rightnow.get(Calendar.DAY_OF_YEAR));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("c1.get(Calendar.DAY_OF_WEEK_IN_MONTH) = " +
+rightnow.get(Calendar.DAY_OF_WEEK_IN_MONTH));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("c1.get(Calendar.DATE) = " +
+rightnow.get(Calendar.DATE));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("c1.get(Calendar.HOUR) = " +
+rightnow.get(Calendar.HOUR));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("c1.get(Calendar.MONTH) = " +
+rightnow.get(Calendar.MONTH));<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<div style="margin-left: 40px;">2. Display and study Javadoc of
+Calendar class.<br>
+<br>
+<img alt="" src="index_files/1_javautil1.png"
+ style="width: 845px; height: 744px;"><br>
+<br>
+<img alt="" src="index_files/1_javautil2.png"
+ style="width: 860px; height: 818px;"><br>
+<br>
+</div>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_2">return to top of
+the exercise</a><br>
+<br>
+<br>
+<h2><a name="Exercise_3"></a>Exercise 3: Calendar_Date_conversion class<br>
+</h2>
+<p style="margin-left: 40px;">A Calendar object can be created from a
+Date object and Date object can be created from a Calendar object.<br>
+</p>
+<ul>
+  <ol>
+    <li><a href="index.html#3.1">Open, Build, and run the project<br>
+      </a></li>
+    <li><a href="index.html#3.2">Study the code<br>
+      </a></li>
+  </ol>
+</ul>
+<div style="margin-left: 40px;"><span
+ style="color: rgb(51, 51, 255); font-weight: bold;"></span><br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="3.1"></a>(3.1)
+Build and run the project<br>
+</h3>
+<p style="margin-left: 40px;">
+1. Open <span style="font-weight: bold;">Calendar_Date_conversion</span>
+NetBeans project.&nbsp; <br>
+</p>
+<ul style="margin-left: 40px;">
+  <li>Select <span style="font-weight: bold;">File</span>-&gt;<span
+ style="font-weight: bold;">Open Project (Ctrl+Shift+O)</span>. The <span
+ style="font-weight: bold;">Open Project</span> dialog box appears.</li>
+  <li>Browse down to <span style="font-weight: bold;">&lt;LAB_UNZIPPED_DIRECTORY&gt;/javase_utilclasses/samples
+    </span>directory.&nbsp; <br>
+  </li>
+  <li>Select <span style="font-weight: bold; color: rgb(255, 0, 0);">Calendar_Date_conversion</span>.&nbsp;
+  </li>
+  <li>Click <span style="font-weight: bold;">Open Project</span>.&nbsp;
+    <br>
+  </li>
+  <li>Observe that the <span style="font-weight: bold;">Calendar_Date_conversion</span>
+project node appears under <span style="font-weight: bold;">Projects </span>tab
+window.</li>
+</ul>
+<p style="margin-left: 40px;">
+</p>
+<p style="margin-left: 40px;">2. Build and run <span
+ style="font-weight: bold;">Calendar_Date_conversion</span>
+project. <br>
+</p>
+<ul style="margin-left: 40px;">
+  <li>Right-click <span style="font-weight: bold;">Calendar_Date_conversion</span>
+project and select <span style="font-weight: bold;">Run</span>.</li>
+  <li>Observe the result in the Output window.</li>
+</ul>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">c1.get(Calendar.HOUR_OF_DAY) of
+UTC timezone = 17<br>
+c1.get(Calendar.HOUR_OF_DAY) of America/Phoenix timezone = 10<br>
+c1.get(Calendar.HOUR_OF_DAY) of America/New_York timezone = 12<br>
+utc = Tue Feb 22 12:47:32 EST 2011<br>
+mst = Tue Feb 22 12:47:32 EST 2011<br>
+est = Tue Feb 22 12:47:32 EST 2011<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_3">return to top of
+the exercise</a><br>
+<br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="3.2"></a>(3.2)
+Study the code</h3>
+<br>
+<div style="margin-left: 40px;">1. Main.java<br>
+<br>
+</div>
+<table style="width: 100%; text-align: left; margin-left: 40px;"
+ border="1" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">import java.util.Calendar;<br>
+import java.util.Date;<br>
+import java.util.TimeZone;<br>
+      <br>
+public class Main {<br>
+      <br>
+&nbsp;&nbsp;&nbsp; public static void main(String[] args) {<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Gets a calendar using the
+default time zone and locale.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // The Calendar returned is
+based on the current time in the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // default time zone with
+the default locale.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Calendar c1 =
+Calendar.getInstance();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Calendar c2 =
+Calendar.getInstance();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Calendar c3 =
+Calendar.getInstance();<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Allocates a Date object
+and initializes it so that it<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // represents the time at
+which it was allocated, measured to<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // the nearest millisecond.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date anInstantInTime = new
+Date();<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; c1.setTime(anInstantInTime);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; c2.setTime(anInstantInTime);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; c3.setTime(anInstantInTime);<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+ style="font-weight: bold;">// Sets the time zone with
+the given time zone value and display</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+c1.setTimeZone(TimeZone.getTimeZone("UTC"));</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+c2.setTimeZone(TimeZone.getTimeZone("America/Phoenix"));</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+c3.setTimeZone(TimeZone.getTimeZone("America/New_York"));</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("c1.get(Calendar.HOUR_OF_DAY) of UTC timezone = " +
+c1.get(Calendar.HOUR_OF_DAY));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("c1.get(Calendar.HOUR_OF_DAY) of America/Phoenix
+timezone = " + c2.get(Calendar.HOUR_OF_DAY));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("c1.get(Calendar.HOUR_OF_DAY) of America/New_York
+timezone = " + c3.get(Calendar.HOUR_OF_DAY));<br>
+      </span><span style="font-weight: bold;"></span><br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Make sure the our of the
+day's are different depending on the time zone<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; assert
+(c1.get(Calendar.HOUR_OF_DAY) != c2.get(Calendar.HOUR_OF_DAY));<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Returns a Date object
+representing this Calendar's time<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // value (millisecond offset
+from the Epoch").<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date utc = c1.getTime();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date mst = c2.getTime();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date est = c3.getTime();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("utc = "
++ utc);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("mst = "
++ mst);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("est = "
++ est);<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_3">return to top of
+the exercise</a><br>
+<br>
+<h2><a name="Exercise_4"></a>Exercise 4: DateFormat and
+SimpleDateFormat classes<br>
+</h2>
+<p style="margin-left: 40px;">DateFormat is an abstract class for
+date/time formatting subclasses which formats and parses dates or time
+in a language-independent manner. The date/time formatting subclass,
+such as SimpleDateFormat, allows for formatting (i.e., date -&gt;
+text), parsing (text -&gt; date), and normalization. The date is
+represented as a <code>Date</code> object or as the milliseconds since
+January 1, 1970, 00:00:00 GMT. <br>
+</p>
+<p style="margin-left: 40px;">SimpleDateFormat is a concrete class for
+formatting and parsing dates in a locale-sensitive manner. It allows
+for formatting (date -&gt; text), parsing (text -&gt; date), and
+normalization.&nbsp; Internally, SimpleDateFormat uses a Calendar for
+all date calculations.
+</p>
+<ul>
+  <ol>
+    <li><a href="index.html#4.1">Open, Build, and run the project<br>
+      </a></li>
+    <li><a href="index.html#4.2">Study the code<br>
+      </a></li>
+  </ol>
+</ul>
+<div style="margin-left: 40px;"><span
+ style="color: rgb(51, 51, 255); font-weight: bold;"></span><br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="4.1"></a>(4.1)
+Build and run the project<br>
+</h3>
+<p style="margin-left: 40px;">
+1. Open <span style="font-weight: bold;">DateFormat</span>
+NetBeans project.&nbsp; <br>
+</p>
+<ul style="margin-left: 40px;">
+  <li>Select <span style="font-weight: bold;">File</span>-&gt;<span
+ style="font-weight: bold;">Open Project (Ctrl+Shift+O)</span>. The <span
+ style="font-weight: bold;">Open Project</span> dialog box appears.</li>
+  <li>Browse down to <span style="font-weight: bold;">&lt;LAB_UNZIPPED_DIRECTORY&gt;/javase_utilclasses/samples
+    </span>directory.&nbsp; <br>
+  </li>
+  <li>Select <span style="font-weight: bold; color: rgb(255, 0, 0);">DateFormat</span>.&nbsp;
+  </li>
+  <li>Click <span style="font-weight: bold;">Open Project</span>.&nbsp;
+    <br>
+  </li>
+  <li>Observe that the<span style="font-weight: bold;">DateFormat</span>
+project node appears under <span style="font-weight: bold;">Projects </span>tab
+window.</li>
+</ul>
+<p style="margin-left: 40px;">
+</p>
+<p style="margin-left: 40px;">2. Build and run <span
+ style="font-weight: bold;">DateFormat</span>
+project. <br>
+</p>
+<ul style="margin-left: 40px;">
+  <li>Right-click <span style="font-weight: bold;">DateFormat</span>
+project and select <span style="font-weight: bold;">Run</span>.</li>
+  <li>Observe the result in the Output window.</li>
+</ul>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">&nbsp;1. Sat Nov 06 14:30:17 EDT
+2010<br>
+&nbsp;<span style="font-weight: bold;">2. 11/6/10 2:30 PM</span><br>
+&nbsp;3. 2:30:17 PM<br>
+&nbsp;4. Nov 6, 2010 2:30:17 PM<br>
+&nbsp;5. 2:30 PM<br>
+&nbsp;6. 2:30:17 PM<br>
+&nbsp;7. 2:30:17 PM EDT<br>
+&nbsp;8. 11/6/10 2:30 PM<br>
+&nbsp;9. Nov 6, 2010 2:30 PM<br>
+10. November 6, 2010 2:30:17 PM EDT<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_4">return to top of
+the exercise</a><br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="4.2"></a>(4.2)
+Study the code</h3>
+<br>
+<div style="margin-left: 40px;">1. Main.java<br>
+<br>
+</div>
+<table style="width: 100%; text-align: left; margin-left: 40px;"
+ border="1" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">import java.text.DateFormat;<br>
+import java.util.Date;<br>
+      <br>
+public class Main {<br>
+      <br>
+&nbsp;&nbsp;&nbsp; public static void main(String[] args) {<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Make a new Date object. It will
+be
+initialized to the current time.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date now = new Date();<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // See what toString()
+returns<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(" 1. " +
+now.toString());<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Next, try the default
+DateFormat<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+ style="font-weight: bold;"> System.out.println(" 2. " +
+DateFormat.getInstance().format(now));</span><br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // And the default time and
+date-time DateFormats<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(" 3. " +
+DateFormat.getTimeInstance().format(now));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(" 4. " +<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+DateFormat.getDateTimeInstance().format(now));<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Next, try the short,
+medium and long variants of the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // default time format<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(" 5. " +<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+DateFormat.getTimeInstance(DateFormat.SHORT).format(now));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(" 6. " +<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+DateFormat.getTimeInstance(DateFormat.MEDIUM).format(now));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(" 7. " +<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+DateFormat.getTimeInstance(DateFormat.LONG).format(now));<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // For the default date-time
+format, the length of both the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // date and time elements
+can be specified. Here are some examples:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(" 8. " +
+DateFormat.getDateTimeInstance(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+DateFormat.SHORT, DateFormat.SHORT).format(now));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(" 9. " +
+DateFormat.getDateTimeInstance(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+DateFormat.MEDIUM, DateFormat.SHORT).format(now));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("10. " +
+DateFormat.getDateTimeInstance(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+DateFormat.LONG, DateFormat.LONG).format(now));<br>
+      <br>
+&nbsp;&nbsp;&nbsp; }<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_4">return to top of
+the exercise</a><br>
+<br>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="4.3"></a>(4.3)
+Build and run the project<br>
+</h3>
+<p style="margin-left: 40px;">
+1. Open <span style="font-weight: bold;">SimpleDateFormat</span>
+NetBeans project.&nbsp; <br>
+</p>
+<ul style="margin-left: 40px;">
+  <li>Select <span style="font-weight: bold;">File</span>-&gt;<span
+ style="font-weight: bold;">Open Project (Ctrl+Shift+O)</span>. The <span
+ style="font-weight: bold;">Open Project</span> dialog box appears.</li>
+  <li>Browse down to <span style="font-weight: bold;">&lt;LAB_UNZIPPED_DIRECTORY&gt;/javase_utilclasses/samples
+    </span>directory.&nbsp; <br>
+  </li>
+  <li>Select <span style="font-weight: bold; color: rgb(255, 0, 0);">SimpleDateFormat</span>.&nbsp;
+  </li>
+  <li>Click <span style="font-weight: bold;">Open Project</span>.&nbsp;
+    <br>
+  </li>
+  <li>Observe that the <span style="font-weight: bold;">SimpleDateFormat</span>
+project node appears under <span style="font-weight: bold;">Projects </span>tab
+window.</li>
+</ul>
+<p style="margin-left: 40px;">
+</p>
+<p style="margin-left: 40px;">2. Build and run <span
+ style="font-weight: bold;">SimpleDateFormat</span>
+project. <br>
+</p>
+<ul style="margin-left: 40px;">
+  <li>Right-click <span style="font-weight: bold;">SimpleDateFormat</span>
+project and select <span style="font-weight: bold;">Run</span>.</li>
+  <li>Observe the result in the Output window.&nbsp; This is locale
+sensitive display.&nbsp; (In the example below it is US locale.)<br>
+  </li>
+</ul>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">&nbsp;1. Tue Feb 22 12:55:49 EST
+2011<br>
+&nbsp;2. 2/22/11 12:55 PM<br>
+&nbsp;3. 12:55:49 PM<br>
+&nbsp;4. Feb 22, 2011 12:55:49 PM<br>
+&nbsp;5. 12:55 PM<br>
+&nbsp;6. 12:55:49 PM<br>
+&nbsp;7. 12:55:49 PM EST<br>
+&nbsp;8. 2/22/11 12:55 PM<br>
+&nbsp;9. Feb 22, 2011 12:55 PM<br>
+10. February 22, 2011 12:55:49 PM EST<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_4">return to top of
+the exercise</a><br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="4.4"></a>(4.4)
+Study the code</h3>
+<br>
+<div style="margin-left: 40px;">1. Main.java<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">import
+java.text.SimpleDateFormat;<br>
+import java.util.Date;<br>
+      <br>
+public class Main {<br>
+      <br>
+&nbsp;&nbsp;&nbsp; public static void main(String[] args) {<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Make a new Date object. It will be
+initialized to the current time.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Date now = new Date();<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // See what toString()
+returns<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(" 1. " +
+now.toString());<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Next, try the default
+SimpleDateFormat<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+ style="font-weight: bold;">System.out.println(" 2. " +
+SimpleDateFormat.getInstance().format(now));</span><br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // And the default time and
+date-time SimpleDateFormats<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(" 3. " +
+SimpleDateFormat.getTimeInstance().format(now));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(" 4. " +<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+SimpleDateFormat.getDateTimeInstance().format(now));<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Next, try the short,
+medium and long variants of the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // default time format<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(" 5. " +<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+SimpleDateFormat.getTimeInstance(SimpleDateFormat.SHORT).format(now));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(" 6. " +<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+SimpleDateFormat.getTimeInstance(SimpleDateFormat.MEDIUM).format(now));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(" 7. " +<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+SimpleDateFormat.getTimeInstance(SimpleDateFormat.LONG).format(now));<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // For the default date-time
+format, the length of both the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // date and time elements
+can be specified. Here are some examples:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(" 8. " +
+SimpleDateFormat.getDateTimeInstance(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+SimpleDateFormat.SHORT, SimpleDateFormat.SHORT).format(now));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(" 9. " +
+SimpleDateFormat.getDateTimeInstance(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+SimpleDateFormat.MEDIUM, SimpleDateFormat.SHORT).format(now));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("10. " +
+SimpleDateFormat.getDateTimeInstance(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+SimpleDateFormat.LONG, SimpleDateFormat.LONG).format(now));<br>
+      <br>
+&nbsp;&nbsp;&nbsp; }<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+</div>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_4">return to top of
+the exercise</a><br>
+<div style="margin-left: 40px;"><br>
+<br>
+</div>
+<br>
+<h2><a name="Exercise_5"></a>Exercise 5: Properties class<br>
+</h2>
+<br>
+<div style="margin-left: 40px;">The <code>Properties</code> class
+represents a persistent set of properties. The <code>Properties</code>
+can be saved to a stream or loaded from a stream. Each key and its
+corresponding value in the property list is a string. </div>
+<ul>
+  <ol>
+    <li><a href="#5.1">Open, Build, and run the "PropertiesDemo" project<br>
+      </a></li>
+    <li><a href="#5.2">Study the code</a></li>
+    <li><a href="index.html#5.3">Open, Build, and run the
+"PropertiesDemo2" project<br>
+      </a></li>
+    <li><a href="index.html#5.4">Study the code</a></li>
+  </ol>
+</ul>
+<div style="margin-left: 40px;"><span
+ style="color: rgb(51, 51, 255); font-weight: bold;"></span><br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="5.1"></a>(5.1)
+Build and run the"PropertiesDemo" project<br>
+</h3>
+<p style="margin-left: 40px;">
+1. Open <span style="font-weight: bold;">PropertiesDemo</span>
+NetBeans project.&nbsp; <br>
+</p>
+<ul style="margin-left: 40px;">
+  <li>Select <span style="font-weight: bold;">File</span>-&gt;<span
+ style="font-weight: bold;">Open Project (Ctrl+Shift+O)</span>. The <span
+ style="font-weight: bold;">Open Project</span> dialog box appears.</li>
+  <li>Browse down to <span style="font-weight: bold;">&lt;LAB_UNZIPPED_DIRECTORY&gt;/javase_utilclasses/samples
+    </span>directory.&nbsp; <br>
+  </li>
+  <li>Select <span style="font-weight: bold; color: rgb(255, 0, 0);">PropertiesDemo</span>.&nbsp;
+  </li>
+  <li>Click <span style="font-weight: bold;">Open Project</span>.&nbsp;
+    <br>
+  </li>
+  <li>Observe that the<span style="font-weight: bold;">PropertiesDemo</span>
+project node appears under <span style="font-weight: bold;">Projects </span>tab
+window.</li>
+</ul>
+<p style="margin-left: 40px;">
+</p>
+<p style="margin-left: 40px;">2. Build and run <span
+ style="font-weight: bold;">PropertiesDemo</span>
+project. <br>
+</p>
+<ul style="margin-left: 40px;">
+  <li>Right-click <span style="font-weight: bold;">PropertiesDemo</span>
+project and select <span style="font-weight: bold;">Run</span>.</li>
+  <li>Observe the result in the Output window.</li>
+</ul>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">The capital of France is Paris.<br>
+The capital of Korea is Seoul.<br>
+The capital of Japan is Tokyo.<br>
+The capital of U.S.A. is D.C..<br>
+      <br>
+The capital of China is Not Found.<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_5">return to top of
+the exercise</a><br>
+</div>
+<br>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="5.2"></a>(5.2)
+Study the code</h3>
+<br>
+<div style="margin-left: 40px;">1. Main.java<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">package propertiesdemo;<br>
+      <br>
+import java.util.*;<br>
+      <br>
+class Main {<br>
+      <br>
+&nbsp;&nbsp;&nbsp; public static void main(String args[]) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+ style="font-weight: bold;">Properties
+myCountryProperties= new Properties();</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Set countries;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String str;<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+myCountryProperties.put("U.S.A.", "D.C.");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+myCountryProperties.put("Korea", "Seoul");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+myCountryProperties.put("France", "Paris");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+myCountryProperties.put("Japan", "Tokyo");<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; countries = <span
+ style="font-weight: bold;">myCountryProperties.keySet()</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Iterator itr =
+countries.iterator();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while (itr.hasNext()) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; str
+= (String) itr.next();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("The capital of "<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
++ str + " is "<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
++ <span style="font-weight: bold;">myCountryProperties.getProperty(str)</span>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; str = <span
+ style="font-weight: bold;">myCountryProperties.getProperty("China",
+"Not Found")</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("The
+capital of China is " + str + ".");<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_5">return to top of
+the exercise</a><br>
+<br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="5.3"></a>(5.3)
+Build and run the "PropertiesDemo2" project<br>
+</h3>
+<p style="margin-left: 40px;">
+1. Open <span style="font-weight: bold;">PropertiesDemo2</span>
+NetBeans project.&nbsp; <br>
+</p>
+<ul style="margin-left: 40px;">
+  <li>Select <span style="font-weight: bold;">File</span>-&gt;<span
+ style="font-weight: bold;">Open Project (Ctrl+Shift+O)</span>. The <span
+ style="font-weight: bold;">Open Project</span> dialog box appears.</li>
+  <li>Browse down to <span style="font-weight: bold;">&lt;LAB_UNZIPPED_DIRECTORY&gt;/javase_utilclasses/samples
+    </span>directory.&nbsp; <br>
+  </li>
+  <li>Select <span style="font-weight: bold; color: rgb(255, 0, 0);">PropertiesDemo</span>2.&nbsp;
+  </li>
+  <li>Click <span style="font-weight: bold;">Open Project</span>.&nbsp;
+    <br>
+  </li>
+  <li>Observe that the<span style="font-weight: bold;">PropertiesDemo2</span>
+project node appears under <span style="font-weight: bold;">Projects </span>tab
+window.</li>
+</ul>
+<p style="margin-left: 40px;">
+</p>
+<p style="margin-left: 40px;">2. Build and run <span
+ style="font-weight: bold;">PropertiesDemo2</span>
+project. <br>
+</p>
+<ul style="margin-left: 40px;">
+  <li>Right-click <span style="font-weight: bold;">PropertiesDemo2</span>
+project and select <span style="font-weight: bold;">Run</span>.</li>
+  <li>Observe the result in the Output window.</li>
+</ul>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">-- listing properties --<br>
+java.runtime.name=Java(TM) SE Runtime Environment<br>
+sun.boot.library.path=C:\Java\jdk1.6.0_17\jre\bin<br>
+java.vm.version=14.3-b01<br>
+java.vm.vendor=Sun Microsystems Inc.<br>
+java.vendor.url=http://java.sun.com/<br>
+path.separator=;<br>
+java.vm.name=Java HotSpot(TM) Client VM<br>
+file.encoding.pkg=sun.io<br>
+user.country=US<br>
+sun.java.launcher=SUN_STANDARD<br>
+sun.os.patch.level=<br>
+      <span style="font-weight: bold;">farewell=Goodbye.</span><br>
+java.vm.specification.name=Java Virtual Machine Specification<br>
+user.dir=C:\1passion.labs\handson_javase\javas...<br>
+java.runtime.version=1.6.0_17-b04<br>
+java.awt.graphicsenv=sun.awt.Win32GraphicsEnvironment<br>
+java.endorsed.dirs=C:\Java\jdk1.6.0_17\jre\lib\endorsed<br>
+os.arch=x86<br>
+java.io.tmpdir=C:\Users\Sang\AppData\Local\Temp\<br>
+line.separator=<br>
+      <br>
+java.vm.specification.vendor=Sun Microsystems Inc.<br>
+user.variant=<br>
+os.name=Windows 7<br>
+sun.jnu.encoding=Cp1252<br>
+java.library.path=C:\Java\jdk1.6.0_17\bin;.;C:\Windows\...<br>
+java.specification.name=Java Platform API Specification<br>
+java.class.version=50.0<br>
+      <span style="font-weight: bold;">inquiry=How are you?</span><br>
+sun.management.compiler=HotSpot Client Compiler<br>
+os.version=6.1<br>
+user.home=C:\Users\Sang<br>
+user.timezone=<br>
+java.awt.printerjob=sun.awt.windows.WPrinterJob<br>
+file.encoding=UTF-8<br>
+java.specification.version=1.6<br>
+user.name=Sang<br>
+java.class.path=C:\1passion.labs\handson_javase\javas...<br>
+java.vm.specification.version=1.0<br>
+sun.arch.data.model=32<br>
+java.home=C:\Java\jdk1.6.0_17\jre<br>
+java.specification.vendor=Sun Microsystems Inc.<br>
+user.language=en<br>
+awt.toolkit=sun.awt.windows.WToolkit<br>
+java.vm.info=mixed mode, sharing<br>
+java.version=1.6.0_17<br>
+java.ext.dirs=C:\Java\jdk1.6.0_17\jre\lib\ext;C:\Wi...<br>
+sun.boot.class.path=C:\Java\jdk1.6.0_17\jre\lib\resources...<br>
+java.vendor=Sun Microsystems Inc.<br>
+file.separator=\<br>
+java.vendor.url.bug=http://java.sun.com/cgi-bin/bugreport...<br>
+sun.cpu.endian=little<br>
+sun.io.unicode.encoding=UnicodeLittle<br>
+      <span style="font-weight: bold;">greetings=Hello.</span><br>
+sun.desktop=windows<br>
+sun.cpu.isalist=pentium_pro+mmx pentium_pro pentium+m...<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_5">return to top of
+the exercise</a><br>
+</div>
+<div style="margin-left: 40px;"><br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="5.4"></a>(5.4)
+Study the code</h3>
+<div style="margin-left: 40px;"><br>
+1. Main.java<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">package propertiesdemo2;<br>
+      <br>
+import java.io.FileInputStream;<br>
+import java.util.*;<br>
+      <br>
+class Main {<br>
+      <br>
+&nbsp;&nbsp;&nbsp; public static void main(String args[]) {<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FileInputStream propFile;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Properties p = null;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; try {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+ style="font-weight: bold;"> // set up new properties object</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// from file "myproperties.properties"</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+propFile = new FileInputStream("myproperties.properties");</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+p = new Properties(System.getProperties());</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+p.load(propFile);</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } catch (Exception e) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // set the system properties<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+ style="font-weight: bold;"> System.setProperties(p);</span><br
+ style="font-weight: bold;">
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // display new properties<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight: bold;">&nbsp;
+System.getProperties().list(System.out);</span><br>
+&nbsp;&nbsp;&nbsp; }<br>
+}<br>
+      <br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+2. myproperties.properties<br>
+<br>
+<img alt="" src="index_files/1_javautil3.png"
+ style="width: 821px; height: 795px;"><br>
+<br>
+<br>
+&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_5">return to top of
+the exercise</a><br>
+</div>
+<br>
+<h2><a name="Homework_exercise"></a><a name="Homework"></a>Homework
+exercise<br>
+</h2>
+<br>
+<div style="margin-left: 40px;">1. Build a NetBeans project called <span
+ style="font-weight: bold;">MyCalendar </span>performing the
+following tasks.<br>
+<ul>
+  <li>Display the Calendar.DATE, Calendar.HOUR using the timezone of
+the city you live and timezone of "Europe/Berlin".<br>
+  </li>
+</ul>
+<br>
+</div>
+<div style="margin-left: 40px;">2. Send the following files to <a
+ href="mailto:javaprogramminghomework@javapassion.com">javaprogramminghomework@javapassion.com</a>
+with <span style="font-weight: bold;">Subject </span>as <span
+ style="font-weight: bold;"></span><span style="font-weight: bold;">java_utilclasses.</span><br>
+<span style="font-weight: bold;"></span></div>
+<ul style="margin-left: 40px;">
+  <li>Zip file of the<span style="font-weight: bold;"> MyCalendar</span>
+NetBeans project.&nbsp; (Someone else
+should be able to open and run it as a NetBeans project.)&nbsp; You can
+use your favorite zip utility or you can use "jar" utility that comes
+with JDK as following.<br>
+  </li>
+  <ul>
+    <li>cd &lt;parent directory that contains <span
+ style="font-weight: bold;">MyCalendar</span>
+directory&gt;
+(assuming you named your project as <span style="font-weight: bold;">MyCalendar</span>)<br>
+    </li>
+    <li>jar cvf MyCalendar.zip MyCalendar
+(<span style="font-weight: bold;">MyCalendar </span>should
+contain <span style="font-weight: bold;">nbproject </span>directory)</li>
+  </ul>
+  <li>Captured output screen&nbsp;<span style="font-weight: bold;"> </span>-
+name it as <span style="font-weight: bold;">java_utilclasses.gif</span>
+or <span style="font-weight: bold;">java_utilclasses</span><span
+ style="font-weight: bold;">.jpg</span> (or
+java_utilclasses.&lt;whatever
+graphics format&gt;)</li>
+  <ul>
+    <li>Any screen capture that shows that your program is working is
+good enough.&nbsp; No cosmetic polishment is required.</li>
+  </ul>
+  <li>If you decide to use
+different IDE other than NetBeans, the zip
+file should contain all the files that are needed for rebuilding the
+project.</li>
+</ul>
+<br>
+<br>
+<div class="indent"><br>
+</div>
+<p> </p>
+<!-- ======================================================================================== -->
+</body>
+</html>

@@ -1,0 +1,599 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <script src="index_files/tigris.txt" type="text/javascript"></script>
+  <link rel="stylesheet" type="text/css" href="index_files/netbeans.css">
+  <title>LAB-1053: Javadoc</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="SourceCastVersion" content="2.6.2.4.10">
+  <meta name="keywords"
+ content="NetBeans, IDE, Platform, free, open source, developer">
+  <link rel="stylesheet" href="index_files/netbeans_002.css">
+  <meta name="author" content="Sang Shin">
+  <style type="text/css">
+#search {height:100%;}
+#topmodule {align:right;}
+  </style>
+  <script language="JavaScript" type="text/javascript">
+<!--
+function get_sc_login() {
+  var sclogin = "guest";
+  return (sclogin);
+}
+var username=get_sc_login();
+//-->
+  </script>
+  <meta content="Java Programming Online Training Course"
+ name="description">
+</head>
+<body onload="loginfocus()" class="composite">
+<!-- begin TopTabs --><!-- end TopTabs --><!-- start NavCol --><!-- end NavCol --><!-- Servlet-Specific template --><!-- Show servlet name if it is a servlet -->
+<br>
+<br>
+<h1 style="text-align: center;">JavaDoc <br>
+</h1>
+<div class="articledate" style="margin-left: 0px; text-align: center;"><a
+ href="http://www.javapassion.com/SangSchedule.html#Bio">Sang Shin</a>,
+<a href="http://micmacfr.homeunix.org/">Michèle Garoche</a>,
+<a href="http://www.javapassion.com/">www.javapassion.com</a><a
+ href="http://www.javapassion.com/"></a><span
+ style="color: rgb(0, 0, 0);"></span><a
+ href="mailto:sangshinpassion@gmail.com"><i>
+</i></a></div>
+<p style="text-align: center;"><img alt=""
+ src="index_files/sangshin2010.jpg" style="width: 101px; height: 101px;">
+<img alt="" src="index_files/Michele.jpg"
+ style="width: 100px; height: 100px;"><br>
+</p>
+<div style="margin-left: 40px;">Javadoc is a tool for generating API
+documentation in HTML format from doc comments in source code. In fact,
+all API documents of JDK are generated through Javadoc.&nbsp; In this
+lab, you are going to learn how to use tags in the Java source code and
+how to generate your own javadoc.<br>
+</div>
+<br>
+<p></p>
+<p align="center"><b>Expected duration: 60 minutes</b></p>
+<div class="indent"><br>
+<h3 class="tutorial">Resources<br>
+</h3>
+<ul>
+  <li><a
+ href="http://www.oracle.com/technetwork/java/javase/documentation/index-137868.html">How
+to write
+Doc comments for the Javadoc tool</a> document from www.oracle.com <br>
+  </li>
+  <li><a href="http://wiki.netbeans.org/JavadocTemplateTutorial"></a><a
+ href="http://www.youtube.com/watch?v=UK_7XQZhhoA">Generating JavaDoc
+in NetBeans IDE</a> youtube video (7 minutes)<br>
+  </li>
+  <li><a
+ href="http://www.youtube.com/watch?v=QDPShXyCO0k&amp;feature=related">NetBeans
+6.7.1 - Javadoc preview window</a> youtube video (1 minute)<br>
+  </li>
+</ul>
+<br>
+<h3 class="tutorial"><a name="Change_Log"></a>Change Log<br>
+</h3>
+<ul>
+  <li>Aug. 26th, 2010: Created (Sang Shin)</li>
+</ul>
+<br>
+<br>
+<h3 class="tutorial"><a name="Tutorial_Exercises"></a>Lab Exercises</h3>
+<ul>
+  <li><a href="#Exercise_1">Exercise 1: Take a look at the Javadoc
+example of "String" class (20 minutes)</a><br>
+  </li>
+  <li><a href="#Exercise_2">Exercise 2: Generate Javadoc from a sample
+application (20 minutes)</a></li>
+  <li><a href="#Homework">Homework Exercise</a></li>
+</ul>
+</div>
+<br>
+<br>
+<h2><a name="Exercise_1"></a>Exercise 1: Take a look at Javadoc example
+of "String" class<br>
+</h2>
+<p style="margin-left: 40px;">In this exercise, you are going to see
+example Javadoc of "String" class.<br>
+</p>
+<ul>
+  <ol>
+    <li><a href="#1.1">Open "MySampleApp" project<br>
+      </a></li>
+    <li><a href="#1.2">Display Javadoc of "String" class</a></li>
+    <li><a href="#1.3">Study the Javadoc source of the "String" class</a><br>
+    </li>
+  </ol>
+</ul>
+<div style="margin-left: 40px;">
+<br>
+</div>
+<ul>
+  <ol>
+  </ol>
+</ul>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.1"></a>(1.1)
+Open "MySampleApp" project<br>
+</h3>
+<div style="margin-left: 40px;"><br>
+</div>
+<p style="margin-left: 40px;">In this exercise, you are going to build
+"MySampleApp" sample application that comes
+with the hands-on lab zip file.&nbsp; We are going to use this simple
+application for exercising debugging and refactoring features of
+NetBeans.<br>
+</p>
+<p style="margin-left: 40px;">0. Start NetBeans IDE.&nbsp; <br>
+1. Open <span style="font-weight: bold; color: rgb(51, 51, 255);">MySampleApp</span>
+NetBeans project.&nbsp; <br>
+</p>
+<div style="margin-left: 40px;">
+<ul>
+  <li>Select <span style="font-weight: bold;">File</span>-&gt;<span
+ style="font-weight: bold;">Open Project (Ctrl+Shift+O)</span>. The <span
+ style="font-weight: bold;">Open Project</span> dialog box appears.</li>
+  <li>Browse down to <span style="font-weight: bold;">&lt;LAB_UNZIPPED_DIRECTORY&gt;/javase_javadoc/samples</span>
+directory.&nbsp; <br>
+  </li>
+  <ul>
+    <li>Windows: If you unzipped the <span style="font-weight: bold;">1053_javase_javadoc.zip</span>
+file under
+C:\
+directory, the directory to which you want
+to browse down should be <span style="font-weight: bold;">C:\javase_javadoc\samples.</span></li>
+    <li>Solaris/Linux: If you unzipped the <span
+ style="font-weight: bold;">1053_javase_javadoc.zip</span>
+file under $HOME
+directory, the directory to which you want
+to browse down should be <span style="font-weight: bold;">$HOME/javase_javadoc/samples.</span><span
+ style="font-weight: bold;"></span></li>
+  </ul>
+  <li>Select <span style="font-weight: bold; color: rgb(51, 51, 255);">MySampleApp</span>.&nbsp;
+  </li>
+  <li>Click <span style="font-weight: bold;">Open Project Folder</span>.&nbsp;
+The <span style="font-weight: bold;">MySampleApp</span>
+project node appears under <span style="font-weight: bold;">Projects </span>tab
+window.</li>
+</ul>
+</div>
+<p style="margin-left: 40px;">2 Build and run <span
+ style="font-weight: bold;">MySampleApp </span>project.
+<br>
+</p>
+<div style="margin-left: 40px;">
+<ul>
+  <li>Right-click <span style="font-weight: bold;">MySampleApp</span>
+project and select <span style="font-weight: bold;">Run</span>.</li>
+  <li>Enter yourname.</li>
+  <li>Click OK.</li>
+</ul>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_1">return to top of
+the exercise</a><br>
+</div>
+<div style="margin-left: 40px;"><br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.2"></a>(1.2)
+Display the Javadoc of "String" class <br>
+</h3>
+<div style="margin-left: 40px;"><br>
+1. Display Javadoc of the "String" class using NetBeans IDE.<br>
+<br>
+<img alt="" src="index_files/1_simple15.png"
+ style="width: 822px; height: 764px;"><br>
+<br>
+2. Observe that the Javadoc of the "String" class gets displayed in a
+default browser.<br>
+<br>
+<img alt="" src="index_files/1_simple16.png"
+ style="width: 824px; height: 768px;"><br>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_1">return to top of
+the exercise</a><br>
+<br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.3"></a>(1.3)
+Study the Javadoc source of the "String" class<br>
+</h3>
+<div style="margin-left: 40px;"><br>
+1. Display the source code of the "String" class.<br>
+<br>
+<img alt="" src="index_files/1_simple1.png"
+ style="width: 822px; height: 764px;"><br>
+<br>
+<img alt="" src="index_files/1_simple2.png"
+ style="width: 822px; height: 764px;"><br>
+<br>
+2. Study the Javadoc source of the "String" class.<br>
+<br>
+<img alt="" src="index_files/1_simple3.png"
+ style="width: 822px; height: 764px;"><br>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_1">return to top of
+the exercise</a><br>
+</div>
+<br>
+<br>
+<h2><a name="Exercise_2"></a>Exercise 2: Create Javadoc<br>
+</h2>
+<br>
+<div style="margin-left: 40px;">In this exercise, you are going to
+generate Javadoc of your own classes.<br>
+</div>
+<ul>
+  <ol>
+    <li><a href="index.html#2.1">Study the existing Javadoc source of
+the "MySampleApp" project<br>
+      </a></li>
+    <li><a href="index.html#2.2">Generate the Javadoc from the existing
+Javadoc source<br>
+      </a></li>
+    <li><a href="index.html#2.3">Add more Javadoc source to the
+application and generate new Javadoc</a><br>
+    </li>
+  </ol>
+</ul>
+<br>
+<br>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="2.1"></a>(2.1)
+Study the existing Javadoc source of the "MySampleApp" project<br>
+</h3>
+<br>
+<div style="margin-left: 40px;">1. Car.java<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">package org.me.models;<br>
+      <br>
+/**<br>
+&nbsp;* This class represents a car owned by person.<br>
+&nbsp;* @author sang<br>
+&nbsp;*/<br>
+public class Car {<br>
+&nbsp;&nbsp;&nbsp; private String brand;<br>
+&nbsp;&nbsp;&nbsp; private int maxVelocity;<br>
+      <br>
+&nbsp;&nbsp;<span style="font-weight: bold;">&nbsp; /**</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp; * This
+method accelerates the car by the factor specified by</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp; * the
+parameter factor.</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp; *
+@param factor The factor for acceleration.</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp; */</span><br>
+&nbsp;&nbsp;&nbsp; public void accelerate (int factor){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; maxVelocity += factor;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+&nbsp;<span style="font-weight: bold;">&nbsp;&nbsp; /**</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp; *
+Returns the brando of the car.</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp; *
+@return A String containing the brand</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp; */</span><br>
+&nbsp;&nbsp;&nbsp; public String getBrand(){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return brand;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+Car.java<br>
+<br>
+<img alt="" src="index_files/1_simple18.png"
+ style="width: 822px; height: 739px;"><br>
+<br>
+2. Person.java<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">package org.me.models;<br>
+      <br>
+/**<br>
+&nbsp;<span style="font-weight: bold;">* This class is related with
+{@link Car} class.</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;* @author sang</span><br>
+&nbsp;*/<br>
+public class Person {<br>
+&nbsp;&nbsp;&nbsp; private String name;<br>
+&nbsp;&nbsp;&nbsp; private Car car;<br>
+      <br>
+&nbsp;&nbsp;&nbsp; public Person(String name){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.name = name;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+&nbsp;&nbsp;<span style="font-weight: bold;">&nbsp; /**</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp; * Sets
+the car for this person.</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp; *
+@param car A Car object instance.</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp; */</span><br>
+&nbsp;&nbsp;&nbsp; public void setCar(Car car){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.car = car;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+&nbsp;<span style="font-weight: bold;">&nbsp;&nbsp; /**</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp; * Say a
+greeting.</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp; *
+@return A String that has Hello and name.</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp; */</span><br>
+&nbsp;&nbsp;&nbsp; public String sayHello(){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return "Hello " + name;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+Person.java<br>
+<br>
+<img alt="" src="index_files/1_simple17.png"
+ style="width: 822px; height: 739px;"><br>
+<br>
+3. MyMain.java<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">package org.me.hello;<br>
+      <br>
+public class MyMain {<br>
+      <br>
+&nbsp;&nbsp;<span style="font-weight: bold;">&nbsp; /**</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp; *
+@param args the command line arguments</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp; */</span><br>
+&nbsp;&nbsp;&nbsp; public static void main(String[] args) {<br>
+      <br>
+&nbsp;&nbsp;&nbsp; }<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<img alt="" src="index_files/1_simple19.png"
+ style="width: 822px; height: 739px;"><br>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_2">return to top of
+the exercise</a><br>
+<br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="2.2"></a>(2.2)
+Generate Javadoc<br>
+</h3>
+<br>
+<br>
+<div style="margin-left: 40px;"><img alt=""
+ src="index_files/1_simple4.png" style="width: 822px; height: 764px;"><br>
+<br>
+<img alt="" src="index_files/1_simple5.png"
+ style="width: 810px; height: 692px;"><br>
+<br>
+<img alt="" src="index_files/1_simple6.png"
+ style="width: 791px; height: 714px;"><br>
+<br>
+<img alt="" src="index_files/1_simple8.png"
+ style="width: 791px; height: 714px;"><br>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_2">return to top of
+the exercise</a><br>
+<br>
+<br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="2.3"></a>(2.3)
+Add more Javadoc source to the application <br>
+</h3>
+<br>
+<div style="margin-left: 40px;">1. Add <span style="font-weight: bold;">"@see
+Person"</span> to the <span style="font-weight: bold;">Car </span>class
+as shown below.<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">package org.me.models;<br>
+      <br>
+/**<br>
+&nbsp;* This class represents a car owned by person.<br>
+&nbsp;* @author sang<br>
+&nbsp;* <span style="font-weight: bold;">@see Person</span><br>
+&nbsp;*/<br>
+public class Car {<br>
+&nbsp;&nbsp;&nbsp; private String brand;<br>
+&nbsp;&nbsp;&nbsp; private int maxVelocity;<br>
+      <br>
+&nbsp;&nbsp;&nbsp; /**<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * This method accelerates the car by the
+factor specified by<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * the parameter factor.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * @param factor The factor for acceleration.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp; public void accelerate (int factor){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; maxVelocity += factor;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+&nbsp;&nbsp;&nbsp; /**<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * Returns the brando of the car.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * @return A String containing the brand<br>
+&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp; public String getBrand(){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return brand;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+</div>
+<div style="margin-left: 40px;"><img alt=""
+ src="index_files/1_simple9.png" style="width: 822px; height: 764px;"><br>
+<br>
+2. Add a hyperlink<span style="font-weight: bold;"> {@link Person}</span>
+to a <span style="font-weight: bold;">Car </span>class.<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">package org.me.models;<br>
+      <br>
+/**<br>
+&nbsp;* This class represents a car owned by <span
+ style="font-weight: bold;">{@link Person}</span>.<br>
+&nbsp;* @author sang<br>
+&nbsp;* @see Person<br>
+&nbsp;*/<br>
+public class Car {<br>
+&nbsp;&nbsp;&nbsp; private String brand;<br>
+&nbsp;&nbsp;&nbsp; private int maxVelocity;<br>
+      <br>
+&nbsp;&nbsp;&nbsp; /**<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * This method accelerates the car by the
+factor specified by<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * the parameter factor.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * @param factor The factor for acceleration.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp; public void accelerate (int factor){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; maxVelocity += factor;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+&nbsp;&nbsp;&nbsp; /**<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * Returns the brando of the car.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * @return A String containing the brand<br>
+&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp; public String getBrand(){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return brand;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<img alt="" src="index_files/1_simple10.png"
+ style="width: 822px; height: 764px;"><br>
+<br>
+3. Obserge the result of the change.<br>
+<br>
+<img alt="" src="index_files/1_simple11.png"
+ style="width: 822px; height: 764px;"><br>
+<br>
+4. Generate new Javadoc.<br>
+<br>
+<img alt="" src="index_files/1_simple12.png"
+ style="width: 822px; height: 764px;"><br>
+<br>
+5. Check the newly created Javadoc of the Car class.<br>
+<br>
+<img alt="" src="index_files/1_simple13.png"
+ style="width: 791px; height: 714px;"><br>
+<br>
+<img alt="" src="index_files/1_simple14.png"
+ style="width: 791px; height: 714px;"><br>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="#Exercise_2">return to top of
+the exercise</a><br>
+<br>
+</div>
+<br>
+<h2><a name="Homework_exercise"></a><a name="Homework"></a>Homework
+exercise</h2>
+<br>
+<div style="margin-left: 40px;">There is no homework for this topic.<br>
+</div>
+<div class="indent"><br>
+</div>
+<p> </p>
+<!-- ======================================================================================== -->
+</body>
+</html>
