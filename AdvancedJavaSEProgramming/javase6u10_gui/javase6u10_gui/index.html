@@ -1,0 +1,710 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <script src="index_files/tigris.txt" type="text/javascript"></script>
+  <link rel="stylesheet" type="text/css" href="index_files/netbeans.css">
+  <title>LAB-1514: Java SE 6 Update 10 - GUI Enhancements</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="SourceCastVersion" content="2.6.2.4.10">
+  <meta name="keywords"
+ content="NetBeans, IDE, Platform, free, open source, developer">
+  <link rel="stylesheet" href="index_files/netbeans_002.css">
+  <meta name="author" content="Sang Shin">
+  <style type="text/css">
+#search {height:100%;}
+#topmodule {align:right;}
+  </style>
+  <script language="JavaScript" type="text/javascript">
+<!--
+function get_sc_login() {
+  var sclogin = "guest";
+  return (sclogin);
+}
+var username=get_sc_login();
+//-->
+  </script>
+</head>
+<body onload="loginfocus()" class="composite"
+ style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);"
+ alink="#000099" link="#000099" vlink="#990099">
+<!-- begin TopTabs --><!-- end TopTabs --><!-- start NavCol --><!-- end NavCol --><!-- Servlet-Specific template --><!-- Show servlet name if it is a servlet -->
+<br>
+<br>
+<h1 style="text-align: center;">Java SE 6 Update 10 - GUI Enhancements<br>
+</h1>
+<div class="articledate" style="margin-left: 0px; text-align: center;">
+<a href="http://www.javapassion.com/SangShinSchedule.html">Sang Shin</a>,
+<a href="http://www.javapassion.com">www.javapassion.com</a><a
+ href="mailto:sangshinpassion@gmail.com"><i>
+</i></a></div>
+<div class="indent"><br>
+<div style="text-align: center;">&nbsp; <img alt=""
+ src="index_files/sangshin2009.jpg" style="width: 75px; height: 87px;"><br>
+</div>
+<br>
+<br>
+<span name="intelliTxt" id="intelliTxt"></span><br>
+<span class="mw-headline">Java SE 6 Update 10 </span>added a new
+cross-platform Swing look &amp; feel, code name <b>Nimbus</b>,
+provides a nice update over 'Metal' and 'Ocean' and with exciting
+features.&nbsp; It also introduces a fully hardware accelerated
+graphics
+pipeline based on the Microsoft Direct3D 9 API, translating into
+improved rendering of Swing applications which rely on translucency,
+gradients, arbitrary transformations, and other more advanced 2D
+operations.<br>
+<br>
+<b><br>
+</b>
+<div style="text-align: center;"><b>Expected duration: 60 minutes
+(excluding homework)<br>
+<br>
+</b></div>
+<br>
+<p></p>
+<br>
+<br>
+<h3 class="tutorial">Resources<br>
+</h3>
+<ul>
+  <li>Tutorials<br>
+  </li>
+  <ul>
+    <li><a href="http://www.pushing-pixels.org/?p=260">Picking Pixels</a>
+tutorial (Feb. 2008)</li>
+    <li><a
+ href="http://today.java.net/pub/a/today/2008/03/18/translucent-and-shaped-swing-windows.html">Translucent
+and Shaped Swing Windows</a> tutorial (March, 2008)</li>
+    <li><a
+ href="http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/nimbus.html">Nimbus
+Look and Feel</a> tutorial from download.oracle.com</li>
+  </ul>
+  <li>Swing sample codes<br>
+  </li>
+  <ul>
+    <li><a href="https://filthyrichclients.dev.java.net/">Filthy Rich
+Clients book</a> source code</li>
+    <li><a href="https://laffy.dev.java.net/">Laffy - Swing Look and
+Feel Sampler</a> homesite</li>
+    <li><a href="https://swingset3.dev.java.net/">Swingset3</a> homesite<br>
+    </li>
+  </ul>
+</ul>
+<br>
+<h3 class="tutorial"><a name="Change_Log"></a>Change Log<br>
+</h3>
+<ul>
+  <li>Nov. 15th, 2010: Created (Sang Shin)<br>
+  </li>
+</ul>
+<br>
+<br>
+<h3 class="tutorial"><a name="Tutorial_Exercises"></a>Lab Exercises</h3>
+<ul>
+  <li><a href="#Exercise_1">Exercise 1: Run sample applications of
+"Translucent" and "Shaped windows" (30
+minutes)</a></li>
+  <li><a href="#Exercise_2">Exercise 2: Run 'Nimbus Look and Feel" (30
+minutes)</a></li>
+  <li><a href="#Exercise_3">Exercise 3: Run sample applications from
+"Filthy Rich Clients" book (30 minutes)</a><br>
+  </li>
+  <li><a href="#Homework_Exercise">Homework
+Exercise<br>
+    </a></li>
+</ul>
+</div>
+<br>
+<br>
+<h2><a name="Exercise_1"></a>Exercise 1: Run sample applications of
+"Translucent" and "Shaped windows"<br>
+</h2>
+<br>
+<div style="margin-left: 40px;">In this exercise, you are going to
+exercise translucency and shaped window features of Java SE 6 update 10.<br>
+<ol>
+  <li><a href="#1.1">Open, build, and run "javase6u10_SimpleWindow"
+sample application</a></li>
+  <li><a href="#1.2">Open, build, and run "javase6u10_ShapedWindow"
+sample application</a></li>
+  <li><a href="#1.3">Open, build, and run
+"javase6u10_TranslucentWindow" sample application</a></li>
+  <li><a href="#1.4">Open, build, and run
+"javase6u10_TranslucentShapedWindow" sample application</a></li>
+</ol>
+<br>
+</div>
+<br>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.1"></a>(1.1)
+Open, build, and
+run "javase6u10_SimpleWindow" sample application<br>
+</h3>
+<br>
+<div style="margin-left: 40px;">In this step, you are going to build a
+GUI <span style="font-weight: bold;">without </span>using
+translucency.<br>
+</div>
+<div style="margin-left: 40px;"><br>
+1. Open "javase6u10_SimpleWindow"
+project.<br>
+</div>
+<ul style="margin-left: 40px;">
+  <li>Select <span style="font-weight: bold;">File</span>-&gt;<span
+ style="font-weight: bold;">Open Project (Ctrl+Shift+O)</span>. The <span
+ style="font-weight: bold;">Open Project</span> dialog box appears.</li>
+</ul>
+<ul style="margin-left: 40px;">
+  <li>Browse down to <span style="font-weight: bold;">&lt;LAB_UNZIPPED_DIRECTORY&gt;/javase6u10_gui/samples</span>
+directory.&nbsp; <br>
+  </li>
+  <ul>
+    <li>Windows: If you unzipped the <span style="font-weight: bold;">1514_javase6u10_gui.zip</span>
+file under C:\handson_javase_adv directory, the directory to which you
+want
+to browse down should be <span style="font-weight: bold;">C:\handson_javase_adv\javase6u10_gui\samples</span>.</li>
+    <li>Solaris/Linux: If you unzipped the <span
+ style="font-weight: bold;">1514_javase6u10_gui.zip</span>
+file under $HOME/handson_javase_adv directory under Windows, the
+directory to
+which you
+want
+to browse down should be <span style="font-weight: bold;">$HOME/handson_javase_adv/javase6u10_gui/samples</span>.</li>
+  </ul>
+  <li>Select<span style="color: rgb(255, 0, 0);"> <span
+ style="font-weight: bold;">javase6u10_SimpleWindow</span></span>.</li>
+  <li>Click <span style="font-weight: bold;">Open Project</span>.</li>
+</ul>
+<div style="margin-left: 40px;">
+2. Run the application.
+<br>
+<ul>
+  <li>Right click project and select Run.</li>
+  <li>Observe that a GUI gets displayed.</li>
+</ul>
+<img alt="" src="index_files/t2.png"
+ style="width: 400px; height: 300px;"><br>
+<br>
+3. Study the code.<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">import java.awt.Dimension;<br>
+import java.awt.FlowLayout;<br>
+      <br>
+import javax.swing.*;<br>
+      <br>
+public class SimpleWindow extends JFrame {<br>
+&nbsp;&nbsp;&nbsp; public SimpleWindow() {<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; super("Test window");<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.setLayout(new FlowLayout());<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.add(new JButton("test"));<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.add(new JCheckBox("test"));<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.add(new
+JRadioButton("test"));<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.add(new JProgressBar(0,
+100));<br>
+      <br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.setSize(new Dimension(400,
+300));<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.setLocationRelativeTo(null);<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);<br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+&nbsp;&nbsp;&nbsp; public static void main(String[] args) {<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+JFrame.setDefaultLookAndFeelDecorated(true);<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; SwingUtilities.invokeLater(new
+Runnable() {<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; @Override<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; public void
+run() {<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; SimpleWindow w = new SimpleWindow();<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; w.setVisible(true);<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; });<br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="#Exercise_1">return to top of
+the exercise</a><br>
+<br>
+</div>
+<div style="margin-left: 40px;"><br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.2"></a>(1.2)
+Open, build, and
+run "javase6u10_ShapedWindow" application<br>
+</h3>
+<br>
+<div style="margin-left: 40px;">1. Open "javase6u10_ShapedWindow"
+project.<br>
+</div>
+<ul style="margin-left: 40px;">
+  <li>Select <span style="font-weight: bold;">File</span>-&gt;<span
+ style="font-weight: bold;">Open Project (Ctrl+Shift+O)</span>. The <span
+ style="font-weight: bold;">Open Project</span> dialog box appears.</li>
+</ul>
+<ul style="margin-left: 40px;">
+  <li>Browse down to <span style="font-weight: bold;">&lt;LAB_UNZIPPED_DIRECTORY&gt;/javase6u10_gui/samples</span>
+directory.&nbsp; <br>
+  </li>
+  <li>Select<span style="color: rgb(255, 0, 0);"> <span
+ style="font-weight: bold;">javase6u10_ShapedWindow</span></span>.</li>
+  <li>Click <span style="font-weight: bold;">Open Project</span>.</li>
+</ul>
+<div style="margin-left: 40px;">
+2. Run the application.
+<br>
+<ul>
+  <li>Right click project and select Run.</li>
+  <li>Observe that a GUI gets displayed.</li>
+</ul>
+<img alt="" src="index_files/t1.png"
+ style="width: 400px; height: 300px;"><br>
+<br>
+3. Study the code.<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">import java.awt.*;<br>
+import java.awt.geom.Ellipse2D;<br>
+      <br>
+import javax.swing.*;<br>
+      <br>
+public class ShapedWindow extends JFrame {<br>
+&nbsp;&nbsp;&nbsp; public ShapedWindow() {<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; super("Test oval-shaped window");<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.setLayout(new FlowLayout());<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.add(new JButton("test"));<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.add(new JCheckBox("test"));<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.add(new
+JRadioButton("test"));<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.add(new JProgressBar(0,
+100));<br>
+      <br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.setSize(new Dimension(400,
+300));<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.setLocationRelativeTo(null);<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);<br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+&nbsp;&nbsp;&nbsp; public static void main(String[] args) {<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+JFrame.setDefaultLookAndFeelDecorated(true);<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; SwingUtilities.invokeLater(new
+Runnable() {<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; @Override<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; public void
+run() {<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; Window w = new ShapedWindow();<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; w.setVisible(true);<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <span style="font-weight: bold;">com.sun.awt.AWTUtilities</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; .setWindowShape(w, new
+Ellipse2D.Double(0, 0, w</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; .getWidth(), w.getHeight()));</span><br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; });<br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_1">return to top of
+the exercise</a><br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.3"></a>(1.3)
+Open, build, and
+run "javase6u10_TranslucentWindow" application</h3>
+<br>
+<div style="margin-left: 40px;">1. Open "javase6u10_TranslucentWindow"
+project.<br>
+</div>
+<ul style="margin-left: 40px;">
+  <li>Select <span style="font-weight: bold;">File</span>-&gt;<span
+ style="font-weight: bold;">Open Project (Ctrl+Shift+O)</span>. The <span
+ style="font-weight: bold;">Open Project</span> dialog box appears.</li>
+</ul>
+<ul style="margin-left: 40px;">
+  <li>Browse down to <span style="font-weight: bold;">&lt;LAB_UNZIPPED_DIRECTORY&gt;/javase6u10_gui/samples</span>
+directory.&nbsp; <br>
+  </li>
+  <li>Select<span style="color: rgb(255, 0, 0);"> <span
+ style="font-weight: bold;">javase6u10_TranslucentWindow</span></span>.</li>
+  <li>Click <span style="font-weight: bold;">Open Project</span>.</li>
+</ul>
+<div style="margin-left: 40px;">
+2. Run the application.
+<br>
+<ul>
+  <li>Right click project and select Run.</li>
+  <li>Observe that a GUI gets displayed.</li>
+</ul>
+<img alt="" src="index_files/t3.png"
+ style="width: 400px; height: 300px;"><br>
+<br>
+3. Study the code<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">import java.awt.Dimension;<br>
+import java.awt.FlowLayout;<br>
+      <br>
+import javax.swing.*;<br>
+      <br>
+public class TranslucentWindow extends JFrame {<br>
+&nbsp;&nbsp;&nbsp; public TranslucentWindow() {<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; super("Test window");<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.setLayout(new FlowLayout());<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.add(new JButton("test"));<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.add(new JCheckBox("test"));<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.add(new
+JRadioButton("test"));<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.add(new JProgressBar(0,
+100));<br>
+      <br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.setSize(new Dimension(400,
+300));<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.setLocationRelativeTo(null);<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);<br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+&nbsp;&nbsp;&nbsp; public static void main(String[] args) {<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+JFrame.setDefaultLookAndFeelDecorated(true);<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; SwingUtilities.invokeLater(new
+Runnable() {<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; @Override<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; public void
+run() {<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; TranslucentWindow w = new TranslucentWindow();<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; w.setVisible(true);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <span style="font-weight: bold;">com.sun.awt.AWTUtilities.setWindowOpacity(w,
+0.5f);</span><br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; });<br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_1">return to top of
+the exercise</a><br>
+<br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.4"></a>(1.4)
+Open, build, and
+run "javase6u10_TranslucentShapedWindow" application</h3>
+<br>
+<div style="margin-left: 40px;">1. Open
+"javase6u10_TranslucentShapedWindow" project.<br>
+</div>
+<ul style="margin-left: 40px;">
+  <li>Select <span style="font-weight: bold;">File</span>-&gt;<span
+ style="font-weight: bold;">Open Project (Ctrl+Shift+O)</span>. The <span
+ style="font-weight: bold;">Open Project</span> dialog box appears.</li>
+</ul>
+<ul style="margin-left: 40px;">
+  <li>Browse down to <span style="font-weight: bold;">&lt;LAB_UNZIPPED_DIRECTORY&gt;/javase6u10_gui/samples</span>
+directory.&nbsp; <br>
+  </li>
+  <li>Select<span style="color: rgb(255, 0, 0);"> <span
+ style="font-weight: bold;">javase6u10_TranslucentShapedWindow</span></span>.</li>
+  <li>Click <span style="font-weight: bold;">Open Project</span>.</li>
+</ul>
+<div style="margin-left: 40px;">
+2. Run the application.
+<br>
+<ul>
+  <li>Right click project and select Run.</li>
+  <li>Observe that a GUI gets displayed.</li>
+</ul>
+<img alt="" src="index_files/t4.png"
+ style="width: 400px; height: 300px;"><br>
+<br>
+3. Study the code<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">import java.awt.*;<br>
+import java.awt.geom.Ellipse2D;<br>
+      <br>
+import javax.swing.*;<br>
+      <br>
+public class TranslucentShapedWindow extends JFrame {<br>
+&nbsp;&nbsp;&nbsp; public TranslucentShapedWindow() {<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; super("Test translucent and
+oval-shaped window");<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.setLayout(new FlowLayout());<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.add(new JButton("test"));<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.add(new JCheckBox("test"));<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.add(new
+JRadioButton("test"));<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.add(new JProgressBar(0,
+100));<br>
+      <br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.setSize(new Dimension(400,
+300));<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; this.setLocationRelativeTo(null);<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);<br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+&nbsp;&nbsp;&nbsp; public static void main(String[] args) {<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+JFrame.setDefaultLookAndFeelDecorated(true);<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; SwingUtilities.invokeLater(new
+Runnable() {<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; @Override<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; public void
+run() {<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; Window w = new TranslucentShapedWindow();<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; w.setVisible(true);<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <span style="font-weight: bold;">com.sun.awt.AWTUtilities.setWindowOpacity(w,
+0.5f);</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+com.sun.awt.AWTUtilities</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; .setWindowShape(w, new
+Ellipse2D.Double(0, 0, w</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; .getWidth(), w.getHeight()));</span><br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; });<br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_1">return to top of
+the exercise</a><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp; <a href="l#Tutorial_Exercises">return
+to the top</a><br>
+</div>
+<br>
+<br>
+<h2><a name="Exercise_2"></a>Exercise 2: Explore "Laffy - Swing Look
+and Feel sampler"
+application<br>
+</h2>
+<br>
+<div style="margin-left: 40px;">1. Using your browser, go to <a
+ href="https://laffy.dev.java.net/">Laffy - Swing Look and Feel Sampler</a>
+homesite<br>
+<br>
+<img alt="" src="index_files/t5.png"
+ style="width: 860px; height: 750px;"><br>
+<br>
+<img alt="" src="index_files/t6.png"
+ style="width: 439px; height: 311px;"><br>
+<br>
+<img alt="" src="index_files/t7.png"
+ style="width: 854px; height: 543px;"><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp; <a href="l#Tutorial_Exercises">return
+to the top</a><br>
+<br>
+<br>
+<br>
+</div>
+<br>
+<h2><a name="Exercise_3"></a>Exercise 3: Run Swing sample applications
+of "Filthy Rich Swing" book<br>
+</h2>
+<br>
+<div style="margin-left: 40px;">1. Using your browser, go to <a
+ href="https://filthyrichclients.dev.java.net/">Filthy Rich Clients book</a>
+source code<br>
+2. Download the chapter sample zip file.<br>
+<br>
+<img alt="" src="index_files/t8.png"
+ style="width: 872px; height: 986px;"><br>
+<br>
+3. Unzip the chapter sample zip file.<br>
+4. Open projects using NetBeans.<br>
+<br>
+<img alt="" src="index_files/t9.png"
+ style="width: 779px; height: 403px;"><br>
+<br>
+5. Set the correct Java platform for the project.<br>
+<br>
+<img alt="" src="index_files/t10.png"
+ style="width: 809px; height: 709px;"><br>
+<br>
+<img alt="" src="index_files/t11.png"
+ style="width: 816px; height: 587px;"><br>
+<br>
+<img alt="" src="index_files/t12.png"
+ style="width: 816px; height: 587px;"><br>
+<br>
+6. Run the application<br>
+<br>
+<img alt="" src="index_files/t13.png"
+ style="width: 809px; height: 709px;"><br>
+<br>
+<img alt="" src="index_files/t14.png"
+ style="width: 640px; height: 480px;"><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp; <a href="l#Tutorial_Exercises">return
+to the top</a><br>
+<br>
+</div>
+<br>
+<br>
+<br>
+<br>
+<h2><a name="Homework_Exercise"></a><a name="Homework"></a>Homework
+Exercise <br>
+</h2>
+<br>
+<div style="margin-left: 40px;">1. The homework exercise is to add
+translucency and shaped window to the Anagram application that comes
+with NetBeans IDE as a sample application. <br>
+<br>
+</div>
+<div style="margin-left: 40px;">2. Send the following files to <a
+ href="mailto:javase_adv_homework@javapassion.com">javase_adv_homework@javapassion.com</a>
+with <span style="font-weight: bold;">Subject </span>as <span
+ style="font-weight: bold;"></span><span style="font-weight: bold;">javase6u10_gui.<br>
+</span>
+<ul>
+  <li>Zip file of the<span style="font-weight: bold;">
+MyOwnAnnotationExample</span><span style="font-weight: bold;"></span>
+NetBeans project.&nbsp; (Someone else
+should be able to open and run it as a NetBeans project.)&nbsp; You can
+use your favorite zip utility or you can use "jar" utility that comes
+with JDK as following.<br>
+  </li>
+  <ul>
+    <li>cd &lt;parent directory that contains MyOwnAnnotationExample
+directory&gt;
+(assuming you named your project as MyOwnAnnotationExample)<br>
+    </li>
+    <li>jar cvf MyOwnAnnotationExample.zip MyOwnAnnotationExample
+(MyOwnAnnotationExample<span style="font-weight: bold;"> </span>directory
+should
+contain <span style="font-weight: bold;">nbproject </span>directory)</li>
+  </ul>
+  <li>Captured output screen&nbsp;<span style="font-weight: bold;"> </span>-
+name it as <span style="font-weight: bold;">javase6u10_gui.gif</span>
+or <span style="font-weight: bold;">javase6u10_gui</span><span
+ style="font-weight: bold;">.jpg</span> (or javase6u10_gui.&lt;whatever
+graphics format&gt;)</li>
+  <ul>
+    <li>Any screen capture that shows that your program is working is
+good enough.&nbsp; No cosmetic polishment is required.</li>
+  </ul>
+  <li>If you decide to use
+different IDE other than NetBeans, the zip
+file should contain all the files that are needed for rebuilding the
+project - war file with necessary source files is OK.</li>
+</ul>
+<span style="font-weight: bold;"></span></div>
+<br>
+<div style="margin-left: 40px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp; <a href="l#Tutorial_Exercises">return
+to the top</a><br>
+</div>
+<div style="margin-left: 40px;"><br>
+<a href="index.html#Tutorial_Exercises"><br>
+</a></div>
+<div class="indent"><br>
+<br>
+<br>
+</div>
+<br>
+<p> </p>
+<!-- ======================================================================================== -->
+</body>
+</html>

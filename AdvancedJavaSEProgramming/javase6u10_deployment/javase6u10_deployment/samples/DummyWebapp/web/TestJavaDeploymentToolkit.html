@@ -1,0 +1,23 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="http://java.com/js/deployJava.js"></script>
+        <script>
+            // Display list of currently-installed JRE versions
+            console.log("JREs installed = %s", deployJava.getJREs());
+
+            // Check if there is a matching JRE version currently installed
+            console.log("JRE 1.6.0_14 installed = %s", deployJava.versionCheck("1.6.0_14"));
+            console.log("JRE 1.6.0_13 installed = %s", deployJava.versionCheck("1.6.0_13"));
+            console.log("JRE 1.6.0_2 installed = %s", deployJava.versionCheck("1.6.0_2"));
+            console.log("JRE 1.5.0_09 installed = %s", deployJava.versionCheck("1.5.0_09"));
+            console.log("JRE 1.4.0_12 installed = %s", deployJava.versionCheck("1.4.0_12"));
+        </script>
+
+    </head>
+    <body>
+        Enable Firebug to see the messages being displayed!
+    </body>
+</html>

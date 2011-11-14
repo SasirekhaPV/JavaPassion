@@ -1,0 +1,1611 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <script src="index_files/tigris.txt" type="text/javascript"></script>
+  <link rel="stylesheet" type="text/css" href="index_files/netbeans.css">
+  <title>LAB-1603: Java AOP using AspectJ</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="SourceCastVersion" content="2.6.2.4.10">
+  <meta name="keywords"
+ content="NetBeans, IDE, Platform, free, open source, developer">
+  <link rel="stylesheet" href="index_files/netbeans_002.css">
+  <meta name="author" content="Sang Shin">
+  <style type="text/css">
+#search {height:100%;}
+#topmodule {align:right;}
+  </style>
+  <script language="JavaScript" type="text/javascript">
+<!--
+function get_sc_login() {
+  var sclogin = "guest";
+  return (sclogin);
+}
+var username=get_sc_login();
+//-->
+  </script>
+</head>
+<body onload="loginfocus()" class="composite"
+ style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);"
+ alink="#000099" link="#000099" vlink="#990099">
+<!-- begin TopTabs --><!-- end TopTabs --><!-- start NavCol --><!-- end NavCol --><!-- Servlet-Specific template --><!-- Show servlet name if it is a servlet -->
+<br>
+<br>
+<h1 style="text-align: center;">Java AOP (using AspectJ)<br>
+</h1>
+<div class="articledate" style="margin-left: 0px; text-align: center;">
+<a href="http://www.javapassion.com/SangShinSchedule.html">Sang Shin</a>,
+<a href="http://www.javapassion.com">www.javapassion.com</a><a
+ href="mailto:sangshinpassion@gmail.com"><i>
+</i></a></div>
+<div class="indent"><br>
+<div style="text-align: center;">&nbsp; <img alt=""
+ src="index_files/sangshin2009.jpg" style="width: 75px; height: 87px;"><br>
+</div>
+<br>
+<span name="intelliTxt" id="intelliTxt"></span>Aspect-Oriented
+Programming (AOP) complements Object-Oriented Programming (OOP) by
+providing another way of thinking about program structure. Aspects
+enable modularization of concerns (required additional business logic)
+such as transaction management that cut across multiple types and
+objects<br>
+<span class="mw-headline"><br>
+</span><b><br>
+</b>
+<div style="text-align: center;"><b>Expected duration: 120 minutes
+(excluding homework)<br>
+<br>
+</b></div>
+<br>
+<p></p>
+<br>
+<h3 class="tutorial">Resources</h3>
+<ul>
+  <ul>
+  </ul>
+</ul>
+<ul>
+  <li>Tutorials<br>
+  </li>
+  <ul>
+    <li><a
+ href="http://www.javaworld.com/javaworld/jw-01-2002/jw-0118-aspect.html">I
+want my AOP!, Part 1</a> from javaworld.com (Jan. 2002)</li>
+    <li><a
+ href="http://www.javaworld.com/javaworld/jw-03-2002/jw-0301-aspect2.html">I
+want my AOP!, Part 2</a> from javaworld.com (March 2002)</li>
+    <li><a
+ href="http://www.javaworld.com/javaworld/jw-04-2002/jw-0412-aspect3.html">I
+want my AOP!, Part 3</a> from javaworld.com (April 2002)</li>
+    <li><a href="http://www.voelter.de/data/articles/aop/aop.html">Aspect-Oriented
+Programming in Java</a> article from www.voelter.de</li>
+  </ul>
+  <li>AspectJ</li>
+  <ul>
+    <li><a href="http://www.eclipse.org/aspectj/index.php">Homesite</a></li>
+    <li><a href="http://www.eclipse.org/aspectj/doc/released/faq.php">AspectJ
+FAQ</a></li>
+    <li><a
+ href="http://www.eclipse.org/aspectj/doc/released/progguide/starting.html">Chapter
+1. Getting Started with AspectJ</a> from eclipse.org<br>
+    </li>
+    <li><a href="http://eclipse.org/ajdt/gettingstarted.php">AJDT:
+AspectJ Development Tools</a></li>
+    <li><a href="http://www.eclipse.org/aspectj/sample-code.html">AspectJ
+sample codes</a> from eclipse.org<br>
+    </li>
+  </ul>
+</ul>
+<br>
+<br>
+<h3 class="tutorial"><a name="Change_Log"></a>Change Log<br>
+</h3>
+<ul>
+  <li>Oct. 20th, 2010: Created (Sang Shin)<br>
+  </li>
+</ul>
+<br>
+<h3 class="tutorial">Things to be done (by the authoring team)<br>
+</h3>
+<ul>
+  <li>Add more explanation to the exercises</li>
+  <li>Add more exercises<br>
+  </li>
+</ul>
+<br>
+<h3 class="tutorial"><a name="Tutorial_Exercises"></a>Lab Exercises</h3>
+<ul>
+  <li><a href="#Exercise_0">Exercise 0: Install AspectJ</a><br>
+  </li>
+  <li><a href="#Exercise_1">Exercise 1: Build a simple "Helloworld" AOP
+application (30
+minutes)</a></li>
+  <li><a href="index.html#Exercise_2">Exercise 2: Build
+"object_creation" AOP application (30
+minutes)</a></li>
+  <li><a href="#Homework_Exercise">Homework
+Exercise<br>
+    </a></li>
+</ul>
+</div>
+<br>
+<h2><a name="Exercise_0"></a>Exercise 0: Install AspectJ<br>
+</h2>
+<br>
+<div style="margin-left: 40px;">In this exercise, youa re going to
+install and configure AspectJ.&nbsp; The AjspectJ is already provided
+as part of the hands-on lab zip file. So there is no need to download
+it separately.<br>
+<ol>
+  <li><a href="#0.1">Install AspectJ<br>
+    </a></li>
+  <li><a href="#0.2">Configure classpath and path environment variables<br>
+    </a></li>
+</ol>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="0.1"></a>(0.1)
+Install AspectJ<br>
+</h3>
+<br>
+<div style="margin-left: 40px;">1. Open a terminal window and type<span
+ style="font-weight: bold;"> java -jar aspectj-1.6.9.jar</span>.&nbsp;
+(The <span style="font-weight: bold;">aspectj-1.6.9.jar</span> file is
+provided as part of hands-on lab zip file.)<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">cd
+&lt;LAB_UNZIPPED_DIRECTORY&gt;\javase_aop</span><br>
+      <span style="font-weight: bold;"> java -jar aspectj-1.6.9.jar</span><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+</div>
+<div style="margin-left: 40px;"><img alt="" src="index_files/1_a1.png"
+ style="width: 817px; height: 635px;"><br>
+<br>
+<img alt="" src="index_files/1_a2.png"
+ style="width: 640px; height: 460px;"><br>
+<br>
+<img alt="" src="index_files/1_a3.png"
+ style="width: 640px; height: 460px;"><br>
+<br>
+<img alt="" src="index_files/1_a4.png"
+ style="width: 640px; height: 460px;"><br>
+<br>
+<img alt="" src="index_files/1_a5.png"
+ style="width: 640px; height: 460px;"><br>
+<br>
+<img alt="" src="index_files/1_a6.png"
+ style="width: 640px; height: 460px;"><br>
+<br>
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp; <a href="index.html#Exercise_0">return
+to
+top of the
+exercise</a><br>
+</div>
+<div style="margin-left: 40px;">
+<div style="margin-left: 40px;"><br>
+</div>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="0.2"></a>(0.2)
+Set the CLASSPATH and PATH environment variables<br>
+</h3>
+<br>
+<div style="margin-left: 40px;">1. Add the <span
+ style="font-weight: bold;">c:\aspectj1.6\lib\aspectjrt.jar</span> to
+the <span style="font-weight: bold;">CLASSPATH </span>environment
+variable<span style="font-weight: bold;">. </span>and add <span
+ style="font-weight: bold;">c:\aspectj1.6\bin
+</span>to the <span style="font-weight: bold;">PATH </span>environment
+variable.&nbsp; Or you can set them per terminal window basis as
+following (for Windows platform).<br>
+<br>
+</div>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">C:\Users\sang&gt;<span
+ style="font-weight: bold;">set
+classpath=c:\aspectj1.6\lib\aspectjrt.jar;%classpath%</span><br>
+      <br>
+C:\Users\sang&gt;<span style="font-weight: bold;">set
+path=c:\aspectj1.6\bin;%path%</span><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+2. Check if you can run <span style="font-weight: bold;">ajc</span>.<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">C:\Users\sang&gt;<span
+ style="font-weight: bold;">ajc</span><br>
+{0}<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Usage: &lt;options&gt;
+&lt;source file | @argfile&gt;..<br>
+      <br>
+AspectJ-specific options:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -inpath
+&lt;list&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; use classes in dirs and
+jars/zips in &lt;list&gt; as source<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(&lt;list&gt; uses platform-specific path delimiter)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -injars
+&lt;jarList&gt;&nbsp;&nbsp; use classes in &lt;jarList&gt; zip files as
+source<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(&lt;jarList&gt; uses classpath delimiter)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+deprecated - use inpath instead.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -aspectpath
+&lt;list&gt;&nbsp; weave aspects in .class files from &lt;list&gt; dirs
+and jars/zip into sources<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(&lt;list&gt; uses classpath delimiter)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -outjar
+&lt;file&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; put output classes in zip
+file &lt;file&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-outxml&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+generate META-INF/aop.xml<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -outxmlfile
+&lt;file&gt;&nbsp; specify alternate destination output of -outxml<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -argfile
+&lt;file&gt;&nbsp;&nbsp;&nbsp;&nbsp; specify line-delimited list of
+source files<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-showWeaveInfo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; display information about
+weaving<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-incremental&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+continuously-running compiler, needs -sourceroots<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(reads stdin: enter to recompile and 'q' to quit)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -sourceroots &lt;dirs&gt;
+compile all .aj and .java files in &lt;dirs&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(&lt;dirs&gt; uses classpath delimiter)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-crossrefs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+generate .ajsym file into the output directory<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-emacssym&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+generate .ajesym symbol files for emacs support<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-Xlint&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+same as '-Xlint:warning'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-Xlint:&lt;level&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; set default level
+for crosscutting messages<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(&lt;level&gt; may be ignore, warning, or error)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -Xlintfile
+&lt;file&gt;&nbsp;&nbsp; specify properties file to set per-message
+levels<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(cf org/aspectj/weaver/XlintDefault.properties)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-X&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+print help on non-standard options<br>
+      <br>
+Standard Eclipse compiler options:<br>
+&nbsp;Options enabled by default are prefixed with '+'<br>
+      <br>
+&nbsp;Classpath options:<br>
+&nbsp;&nbsp;&nbsp; -cp -classpath &lt;directories and zip/jar files
+separated by ;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+specify location for application classes and sources<br>
+&nbsp;&nbsp;&nbsp; -bootclasspath &lt;directories and zip/jar files
+separated by ;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+specify location for system classes<br>
+&nbsp;&nbsp;&nbsp; -d
+&lt;dir&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+destination directory (if omitted, no directory is created)<br>
+&nbsp;&nbsp;&nbsp; -d
+none&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+generate no .class files<br>
+&nbsp;&nbsp;&nbsp; -encoding &lt;enc&gt;&nbsp;&nbsp;&nbsp; specify
+custom encoding for all sources. Each file/directory can override it<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+when suffixed with '['&lt;enc&gt;']' (e.g. X.java[utf8])<br>
+      <br>
+&nbsp;Compliance options:<br>
+&nbsp;&nbsp;&nbsp;
+-1.3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+use 1.3 compliance level (implicit -source 1.3 -target 1.1)<br>
+&nbsp;&nbsp;&nbsp;
+-1.4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
++ use 1.4 compliance level<br>
+&nbsp;&nbsp;&nbsp;
+-1.5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+use 1.5 compliance level<br>
+&nbsp;&nbsp;&nbsp;
+-1.6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+use 1.6 compliance level<br>
+&nbsp;&nbsp;&nbsp; -source &lt;version&gt;&nbsp; set source level (1.3,
+1.4, 1.5 or 1.6)<br>
+&nbsp;&nbsp;&nbsp; -target &lt;version&gt;&nbsp; set classfile target
+(1.1 to 1.4)<br>
+      <br>
+&nbsp;Warning options:<br>
+&nbsp;&nbsp;&nbsp; -deprecation&nbsp;&nbsp;&nbsp;&nbsp; + deprecation
+outside deprecated code<br>
+&nbsp;&nbsp;&nbsp;
+-nowarn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+disable all warnings except xlint or declare warning<br>
+&nbsp;&nbsp;&nbsp;
+-warn:none&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; disable all
+warnings except xlint or declare warning<br>
+&nbsp;&nbsp;&nbsp; -warn:&lt;warnings separated by
+,&gt;&nbsp;&nbsp;&nbsp; enable exactly the listed warnings<br>
+&nbsp;&nbsp;&nbsp; -warn:+&lt;warnings separated by ,&gt;&nbsp;&nbsp;
+enable additional warnings<br>
+&nbsp;&nbsp;&nbsp; -warn:-&lt;warnings separated by ,&gt;&nbsp;&nbsp;
+disable specific warnings<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+allDeprecation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; deprecation
+including inside deprecated code<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+allJavadoc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+invalid or missing javadoc<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; assertIdentifier&nbsp;&nbsp; + 'assert'
+used as identifier<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+charConcat&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + char[] in
+String concat<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+conditionAssign&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; possible accidental
+boolean assignment<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; constructorName&nbsp;&nbsp;&nbsp; +
+method with constructor name<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+deprecation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + deprecation
+outside deprecated code<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+emptyBlock&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+undocumented empty block<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+fieldHiding&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; field
+hiding another variable<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+finally&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
++ finally block not completing normally<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+indirectStatic&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; indirect reference
+to static member<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; intfNonInherited&nbsp;&nbsp; + interface
+non-inherited method compatibility<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+javadoc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+invalid javadoc<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+localHiding&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; local
+variable hiding another variable<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; maskedCatchBlock&nbsp;&nbsp; + hidden
+catch block<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+nls&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+string literal lacking non-nls tag //$NON-NLS-&lt;n&gt;$<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; noEffectAssign&nbsp;&nbsp;&nbsp;&nbsp; +
+assignment without effect<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pkgDefaultMethod&nbsp;&nbsp; + attempt
+to override package-default method<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+semicolon&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+superfluous semicolon<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unqualifiedField&nbsp;&nbsp;&nbsp;&nbsp;
+unqualified reference to field<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+unusedImport&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + unused import
+declaration<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+unusedLocal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+unread local variable<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+unusedPrivate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unused private
+member declaration<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+unusedThrown&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unused
+declared thrown exception<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uselessTypeCheck&nbsp;&nbsp;&nbsp;&nbsp;
+unnecessary cast/instanceof operation<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; specialParamHiding&nbsp;&nbsp;
+constructor or setter parameter hiding another field<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; staticReceiver&nbsp;&nbsp;&nbsp;&nbsp; +
+non-static reference to static member<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+syntheticAccess&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; synthetic access for
+innerclass<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tasks(&lt;tags separated by |&gt;) tasks
+identified by tags inside comments<br>
+      <br>
+&nbsp;Debug options:<br>
+&nbsp;&nbsp;&nbsp; -g[:lines,vars,source] custom debug info<br>
+&nbsp;&nbsp;&nbsp; -g:lines,source&nbsp; + both lines table and source
+debug info<br>
+&nbsp;&nbsp;&nbsp;
+-g&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+all debug info<br>
+&nbsp;&nbsp;&nbsp;
+-g:none&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+no debug info<br>
+&nbsp;&nbsp;&nbsp; -preserveAllLocals preserve unused local vars for
+debug purpose<br>
+      <br>
+&nbsp;Advanced options:<br>
+&nbsp;&nbsp;&nbsp; -log
+&lt;file&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; log to a file<br>
+&nbsp;&nbsp;&nbsp; -proceedOnError&nbsp;&nbsp;&nbsp; do not stop at
+first error, dumping class files with problem methods<br>
+&nbsp;&nbsp;&nbsp;
+-verbose&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+enable verbose output<br>
+&nbsp;&nbsp;&nbsp; -referenceInfo&nbsp;&nbsp;&nbsp;&nbsp; compute
+reference info<br>
+&nbsp;&nbsp;&nbsp;
+-progress&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; show
+progress (only in -log mode)<br>
+&nbsp;&nbsp;&nbsp;
+-time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+display speed information<br>
+&nbsp;&nbsp;&nbsp;
+-noExit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+do not call System.exit(n) at end of compilation (n==0 if no error)<br>
+&nbsp;&nbsp;&nbsp; -repeat
+&lt;n&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; repeat compilation
+process &lt;n&gt; times for perf analysis<br>
+&nbsp;&nbsp;&nbsp;
+@&lt;file&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+read command line arguments from file<br>
+      <br>
+&nbsp;&nbsp;&nbsp; -?
+-help&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print
+this help message<br>
+&nbsp;&nbsp;&nbsp; -v
+-version&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print compiler
+version<br>
+&nbsp;&nbsp;&nbsp; -showversion&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+print compiler version and continue<br>
+      <br>
+{0}<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Usage: &lt;options&gt;
+&lt;source file | @argfile&gt;..<br>
+      <br>
+AspectJ-specific options:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -inpath
+&lt;list&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; use classes in dirs and
+jars/zips in &lt;list&gt; as source<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(&lt;list&gt; uses platform-specific path delimiter)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -injars
+&lt;jarList&gt;&nbsp;&nbsp; use classes in &lt;jarList&gt; zip files as
+source<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(&lt;jarList&gt; uses classpath delimiter)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+deprecated - use inpath instead.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -aspectpath
+&lt;list&gt;&nbsp; weave aspects in .class files from &lt;list&gt; dirs
+and jars/zip into sources<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(&lt;list&gt; uses classpath delimiter)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -outjar
+&lt;file&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; put output classes in zip
+file &lt;file&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-outxml&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+generate META-INF/aop.xml<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -outxmlfile
+&lt;file&gt;&nbsp; specify alternate destination output of -outxml<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -argfile
+&lt;file&gt;&nbsp;&nbsp;&nbsp;&nbsp; specify line-delimited list of
+source files<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-showWeaveInfo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; display information about
+weaving<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-incremental&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+continuously-running compiler, needs -sourceroots<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(reads stdin: enter to recompile and 'q' to quit)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -sourceroots &lt;dirs&gt;
+compile all .aj and .java files in &lt;dirs&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(&lt;dirs&gt; uses classpath delimiter)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-crossrefs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+generate .ajsym file into the output directory<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-emacssym&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+generate .ajesym symbol files for emacs support<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-Xlint&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+same as '-Xlint:warning'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-Xlint:&lt;level&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; set default level
+for crosscutting messages<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(&lt;level&gt; may be ignore, warning, or error)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -Xlintfile
+&lt;file&gt;&nbsp;&nbsp; specify properties file to set per-message
+levels<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(cf org/aspectj/weaver/XlintDefault.properties)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+-X&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+print help on non-standard options<br>
+      <br>
+Standard Eclipse compiler options:<br>
+&nbsp;Options enabled by default are prefixed with '+'<br>
+      <br>
+&nbsp;Classpath options:<br>
+&nbsp;&nbsp;&nbsp; -cp -classpath &lt;directories and zip/jar files
+separated by ;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+specify location for application classes and sources<br>
+&nbsp;&nbsp;&nbsp; -bootclasspath &lt;directories and zip/jar files
+separated by ;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+specify location for system classes<br>
+&nbsp;&nbsp;&nbsp; -d
+&lt;dir&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+destination directory (if omitted, no directory is created)<br>
+&nbsp;&nbsp;&nbsp; -d
+none&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+generate no .class files<br>
+&nbsp;&nbsp;&nbsp; -encoding &lt;enc&gt;&nbsp;&nbsp;&nbsp; specify
+custom encoding for all sources. Each file/directory can override it<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+when suffixed with '['&lt;enc&gt;']' (e.g. X.java[utf8])<br>
+      <br>
+&nbsp;Compliance options:<br>
+&nbsp;&nbsp;&nbsp;
+-1.3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+use 1.3 compliance level (implicit -source 1.3 -target 1.1)<br>
+&nbsp;&nbsp;&nbsp;
+-1.4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
++ use 1.4 compliance level<br>
+&nbsp;&nbsp;&nbsp;
+-1.5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+use 1.5 compliance level<br>
+&nbsp;&nbsp;&nbsp;
+-1.6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+use 1.6 compliance level<br>
+&nbsp;&nbsp;&nbsp; -source &lt;version&gt;&nbsp; set source level (1.3,
+1.4, 1.5 or 1.6)<br>
+&nbsp;&nbsp;&nbsp; -target &lt;version&gt;&nbsp; set classfile target
+(1.1 to 1.4)<br>
+      <br>
+&nbsp;Warning options:<br>
+&nbsp;&nbsp;&nbsp; -deprecation&nbsp;&nbsp;&nbsp;&nbsp; + deprecation
+outside deprecated code<br>
+&nbsp;&nbsp;&nbsp;
+-nowarn&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+disable all warnings except xlint or declare warning<br>
+&nbsp;&nbsp;&nbsp;
+-warn:none&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; disable all
+warnings except xlint or declare warning<br>
+&nbsp;&nbsp;&nbsp; -warn:&lt;warnings separated by
+,&gt;&nbsp;&nbsp;&nbsp; enable exactly the listed warnings<br>
+&nbsp;&nbsp;&nbsp; -warn:+&lt;warnings separated by ,&gt;&nbsp;&nbsp;
+enable additional warnings<br>
+&nbsp;&nbsp;&nbsp; -warn:-&lt;warnings separated by ,&gt;&nbsp;&nbsp;
+disable specific warnings<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+allDeprecation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; deprecation
+including inside deprecated code<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+allJavadoc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+invalid or missing javadoc<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; assertIdentifier&nbsp;&nbsp; + 'assert'
+used as identifier<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+charConcat&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + char[] in
+String concat<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+conditionAssign&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; possible accidental
+boolean assignment<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; constructorName&nbsp;&nbsp;&nbsp; +
+method with constructor name<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+deprecation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + deprecation
+outside deprecated code<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+emptyBlock&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+undocumented empty block<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+fieldHiding&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; field
+hiding another variable<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+finally&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
++ finally block not completing normally<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+indirectStatic&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; indirect reference
+to static member<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; intfNonInherited&nbsp;&nbsp; + interface
+non-inherited method compatibility<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+javadoc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+invalid javadoc<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+localHiding&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; local
+variable hiding another variable<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; maskedCatchBlock&nbsp;&nbsp; + hidden
+catch block<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+nls&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+string literal lacking non-nls tag //$NON-NLS-&lt;n&gt;$<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; noEffectAssign&nbsp;&nbsp;&nbsp;&nbsp; +
+assignment without effect<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pkgDefaultMethod&nbsp;&nbsp; + attempt
+to override package-default method<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+semicolon&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+superfluous semicolon<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unqualifiedField&nbsp;&nbsp;&nbsp;&nbsp;
+unqualified reference to field<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+unusedImport&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + unused import
+declaration<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+unusedLocal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+unread local variable<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+unusedPrivate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unused private
+member declaration<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+unusedThrown&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unused
+declared thrown exception<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uselessTypeCheck&nbsp;&nbsp;&nbsp;&nbsp;
+unnecessary cast/instanceof operation<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; specialParamHiding&nbsp;&nbsp;
+constructor or setter parameter hiding another field<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; staticReceiver&nbsp;&nbsp;&nbsp;&nbsp; +
+non-static reference to static member<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+syntheticAccess&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; synthetic access for
+innerclass<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tasks(&lt;tags separated by |&gt;) tasks
+identified by tags inside comments<br>
+      <br>
+&nbsp;Debug options:<br>
+&nbsp;&nbsp;&nbsp; -g[:lines,vars,source] custom debug info<br>
+&nbsp;&nbsp;&nbsp; -g:lines,source&nbsp; + both lines table and source
+debug info<br>
+&nbsp;&nbsp;&nbsp;
+-g&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+all debug info<br>
+&nbsp;&nbsp;&nbsp;
+-g:none&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+no debug info<br>
+&nbsp;&nbsp;&nbsp; -preserveAllLocals preserve unused local vars for
+debug purpose<br>
+      <br>
+&nbsp;Advanced options:<br>
+&nbsp;&nbsp;&nbsp; -log
+&lt;file&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; log to a file<br>
+&nbsp;&nbsp;&nbsp; -proceedOnError&nbsp;&nbsp;&nbsp; do not stop at
+first error, dumping class files with problem methods<br>
+&nbsp;&nbsp;&nbsp;
+-verbose&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+enable verbose output<br>
+&nbsp;&nbsp;&nbsp; -referenceInfo&nbsp;&nbsp;&nbsp;&nbsp; compute
+reference info<br>
+&nbsp;&nbsp;&nbsp;
+-progress&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; show
+progress (only in -log mode)<br>
+&nbsp;&nbsp;&nbsp;
+-time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+display speed information<br>
+&nbsp;&nbsp;&nbsp;
+-noExit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+do not call System.exit(n) at end of compilation (n==0 if no error)<br>
+&nbsp;&nbsp;&nbsp; -repeat
+&lt;n&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; repeat compilation
+process &lt;n&gt; times for perf analysis<br>
+&nbsp;&nbsp;&nbsp;
+@&lt;file&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+read command line arguments from file<br>
+      <br>
+&nbsp;&nbsp;&nbsp; -?
+-help&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print
+this help message<br>
+&nbsp;&nbsp;&nbsp; -v
+-version&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print compiler
+version<br>
+&nbsp;&nbsp;&nbsp; -showversion&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+print compiler version and continue<br>
+      <br>
+      <br>
+C:\Users\sang&gt;<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<img alt="" src="index_files/1_a7.png"
+ style="width: 901px; height: 667px;"><br>
+<br>
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp; <a href="index.html#Exercise_0">return
+to
+top of the
+exercise</a><br>
+<br>
+</div>
+<br>
+<h2><a name="Exercise_1"></a>Exercise 1: Build a simple "Helloworld"
+AOP application<br>
+</h2>
+<br>
+<div style="margin-left: 40px;">In this example, you are going to build
+a very simple Helloworld AOP application using AspectJ.<br>
+</div>
+<div style="margin-left: 40px;">
+<ol start="0">
+  <li><a href="#1.0">Create a project directory</a><br>
+  </li>
+  <li><a href="index.html#1.1">Write the target<br>
+    </a></li>
+  <li><a href="index.html#1.2">Write aspect<br>
+    </a></li>
+  <li><a href="#1.3">Write testing code</a></li>
+  <li><a href="#1.4">Compile using "ajc"</a></li>
+  <li><a href="#1.5">Run the application</a></li>
+  <li><a href="#1.6">Add another aspect</a><br>
+  </li>
+</ol>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.0"></a>(1.0)&nbsp;
+Create a project directory<br>
+</h3>
+<div style="margin-left: 40px;"><br>
+0. Create a project directory of your choice in your local file system.<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">C:\&gt;<span
+ style="font-weight: bold;">mkdir \my_aop_projects</span><br>
+      <br>
+C:\&gt;<span style="font-weight: bold;">mkdir
+\my_aop_projects\helloworld</span><br>
+      <br>
+C:\&gt;<span style="font-weight: bold;">cd \my_aop_projects\helloworld</span><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.1"></a>(1.1)&nbsp;
+Write target<br>
+</h3>
+<div style="margin-left: 40px;"> <br>
+1. Write <span style="font-weight: bold;">HelloWorld.java</span>.&nbsp;&nbsp;
+First, here's a simple class containing methods to print a message:<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">// Target class - HelloWorld.java<br>
+public class <span style="font-weight: bold; color: rgb(255, 0, 0);">HelloWorld
+      </span>{<br>
+&nbsp;&nbsp;&nbsp; public static void <span
+ style="font-weight: bold; color: rgb(255, 0, 0);">say</span>(String
+message) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(message);<br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; public static void <span
+ style="font-weight: bold; color: rgb(255, 0, 0);">sayToPerson</span>(String
+message,
+String name) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(name + ",
+" + message);<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp; <a href="index.html#Exercise_1">return
+to
+top of the
+exercise</a><br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.2"></a>(1.2)
+Write aspect<br>
+</h3>
+<div style="margin-left: 40px;"><br>
+Let's now write an implementation for adding
+greeting and gratitude manners. Before the program prints a message, it
+should print "Good day!"; and should follow the message with "Thank
+you!":.<br>
+<br>
+The <code>MannersAspect.java</code> file, in a process similar to
+class declaration in Java, declares a <code>MannersAspect</code>
+aspect. The aspect defines a <code>callSayMessage()</code> pointcut
+that captures calls to all public static methods with names that start
+with <code>say</code>. In our example, it would capture <code>say()</code>
+and <code>sayToPerson()</code> in a <code>HelloWorld</code> class
+taking any arguments. Then you define two advices for before and after
+reaching the <code>callSayMessage()</code> pointcut: printing <code>"Good
+day!"</code> and <code>"Thank you!"</code> When you compile the
+program with the AspectJ compiler, then run it, you'll see "Good day!"
+printed before each message, and "Thank you!" after each message. You
+now have excellent manners! <br>
+<br>
+Advices specify the executable code when reaching certain pointcuts.
+AspectJ provides three ways to associate an advice with a joinpoint:
+before, after, and around a joinpoint's execution. A <em>before advice</em>
+runs just before the joinpoint, whereas an <em>after advice</em>
+runs just after. With an after advice, you can specify after normal
+return, after throwing an exception, or after returning either way from
+a joinpoint. An around advice surrounds a joinpoint and has control if
+the joinpoint's execution should proceed. It can also decide to proceed
+with a different argument set.<br>
+<br>
+1. Write MannersAspect.java.&nbsp; <br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">// Aspect - MannersAspect.java<br>
+      <span style="font-weight: bold;">public aspect MannersAspect</span>
+{<br>
+      <br>
+&nbsp;&nbsp;&nbsp; // <span style="font-weight: bold;">pointcut </span>declares
+that what follows is a declaration of a named pointcut. <br>
+&nbsp;&nbsp;&nbsp; // Next, <code>callSayMessage()</code>, the
+pointcut's name, resembles a method declaration. <br>
+&nbsp;&nbsp;&nbsp; // The trailing empty <code>()</code> suggests that
+the pointcut collects no context. <br>
+      <br>
+&nbsp;&nbsp;&nbsp; // The <code>call(public static void
+HelloWorld.say*(..))</code> captures needed <br>
+&nbsp;&nbsp;&nbsp; // joinpoints. <code>call</code> indicates the
+pointcut captures a <em>call to,</em> as opposed to <br>
+&nbsp;&nbsp;&nbsp; // execution of, designated methods. The <code>public
+static void HelloWorld.say*(..)</code> <br>
+&nbsp;&nbsp;&nbsp; // is the signature for methods to be captured. <code>public
+static</code> indicates that <br>
+&nbsp;&nbsp;&nbsp; // the methods must have public access and be
+declared a static method. <code>void</code> <br>
+&nbsp;&nbsp;&nbsp; // says that methods captured must have a <code>void</code>
+return type. <code>HelloWorld.say*</code> <br>
+&nbsp;&nbsp;&nbsp; // specifies the to-be-captured method's class and
+name. Here, we are specifying<br>
+&nbsp; &nbsp; // <code>HelloWorld</code> as a class. <br>
+      <br>
+&nbsp;&nbsp;&nbsp; // <code>say*</code> uses the <code>*</code>
+wildcard to indicate the capture of methods with names <br>
+&nbsp;&nbsp;&nbsp; // starting with "say." Finally, <code>(..)</code>
+specifies arguments to the captured methods. <br>
+&nbsp;&nbsp;&nbsp; // In this case, you specify the <code>..</code>
+wildcard to capture methods regardless of type <br>
+&nbsp;&nbsp;&nbsp; // and number of arguments they take. <br>
+&nbsp;&nbsp;&nbsp; <span style="font-weight: bold;">pointcut <span
+ style="color: rgb(51, 51, 255);">callSayMessage()</span></span> <span
+ style="font-weight: bold;">: call(public
+static void <span style="color: rgb(255, 0, 0);">HelloWorld.say*(..)</span>);</span><br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; // Advice #1<br>
+&nbsp;&nbsp;&nbsp;<span style="font-weight: bold;"> before() : <span
+ style="color: rgb(51, 51, 255);">callSayMessage()</span> {</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("Good
+day!");</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; }</span><br>
+      <br>
+&nbsp;&nbsp;&nbsp; // Advice #2<br>
+&nbsp;&nbsp;&nbsp; <span style="font-weight: bold;">after() : <span
+ style="color: rgb(51, 51, 255);">callSayMessage()</span> {</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("Thank
+you!");</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; }</span><br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+MannersAspect.java<br>
+<br>
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp; <a href="index.html#Exercise_1">return
+to
+top of the
+exercise</a><br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.3"></a>(1.3)
+Write testing code<br>
+</h3>
+<div style="margin-left: 40px;"><br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">// Test code<br>
+public class Test {<br>
+&nbsp;&nbsp;&nbsp; public static void main(String[] args) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; HelloWorld.say("Hello
+World");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; HelloWorld.sayToPerson("How
+are you?", "Tom");<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+Test.java<br>
+<br>
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp; <a href="index.html#Exercise_1">return
+to
+top of the
+exercise</a><br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.4"></a>(1.4)
+Compile the code with "ajc" <br>
+</h3>
+<div style="margin-left: 40px;"><br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">C:\my_aop_projects\helloworld&gt;<span
+ style="font-weight: bold;">ajc *.java</span><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<img alt="" src="index_files/1_a8.png"
+ style="width: 853px; height: 523px;"><br>
+<br>
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp; <a href="index.html#Exercise_1">return
+to
+top of the
+exercise</a><br>
+</div>
+<br>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.5"></a>(1.5)
+Run the application<br>
+</h3>
+<br>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">C:\my_aop_projects\helloworld&gt;<span
+ style="font-weight: bold;">java Test</span><br>
+      <span style="font-weight: bold;">Good day!</span><br>
+Hello World<br>
+      <span style="font-weight: bold;">Thank you!</span><br>
+      <span style="font-weight: bold;">Good day!</span><br>
+Tom, How are you?<br>
+      <span style="font-weight: bold;">Thank you!</span><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+</div>
+<div style="margin-left: 40px;"><img alt="" src="index_files/1_a9.png"
+ style="width: 853px; height: 523px;"><br>
+<br>
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp; <a href="index.html#Exercise_1">return
+to
+top of the
+exercise</a><br>
+</div>
+<br>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.6"></a>(1.6)
+Add another aspect<br>
+</h3>
+<br>
+<div style="margin-left: 40px;">1. Add JapaneseMannersAspect.java<br>
+<br>
+Now that you've seen the <code>around()</code> advice and collecting
+context, let's use it to add manners, Japanese style, by adding a
+"-san" suffix to each person's name to show respect. We simply add
+another aspect: <code>JapaneseMannersAspect</code>. This aspect
+advises the call to <code>HelloWorld.sayToPerson(String, String)</code>
+and proceeds with a modified <code>person</code> argument by adding
+"-san": <br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">//
+Aspect - JapaneseMannersAspect.java</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">public aspect
+JapaneseMannersAspect {</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; pointcut <span
+ style="color: rgb(51, 51, 255);">callSayMessageToPerson</span>(String
+person) </span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; : call(*
+HelloWorld.sayToPerson(String, String))</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;&amp;
+args(*, person);</span><br style="font-weight: bold;">
+      <br>
+&nbsp;&nbsp;&nbsp; // around advice for the pointcut, and proceed with<br>
+&nbsp;&nbsp;&nbsp; // different argument set.<br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; void
+around(String person) </span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; : <span
+ style="color: rgb(51, 51, 255);">callSayMessageToPerson</span>(person)
+{</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; proceed(person + "-san");</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; }</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">}</span><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+JapaneseMannersAspect.java<br>
+<br>
+2. Compile aspect.<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">C:\my_aop_projects\helloworld&gt;<span
+ style="font-weight: bold;">ajc
+*.java</span><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+3. Run the application.<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">C:\my_aop_projects\helloworld&gt;java
+Test<br>
+Good day!<br>
+Hello World<br>
+Thank you!<br>
+Good day!<br>
+      <span style="font-weight: bold;">Tom<span
+ style="color: rgb(255, 0, 0);">-san</span>, How are you?</span><br>
+Thank you!<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<img alt="" src="index_files/1_a10.png"
+ style="width: 853px; height: 523px;"><br>
+<br>
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp; <a href="index.html#Exercise_1">return
+to
+top of the
+exercise</a><br>
+</div>
+<br>
+<br>
+<h2><a name="Exercise_2"></a>Exercise 2: Build a simple
+"object_creation" AOP application<br>
+</h2>
+<br>
+<div style="margin-left: 40px;">In this example, you are going to build
+a very simple Helloworld AOP application using AspectJ.<br>
+</div>
+<div style="margin-left: 40px;">
+<ol start="0">
+  <li><a href="index.html#2.0">Create a project directory</a><br>
+  </li>
+  <li><a href="index.html#2.1">Write the target<br>
+    </a></li>
+  <li><a href="index.html#2.2">Write aspect<br>
+    </a></li>
+  <li><a href="index.html#2.3">Write testing code</a></li>
+  <li><a href="index.html#2.4">Compile using "ajc"</a></li>
+  <li><a href="index.html#2.5">Run the application</a></li>
+</ol>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="2.0"></a>(2.0)&nbsp;
+Create a project directory</h3>
+<div style="margin-left: 40px;"><br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">C:\my_aop_projects&gt;<span
+ style="font-weight: bold;">mkdir object_creation</span><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp; <a href="index.html#Exercise_2">return
+to
+top of the
+exercise</a><br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="2.1"></a>(2.1)&nbsp;
+Write the target</h3>
+<br>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">/*<br>
+&nbsp;* To work with an object right when it is constructed,<br>
+&nbsp;* understand the differences between the join points for <br>
+&nbsp;* constructor call, constructor execution, and initialization.<br>
+&nbsp;*/<br>
+&nbsp;// ------- examples of constructors and the ways they invoke each
+other.<br>
+class Thing {<br>
+&nbsp;&nbsp;&nbsp; String message;<br>
+&nbsp;&nbsp;&nbsp; Thing() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this("none");<br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; Thing(String message) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.message = message;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}<br>
+      <br>
+class AnotherThing extends Thing {<br>
+&nbsp;&nbsp;&nbsp; AnotherThing() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; super(); // this does not
+append to message as the one below does.<br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; AnotherThing(String message) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; super(message + "
+from-AnotherThing");<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp; <a href="index.html#Exercise_2">return
+to
+top of the
+exercise</a><br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="2.2"></a>(2.2)&nbsp;
+Write aspect<br>
+</h3>
+<br>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">aspect InitializationSample {<br>
+&nbsp;&nbsp;&nbsp; // -------- constructor-call picks out the calls<br>
+&nbsp;&nbsp;&nbsp; /**<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * After any call to any constructor, fix up
+the thing.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * When creating an object, there is only one
+call to <br>
+&nbsp;&nbsp;&nbsp;&nbsp; * construct it, so use call(..) avoid
+duplicate advice.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * There is no target for the call, but the
+object<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * constructed is returned from the call.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * In AspectJ 1.1, this only picks&nbsp; out
+callers in the input<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * classes or source files, and it does not
+pick out<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * invocations via super(..) <br>
+&nbsp;&nbsp;&nbsp;&nbsp; * or this(..).<br>
+&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp; after() returning (Thing thing): <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+call(<span style="font-weight: bold;">Thing.new(..)</span>) { <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; thing.message += "
+after-any-constructor-call";<br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+&nbsp;&nbsp;&nbsp; // -------- constructor-execution picks out each body<br>
+&nbsp;&nbsp;&nbsp; /**<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * After executing the String constructor, fix
+up the thing.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * The object being-constructed is available as
+either<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * this or target.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * This works even if the constructor was
+invoked using <br>
+&nbsp;&nbsp;&nbsp;&nbsp; * super() or this() or by code <br>
+&nbsp;&nbsp;&nbsp;&nbsp; * outside the control of the AspectJ compiler.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * However, if you advise multiple
+constructors, you'll advise<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * a single instance being constructed multiple
+times <br>
+&nbsp;&nbsp;&nbsp;&nbsp; * if the constructors call each other.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * In AspectJ 1.1, this only affects
+constructors in the input<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * classes or source files.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp; after(Thing thing) returning : target(thing)
+&amp;&amp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+execution(<span style="font-weight: bold;">Thing.new(String)</span>) { <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; thing.message += "
+after-String-constructor-execution";<br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+&nbsp;&nbsp;&nbsp; /**<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * DANGER -- BAD!!&nbsp; Before executing the
+String constructor,<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * this uses the target object, which is not
+constructed.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp; before (Thing thing): this(thing) &amp;&amp;
+execution(Thing.new(String)) { <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // DANGER!! thing not
+constructed yet.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //thing.message += "
+before-String-constructor-execution";<br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; // -------- initialization picks out any
+construction, once<br>
+&nbsp;&nbsp;&nbsp; /**<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * This advises all Thing constructors in one
+join point, <br>
+&nbsp;&nbsp;&nbsp;&nbsp; * even if they call each other with this(),
+etc.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * The object being-constructed is available as
+either<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * this or target.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * In AspectJ 1.1, this only affects types
+input to the compiler.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp; after(Thing thing) returning: this(thing) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&amp;&amp; initialization(Thing.new(..)) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; thing.message += "
+after-initialization";<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp; <a href="index.html#Exercise_2">return
+to
+top of the
+exercise</a><br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="2.3"></a>(2.3)
+Write testing code</h3>
+<br>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">// Test code<br>
+public class Test {<br>
+&nbsp;&nbsp;&nbsp; public static void main(String[] args) {<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Thing aThing = new Thing();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("aThing.message = " + aThing.message);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; aThing = new Thing("Sang");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("aThing.message = " + aThing.message);<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AnotherThing anotherThing =
+new AnotherThing();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("anotherThing.message = " + anotherThing.message);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; anotherThing = new
+AnotherThing("Shin");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("anotherThing.message = " +
+anotherThing.message);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+      <br>
+&nbsp;&nbsp;&nbsp; }<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp; <a href="index.html#Exercise_2">return
+to
+top of the
+exercise</a><br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="2.4"></a>(2.4)
+Compile using "ajc"<br>
+</h3>
+<div style="margin-left: 40px;"><br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">C:\my_aop_projects\object_creation&gt;<span
+ style="font-weight: bold;">ajc *.java</span><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp; <a href="index.html#Exercise_2">return
+to
+top of the
+exercise</a><br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="2.5"></a>(2.5)
+Run the application</h3>
+<div style="margin-left: 40px;"><br>
+</div>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">C:\my_aop_projects\object_creation&gt;<span
+ style="font-weight: bold;">java Test</span><br>
+aThing.message = none after-String-constructor-execution
+after-initialization after-any-constructor-call<br>
+aThing.message = Sang after-String-constructor-execution
+after-initialization after-any-constructor-call<br>
+anotherThing.message = none after-String-constructor-execution
+after-initialization<br>
+anotherThing.message = Shin from-AnotherThing
+after-String-constructor-execution after-initialization<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+</div>
+<div style="margin-left: 40px;"><br>
+<img alt="" src="index_files/1_a11.png"
+ style="width: 853px; height: 536px;"><br>
+</div>
+<br>
+<div style="margin-left: 40px;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp; <a href="index.html#Exercise_2">return
+to
+top of the
+exercise</a></div>
+<div style="margin-left: 40px;"><br>
+<br>
+</div>
+<h2><a name="Homework_Exercise"></a><a name="Homework"></a>Homework
+Exercise<br>
+</h2>
+<br>
+<div style="margin-left: 40px;">1. The homework exercise is to add
+another aspect to the "HelloWorld" application above so that you add <span
+ style="font-weight: bold;">Mr.</span> before a name.<br>
+<br>
+</div>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">C:\my_aop_projects\helloworld&gt;java
+Test<br>
+Good day!<br>
+Hello World<br>
+Thank you!<br>
+Good day!<br>
+      <span style="font-weight: bold;"><span
+ style="color: rgb(255, 0, 0);">Mr.</span> Tom<span
+ style="color: rgb(255, 0, 0);"></span>, How are you?</span><br>
+Thank you!</td>
+    </tr>
+  </tbody>
+</table>
+<br>
+</div>
+<div style="margin-left: 40px;">2. Send the following files to <a
+ href="mailto:javase_adv_homework@javapassion.com">javase_adv_homework@javapassion.com</a>
+with <span style="font-weight: bold;">Subject </span>as <span
+ style="font-weight: bold;"></span><span style="font-weight: bold;">javase_aop.</span><br>
+<span style="font-weight: bold;">
+</span></div>
+<ul style="margin-left: 40px;">
+  <li>Zip file of the directory that contains the interface, server,
+and client code.&nbsp; <br>
+  </li>
+  <li>Captured output screen&nbsp;<span style="font-weight: bold;"> </span>-
+name it as <span style="font-weight: bold;">javase_aop.gif</span>
+or <span style="font-weight: bold;">javase_aop</span><span
+ style="font-weight: bold;">.jpg</span> (or javase_aop.&lt;whatever
+graphics format&gt;)</li>
+  <ul>
+    <li>Any screen capture that shows that your program is working is
+good enough.&nbsp; No cosmetic polishment is required.</li>
+  </ul>
+</ul>
+<div style="margin-left: 40px;"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp; <a href="index.html#Tutorial_Exercises">return
+to the top</a></div>
+<div class="indent"><br>
+<br>
+<br>
+</div>
+<br>
+<p> </p>
+<!-- ======================================================================================== -->
+</body>
+</html>

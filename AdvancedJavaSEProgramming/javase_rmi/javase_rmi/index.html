@@ -1,0 +1,2730 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <script src="index_files/tigris.txt" type="text/javascript"></script>
+  <link rel="stylesheet" type="text/css" href="index_files/netbeans.css">
+  <title>LAB-1602: RMI</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="SourceCastVersion" content="2.6.2.4.10">
+  <meta name="keywords"
+ content="NetBeans, IDE, Platform, free, open source, developer">
+  <link rel="stylesheet" href="index_files/netbeans_002.css">
+  <meta name="author" content="Sang Shin">
+  <style type="text/css">
+#search {height:100%;}
+#topmodule {align:right;}
+  </style>
+  <script language="JavaScript" type="text/javascript">
+<!--
+function get_sc_login() {
+  var sclogin = "guest";
+  return (sclogin);
+}
+var username=get_sc_login();
+//-->
+  </script>
+</head>
+<body onload="loginfocus()" class="composite">
+<!-- begin TopTabs --><!-- end TopTabs --><!-- start NavCol --><!-- end NavCol --><!-- Servlet-Specific template --><!-- Show servlet name if it is a servlet -->
+<br>
+<br>
+<h1 style="text-align: center;">RMI<br>
+</h1>
+<div class="articledate" style="margin-left: 0px; text-align: center;"><a
+ href="http://www.javapassion.com/SangSchedule.html#Bio">Sang Shin</a>,
+<a href="http://micmacfr.homeunix.org/">Michèle Garoche</a>,
+<a href="http://www.javapassion.com">www.javapassion.com</a><a
+ href="mailto:sangshinpassion@gmail.com"><i>
+</i></a></div>
+<div class="indent"><br>
+<div style="text-align: center;"><img alt=""
+ src="index_files/sangshin2010.jpg" style="width: 102px; height: 102px;">&nbsp;
+<img alt="" src="index_files/Michele.jpg"
+ style="width: 102px; height: 102px;"><br>
+</div>
+<br>
+<span class="txtplain1"><br>
+</span>Java RMI is a mechanism that allows one to invoke a method on an
+object that exists in another address space.
+The other address space could be on the same machine or a different
+one.
+The RMI mechanism is basically an object-oriented RPC mechanism.
+CORBA is another object-oriented RPC mechanism. CORBA differs from
+Java RMI in a number of ways:
+<ol>
+  <li>CORBA is a language-independent standard. </li>
+  <li>CORBA includes many other mechanisms in its standard (such as a
+standard for TP monitors) none of which are part of Java RMI. </li>
+  <li>There is also no notion of an "object request broker" in Java
+RMI. </li>
+</ol>
+<p>
+Java RMI has recently been evolving toward becoming more compatible
+with CORBA. In particular, there is now a form of RMI called RMI/IIOP
+("RMI over IIOP") that uses the Internet Inter-ORB Protocol (IIOP)
+of CORBA as the underlying protocol for RMI communication.
+</p>
+<br>
+<div style="text-align: center;"><b>Expected duration: 60 minutes
+(excluding resource reading &amp; homework)<br>
+<br>
+</b></div>
+<p></p>
+<ul>
+</ul>
+<h3 class="tutorial">Resources<br>
+</h3>
+<ul>
+  <li><a
+ href="http://download.oracle.com/javase/tutorial/rmi/index.html">RMI</a>
+section from Java Tutorials</li>
+  <li><a href="http://fragments.turtlemeat.com/rmi.php">Java RMI</a>
+tutorial from fragments.turtlemeat.com</li>
+  <li><a
+ href="http://download.oracle.com/javase/6/docs/technotes/guides/rmi/hello/hello-world.html">Getting
+started using Java RMI tutorial</a> from oracle.com<br>
+  </li>
+</ul>
+<br>
+<h3 class="tutorial"><a name="Change_Log"></a>Change Log<br>
+</h3>
+<ul>
+  <li>Oct. 6th, 2010: Created<br>
+  </li>
+</ul>
+<br>
+<h3 class="tutorial">Things to be done (by Authoring team)<br>
+</h3>
+<ul>
+  <li>Add more explanation to the exercises</li>
+</ul>
+<br>
+&nbsp;<br>
+<h3 class="tutorial"><a name="Tutorial_Exercises"></a>Lab Exercises</h3>
+<br>
+<ul>
+  <li><a href="#Exercise_1">Exercise 1: Build "Helloworld" RMI server
+and client applications
+(20 minutes)</a></li>
+  <li><a href="#Exercise_2">Exercise 2: Build "Helloworld" RMI server
+and client applications using export codebase (20 minutes)</a><br>
+  </li>
+  <li><a href="#Exercise_3">Exercise 3: Build Compute RMI server and
+client applications using export codebase (20 minutes)</a></li>
+  <li><a href="#Homework_Exercise">Homework
+Exercise<br>
+    </a></li>
+</ul>
+</div>
+<br>
+<br>
+<h2><a name="Exercise_1"></a>Exercise 1: Build "Helloworld" RMI server
+and client applications<br>
+</h2>
+<div style="margin-left: 40px;">
+<p>There are three processes that participate in supporting remote
+method invocation.
+</p>
+<ul>
+  <li>The <em>Client</em> is the process that is invoking a method on
+a remote object. </li>
+  <li>The <em>Server</em> is the process that owns the remote object.
+The remote object is an ordinary object in the address space of
+the server process. </li>
+  <li>The <em>Object Registry</em> is a name server that relates
+objects with
+names. Objects are <i>registered</i> with the Object Registry. Once an
+object has been registered, one can use the Object Registry to obtain
+access
+to a remote object using the name of the object.</li>
+</ul>
+In this exercise, you are going to build a simplest possible
+"Helloworld" RMI server and client applications.&nbsp; But it should
+expose all three processes mentioned above.&nbsp; <br>
+</div>
+<div style="margin-left: 40px;">
+<ol start="0">
+  <li><a href="#1.1">Create project directory<br>
+    </a></li>
+  <li><a href="#1.2">Dedine remote interface<br>
+    </a></li>
+  <li><a href="#1.3">Write and compile remote implementation class<br>
+    </a></li>
+  <li><a href="#1.4">Generate stub class from remote implementation
+class</a></li>
+  <li><a href="#1.4">Write and compile client code</a></li>
+  <li><a href="#1.5">Write and compile server code</a></li>
+  <li><a href="#1.6">Start RMI registry</a></li>
+  <li><a href="#1.7">Run the server</a></li>
+  <li><a href="#1.8">Run the client</a><br>
+  </li>
+</ol>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.0"></a>(1.0)
+Create project directory<br>
+</h3>
+<div style="margin-left: 40px;"><br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">C:\myprojects&gt;<span
+ style="font-weight: bold;">mkdir RMI_app</span><br>
+      <br>
+C:\myprojects&gt;<span style="font-weight: bold;">cd RMI_app</span><br>
+      <br>
+C:\myprojects\RMI_app&gt;<span style="font-weight: bold;">dir</span><br>
+&nbsp;Volume in drive C has no label.<br>
+&nbsp;Volume Serial Number is F090-5679<br>
+      <br>
+&nbsp;Directory of C:\myprojects\RMI_app<br>
+      <br>
+10/16/2010&nbsp; 07:30 AM&nbsp;&nbsp;&nbsp;
+&lt;DIR&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .<br>
+10/16/2010&nbsp; 07:30 AM&nbsp;&nbsp;&nbsp;
+&lt;DIR&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ..<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+0
+File(s)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+0 bytes<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2 Dir(s)&nbsp; 22,327,175,168 bytes free<br>
+      <br>
+C:\myprojects\RMI_app&gt;<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_1">return to top of
+the exercise</a><br>
+<br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.1"></a>(1.1)&nbsp;
+Define remote interface<br>
+</h3>
+<br>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">import java.rmi.*;<br>
+      <br>
+/**<br>
+&nbsp;* Remote Interface<br>
+&nbsp;*/<br>
+public interface HelloInterface extends <span
+ style="font-weight: bold;">Remote </span>{<br>
+      <br>
+&nbsp;&nbsp;&nbsp; public String sayHello(String name) throws <span
+ style="font-weight: bold;">RemoteException</span>;<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+HelloInterface.java</div>
+<div style="margin-left: 40px;"><br>
+</div>
+<div style="margin-left: 40px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="#Exercise_1">return to top of
+the exercise</a><br>
+<br>
+</div>
+<br>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.2"></a>(1.2)
+Write and compile remote Implementation class<br>
+</h3>
+<div style="margin-left: 40px;"></div>
+<div style="margin-left: 40px;"><br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">import java.rmi.*;<br>
+import java.rmi.server.*;<br>
+      <br>
+/**<br>
+&nbsp;* Remote implementation class.&nbsp; Because it extends the
+UnicastRemoteObject,<br>
+&nbsp;* it is automatically exported.<br>
+&nbsp;*/<br>
+public class HelloImpl <span style="font-weight: bold;">extends
+UnicastRemoteObject</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+implements HelloInterface </span>{<br>
+      <br>
+&nbsp;&nbsp;&nbsp; public HelloImpl() throws <span
+ style="font-weight: bold;">RemoteException </span>{<br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+&nbsp;&nbsp;&nbsp; public String sayHello(String name) throws <span
+ style="font-weight: bold;">RemoteException </span>{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return "Hello " + name + "!";<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+HelloImpl.java<br>
+</div>
+<div style="margin-left: 40px;"><br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">C:\myprojects\RMI_app&gt;<span
+ style="font-weight: bold;">javac *.java</span><br>
+      <br>
+C:\myprojects\RMI_app&gt;<span style="font-weight: bold;">dir</span><br>
+&nbsp;Volume in drive C has no label.<br>
+&nbsp;Volume Serial Number is F090-5679<br>
+      <br>
+&nbsp;Directory of C:\myprojects\RMI_app<br>
+      <br>
+10/16/2010&nbsp; 07:37 AM&nbsp;&nbsp;&nbsp;
+&lt;DIR&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .<br>
+10/16/2010&nbsp; 07:37 AM&nbsp;&nbsp;&nbsp;
+&lt;DIR&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ..<br>
+10/16/2010&nbsp; 07:37
+AM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+454 HelloImpl.class<br>
+10/16/2010&nbsp; 07:37
+AM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+757 HelloImpl.java<br>
+10/16/2010&nbsp; 07:37
+AM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+222 HelloInterface.class<br>
+10/16/2010&nbsp; 07:35
+AM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+357 HelloInterface.java<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+4 File(s)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1,790
+bytes<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2 Dir(s)&nbsp; 22,326,781,952 bytes free<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_1">return to top of
+the exercise</a><br>
+</div>
+<br>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.3"></a>(1.3)
+Generate the stub class from the remote implementation class<br>
+</h3>
+<div style="margin-left: 40px;"><br>
+1. Generate binary stub class.<br>
+<br>
+</div>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">C:\myprojects\RMI_app&gt;<span
+ style="font-weight: bold;">rmic HelloImpl</span><br>
+      <br>
+C:\myprojects\RMI_app&gt;dir<br>
+&nbsp;Volume in drive C has no label.<br>
+&nbsp;Volume Serial Number is F090-5679<br>
+      <br>
+&nbsp;Directory of C:\myprojects\RMI_app<br>
+      <br>
+10/16/2010&nbsp; 07:39 AM&nbsp;&nbsp;&nbsp;
+&lt;DIR&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .<br>
+10/16/2010&nbsp; 07:39 AM&nbsp;&nbsp;&nbsp;
+&lt;DIR&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ..<br>
+10/16/2010&nbsp; 07:37
+AM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+454 HelloImpl.class<br>
+10/16/2010&nbsp; 07:37
+AM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+757 HelloImpl.java<br>
+10/16/2010&nbsp; 07:39
+AM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+1,639 <span style="font-weight: bold;">HelloImpl_Stub.class</span><br>
+10/16/2010&nbsp; 07:37
+AM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+222 HelloInterface.class<br>
+10/16/2010&nbsp; 07:35
+AM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+357 HelloInterface.java<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+5 File(s)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3,429
+bytes<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2 Dir(s)&nbsp; 22,326,777,856 bytes free<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+2. Use -keep option to keep the source code of the stub class.<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">C:\myprojects\RMI_app&gt;<span
+ style="font-weight: bold;">rmic <span style="color: rgb(255, 0, 0);">-keep</span>
+HelloImpl</span><br>
+      <br>
+C:\myprojects\RMI_app&gt;dir<br>
+&nbsp;Volume in drive C has no label.<br>
+&nbsp;Volume Serial Number is F090-5679<br>
+      <br>
+&nbsp;Directory of C:\myprojects\RMI_app<br>
+      <br>
+11/04/2010&nbsp; 06:02 PM&nbsp;&nbsp;&nbsp;
+&lt;DIR&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .<br>
+11/04/2010&nbsp; 06:02 PM&nbsp;&nbsp;&nbsp;
+&lt;DIR&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ..<br>
+10/16/2010&nbsp; 12:29
+PM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+579 HelloImpl.class<br>
+10/16/2010&nbsp; 12:32
+PM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+339 HelloImpl.java<br>
+11/04/2010&nbsp; 06:02
+PM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+1,814 HelloImpl_Stub.class<br>
+11/04/2010&nbsp; 06:02
+PM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+1,373 <span style="font-weight: bold;">HelloImpl_Stub.java</span><br>
+10/16/2010&nbsp; 12:29
+PM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+245 HelloInterface.class<br>
+10/16/2010&nbsp; 12:33
+PM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+163 HelloInterface.java<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+6 File(s)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7,396
+bytes<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2 Dir(s)&nbsp; 16,173,703,168 bytes free<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_1">return to top of
+the exercise</a><br>
+</div>
+<br>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.4"></a>(1.4)&nbsp;
+Write and compile client code<br>
+</h3>
+<br>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">import java.rmi.*;<br>
+      <br>
+public class HelloClient {<br>
+      <br>
+&nbsp;&nbsp;&nbsp; /**<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * Client program for the "Hello, world!"
+example.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * @param argv The command line arguments which
+are ignored.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp; public static void main(String[] argv) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; try {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+ style="font-weight: bold;">HelloInterface hello =</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(HelloInterface) <span style="color: rgb(255, 0, 0);">Naming.lookup("Hello");</span></span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+String result = hello.sayHello("Sang
+Shin");&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println(result);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } catch (Exception e) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("HelloClient exception: " + e);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+HelloClient.java</div>
+<div style="margin-left: 40px;"><br>
+</div>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">C:\myprojects\RMI_app&gt;<span
+ style="font-weight: bold;">javac
+HelloClient.java</span><br>
+      <br>
+C:\myprojects\RMI_app&gt;dir<br>
+&nbsp;Volume in drive C has no label.<br>
+&nbsp;Volume Serial Number is F090-5679<br>
+      <br>
+&nbsp;Directory of C:\myprojects\RMI_app<br>
+      <br>
+10/16/2010&nbsp; 11:51 AM&nbsp;&nbsp;&nbsp;
+&lt;DIR&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .<br>
+10/16/2010&nbsp; 11:51 AM&nbsp;&nbsp;&nbsp;
+&lt;DIR&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ..<br>
+10/16/2010&nbsp; 11:51
+AM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+913 HelloClient.class<br>
+10/16/2010&nbsp; 11:51
+AM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+517 HelloClient.java<br>
+10/16/2010&nbsp; 07:37
+AM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+454 HelloImpl.class<br>
+10/16/2010&nbsp; 07:37
+AM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+757 HelloImpl.java<br>
+10/16/2010&nbsp; 07:39
+AM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+1,639 HelloImpl_Stub.class<br>
+10/16/2010&nbsp; 07:37
+AM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+222 HelloInterface.class<br>
+10/16/2010&nbsp; 07:35
+AM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+357 HelloInterface.java<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+7 File(s)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4,859
+bytes<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2 Dir(s)&nbsp; 22,323,255,296 bytes free<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_1">return to top of
+the exercise</a><br>
+</div>
+<div style="margin-left: 40px;"><br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.5"></a>(1.5)&nbsp;
+Write and compile Server code<br>
+</h3>
+<br>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">import java.rmi.*;<br>
+      <br>
+public class HelloServer {<br>
+      <br>
+&nbsp;&nbsp;&nbsp; /**<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * Server program for the "Hello, world!"
+example.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * @param argv The command line arguments which
+are ignored.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp; public static void main(String[] argv) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; try {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+ style="font-weight: bold;">Naming.rebind("Hello", new
+HelloImpl());</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("Hello Server is ready.");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } catch (Exception e) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("Hello Server failed: " + e);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+HelloServer.java<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">C:\myprojects\RMI_app&gt;<span
+ style="font-weight: bold;">javac
+HelloServer.java</span><br>
+      <br>
+C:\myprojects\RMI_app&gt;dir<br>
+&nbsp;Volume in drive C has no label.<br>
+&nbsp;Volume Serial Number is F090-5679<br>
+      <br>
+&nbsp;Directory of C:\myprojects\RMI_app<br>
+      <br>
+10/16/2010&nbsp; 11:58 AM&nbsp;&nbsp;&nbsp;
+&lt;DIR&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .<br>
+10/16/2010&nbsp; 11:58 AM&nbsp;&nbsp;&nbsp;
+&lt;DIR&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ..<br>
+10/16/2010&nbsp; 11:51
+AM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+913 HelloClient.class<br>
+10/16/2010&nbsp; 11:51
+AM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+517 HelloClient.java<br>
+10/16/2010&nbsp; 07:37
+AM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+454 HelloImpl.class<br>
+10/16/2010&nbsp; 07:37
+AM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+757 HelloImpl.java<br>
+10/16/2010&nbsp; 07:39
+AM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+1,639 HelloImpl_Stub.class<br>
+10/16/2010&nbsp; 07:37
+AM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+222 HelloInterface.class<br>
+10/16/2010&nbsp; 07:35
+AM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+357 HelloInterface.java<br>
+10/16/2010&nbsp; 11:58
+AM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+928 HelloServer.class<br>
+10/16/2010&nbsp; 11:58
+AM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+479 HelloServer.java<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+9 File(s)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6,266
+bytes<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2 Dir(s)&nbsp; 22,322,728,960 bytes free<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_1">return to top of
+the exercise</a><br>
+</div>
+<br>
+<div style="margin-left: 40px;"><br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.6"></a>(1.6)&nbsp;
+Start RMI Registry<br>
+</h3>
+<div style="margin-left: 40px;"><br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">C:\myprojects\RMI_app&gt;<span
+ style="font-weight: bold;">rmiregistry<br>
+      <br>
+      </span></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_1">return to top of
+the exercise</a><br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.7"></a>(1.7)&nbsp;
+Start the server</h3>
+<br>
+<div style="margin-left: 40px;">Open another terminal window.<br>
+<br>
+</div>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">C:\myprojects\RMI_app&gt;<span
+ style="font-weight: bold;">java HelloServer</span><br>
+Hello Server is ready.<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+</div>
+<div style="margin-left: 40px;"><img alt="" src="index_files/1_r1.png"
+ style="width: 721px; height: 571px;"><br>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_1">return to top of
+the exercise</a><br>
+</div>
+<br>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.8"></a>(1.8)
+Run the client</h3>
+<br>
+<div style="margin-left: 40px;">Open another terminal window.<br>
+<br>
+</div>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">C:\myprojects\RMI_app&gt;<span
+ style="font-weight: bold;">java HelloClient</span><br>
+Hello Sang Shin!<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+</div>
+<div style="margin-left: 40px;"><img alt="" src="index_files/1_r2.png"
+ style="width: 721px; height: 427px;"><br>
+</div>
+<br>
+<div style="margin-left: 40px;"></div>
+<div style="margin-left: 40px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_1">return to top of
+the exercise</a><br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Tutorial_Exercises">return to
+top of the document</a><br>
+<br>
+</div>
+<br>
+<br>
+<br>
+<h2><a name="Exercise_2"></a>Exercise 2: Build Helloworld RMI Server
+and client applications using export codebase<br>
+</h2>
+<p class="pBody" style="margin-left: 40px;">In this exercise, you are
+going to build RMI server and client application using export codebase.<br>
+</p>
+<div style="margin-left: 40px;">
+<ol>
+  <li><a href="index.html#2.1">Build JAR file from interface classes<br>
+    </a></li>
+  <li><a href="index.html#2.2">Write and compile server classes<br>
+    </a></li>
+  <li><a href="index.html#2.3">Write and compile client classes</a></li>
+  <li><a href="index.html#2.4">Modify security policy file</a></li>
+  <li><a href="index.html#2.5">Start RMI registry (only if you have not
+done so yet)</a></li>
+  <li><a href="index.html#2.6">Start server</a></li>
+  <li><a href="index.html#2.7">Run client</a><br>
+  </li>
+</ol>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="2.1"></a>(2.1)&nbsp;
+Build JAR file from Interface classes<br>
+</h3>
+<br>
+<div style="margin-left: 40px;">1. Create \home\interface1\src
+directory.<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">C:&gt;<span
+ style="font-weight: bold;">mkdir \home\interface1\src<br>
+      </span>C:&gt;<span style="font-weight: bold;">cd
+\home\interface1\src</span><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+2. Write HelloInterface.java in the \home\interface1\src directory.<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">import java.rmi.*;<br>
+      <br>
+/**<br>
+&nbsp;* Remote Interface<br>
+&nbsp;*/<br>
+public interface HelloInterface extends Remote {<br>
+      <br>
+&nbsp;&nbsp;&nbsp; public String sayHello(String name, Address address)
+throws RemoteException;<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+HelloInterface.java<br>
+<br>
+3. Write Address.java in the \home\interface1\src directory.<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">import java.io.Serializable;<br>
+      <br>
+public class Address implements Serializable{<br>
+&nbsp;&nbsp;&nbsp; private String&nbsp;&nbsp;&nbsp; street;<br>
+&nbsp;&nbsp;&nbsp; private int zip;<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; public Address(String street, int zip){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.street = street;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.zip = zip;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; <br>
+      <br>
+&nbsp;&nbsp;&nbsp; /**<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * @return the street<br>
+&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp; public String getStreet() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return street;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+&nbsp;&nbsp;&nbsp; /**<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * @param street the street to set<br>
+&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp; public void setStreet(String street) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.street = street;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+&nbsp;&nbsp;&nbsp; /**<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * @return the zip<br>
+&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp; public int getZip() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return zip;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+&nbsp;&nbsp;&nbsp; /**<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * @param zip the zip to set<br>
+&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp; public void setZip(int zip) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.zip = zip;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+Address.java<br>
+<br>
+3. Compile them.<br>
+<br>
+</div>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">cd
+c:\home\interface1\src</span><br style="font-weight: bold;">
+C:\home\interface1\src&gt;<span style="font-weight: bold;">javac *.java</span><br
+ style="font-weight: bold;">
+C:\home\interface1\src&gt;<span style="font-weight: bold;">jar cvf
+hello.jar *.class</span><br>
+added manifest<br>
+adding: Address.class(in = 623) (out= 361)(deflated 42%)<br>
+adding: HelloInterface.class(in = 254) (out= 178)(deflated 29%)<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_2">return to top of
+the exercise</a><br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="2.2"></a>(2.2)&nbsp;
+Build Server classes<br>
+</h3>
+<div style="margin-left: 40px;"><br>
+1. Create \home\server1\src directory.<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">C:&gt;<span
+ style="font-weight: bold;">mkdir \home\server1\src<br>
+      </span>C:&gt;<span style="font-weight: bold;">cd</span> <span
+ style="font-weight: bold;">\home\server1\src</span></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+2. Write <span style="font-weight: bold;">HelloImpl.java</span> in the
+\home\server1\src directory.<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">import java.rmi.*;<br>
+import java.rmi.server.*;<br>
+      <br>
+/**<br>
+&nbsp;* Remote implementation class<br>
+&nbsp;*/<br>
+public class HelloImpl <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; implements HelloInterface {<br>
+      <br>
+&nbsp;&nbsp;&nbsp; public HelloImpl() {<br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+&nbsp;&nbsp;&nbsp; public String sayHello(String name, Address address)
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; throws
+RemoteException {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return "Hello " + name + "!
+" + <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+"Your zip code is " + address.getZip();<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+HelloImpl.java<br>
+<br>
+3. Write <span style="font-weight: bold;">HelloServer.java</span> in
+the \home\server1\src directory.<br>
+<code><br>
+LocateRegistry</code> is used to obtain a reference to a bootstrap
+remote object registry on a particular host (including the local host),
+or to create a remote object registry that accepts calls on a specific
+port.
+<p> Note that a <code>getRegistry</code> call does not actually make a
+connection to the remote host. It simply creates a local reference to
+the remote registry and will succeed even if no registry is running on
+the remote host. Therefore, a subsequent method invocation to a remote
+registry returned as a result of this method may fail.<br>
+</p>
+<p><code>Registry</code> is a remote interface to a simple remote
+object registry that provides methods for storing and retrieving remote
+object references bound with arbitrary string names. The <code>bind</code>,
+<code>unbind</code>, and <code>rebind</code> methods are used to alter
+the name bindings in the registry, and the <code>lookup</code> and <code>list</code>
+methods are used to query the current name bindings. </p>
+<p>In its typical usage, a <code>Registry</code> enables RMI client
+bootstrapping: it provides a simple means for a client to obtain an
+initial reference to a remote object. Therefore, a registry's remote
+object implementation is typically exported with a well-known address,
+such as with a well-known <a
+ href="http://download.oracle.com/javase/1.4.2/docs/api/java/rmi/server/ObjID.html#REGISTRY_ID"><code>ObjID</code></a>
+and TCP port number (default is <a
+ href="http://download.oracle.com/javase/1.4.2/docs/api/java/rmi/registry/Registry.html#REGISTRY_PORT"><code>1099</code></a>).
+</p>
+<p>The <a
+ href="http://download.oracle.com/javase/1.4.2/docs/api/java/rmi/registry/LocateRegistry.html"
+ title="class in java.rmi.registry"><code>LocateRegistry</code></a>
+class provides a programmatic API for constructing a bootstrap
+reference to a <code>Registry</code> at a remote address (see the
+static <code>getRegistry</code> methods) and for creating and
+exporting a <code>Registry</code> in the current VM on a particular
+local address (see the static <code>createRegistry</code> methods). </p>
+<p>A <code>Registry</code> implementation may choose to restrict
+access to some or all of its methods (for example, methods that mutate
+the registry's bindings may be restricted to calls originating from the
+local host). If a <code>Registry</code> method chooses to deny access
+for a given invocation, its implementation may throw <a
+ href="http://download.oracle.com/javase/1.4.2/docs/api/java/rmi/AccessException.html"
+ title="class in java.rmi"><code>AccessException</code></a>, which
+(because it extends <a
+ href="http://download.oracle.com/javase/1.4.2/docs/api/java/rmi/RemoteException.html"
+ title="class in java.rmi"><code>RemoteException</code></a>) will be
+wrapped in a <a
+ href="http://download.oracle.com/javase/1.4.2/docs/api/java/rmi/ServerException.html"
+ title="class in java.rmi"><code>ServerException</code></a> when caught
+by a remote client. </p>
+<p>The names used for bindings in a <code>Registry</code> are pure
+strings, not parsed. A service which stores its remote reference in a <code>Registry</code>
+may wish to use a package name as a prefix in the name binding to
+reduce the likelihood of name collisions in the registry.
+</p>
+<p></p>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">import
+java.rmi.registry.LocateRegistry;<br>
+import java.rmi.registry.Registry;<br>
+import java.rmi.server.UnicastRemoteObject;<br>
+      <br>
+public class HelloServer {<br>
+      <br>
+&nbsp;&nbsp;&nbsp; /**<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * Server program for the "Hello, world!"
+example.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * @param argv The command line arguments which
+are ignored.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp; public static void main(String[] argv) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; try {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+HelloImpl hello = new HelloImpl();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+ style="font-weight: bold;">HelloInterface stub =</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(HelloInterface) UnicastRemoteObject.exportObject(hello, 0);</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+ style="font-weight: bold;">
+Registry registry = LocateRegistry.getRegistry();</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+registry.rebind("Hello2", stub);</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+//Naming.rebind("Hello2", new HelloImpl());<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("Hello2 Server is ready.");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } catch (Exception e) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("Hello2 Server failed: " + e);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+HelloServer.java<br>
+<br>
+3. Make \home\server1\public_html\classes directory.<br>
+<br>
+<table style="width: 100%; text-align: left; font-weight: bold;"
+ border="1" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">mkdir
+\home\server1\public_html\classes</td>
+    </tr>
+  </tbody>
+</table>
+<br>
+4. Copy the compute.jar to the server directory.<br>
+<br>
+<table style="width: 100%; text-align: left; font-weight: bold;"
+ border="1" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">copy
+\home\interface1\src\hello.jar \home\server1\public_html\classes</td>
+    </tr>
+  </tbody>
+</table>
+<br>
+5. Compile them.<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">cd
+c:\home\server1\src</span><br>
+c:\home\server1\src&gt;<span style="font-weight: bold;">javac -cp
+c:\home\server1\public_html\classes\hello.jar *.java</span><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_2">return to top of
+the exercise</a><br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="2.3"></a>(2.3)&nbsp;
+Build Client classes<br>
+</h3>
+<div style="margin-left: 40px;"><br>
+1. Create c:\home\client1\src directory.<br>
+<br>
+<table style="width: 100%; text-align: left; font-weight: bold;"
+ border="1" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">mkdir c:\home\client1\src<br>
+cd c:\home\client1\src<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+2. Create HelloClient.java in the c:\home\client1\src directory.<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">import java.rmi.*;<br>
+      <br>
+public class HelloClient {<br>
+      <br>
+&nbsp;&nbsp;&nbsp; /**<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * Client program for the "Hello, world!"
+example.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * @param argv The command line arguments which
+are ignored.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp; public static void main(String[] argv) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; try {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+HelloInterface hello =<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(HelloInterface) Naming.lookup("Hello2");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+String result = hello.sayHello("Sang Shin", <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+new Address("Newton", 45456));&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println(result);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } catch (Exception e) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("HelloClient exception: " + e);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+HelloClient.java<br>
+<br>
+4. Make \home\client1\public_html\classes directory.<br>
+<br>
+<table style="width: 100%; text-align: left; font-weight: bold;"
+ border="1" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">mkdir
+\home\client1\public_html\classes</td>
+    </tr>
+  </tbody>
+</table>
+<br>
+5. Copy the hello.jar to the export directory.<br>
+<br>
+<table style="width: 100%; text-align: left; font-weight: bold;"
+ border="1" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">copy
+\home\interface1\src\hello.jar \home\client1\public_html\classes</td>
+    </tr>
+  </tbody>
+</table>
+<br>
+6. Compile them.<br>
+<br>
+<table style="width: 100%; text-align: left; font-weight: bold;"
+ border="1" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">cd c:\home\client1\src<br>
+javac -cp c:\home\client1\public_html\classes\hello.jar *.java</td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_2">return to top of
+the exercise</a><br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="2.4"></a>(2.4)&nbsp;
+Modify security policy file<br>
+</h3>
+<div style="margin-left: 40px;"><br>
+</div>
+<div style="margin-left: 40px;">1. Go to the <span
+ style="font-weight: bold;">%JAVA_HOME%\jre\lib\security </span>directory.<span
+ style="font-weight: bold;"><br>
+<br>
+</span></div>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">cd
+%JAVA_HOME%\jre\lib\security</span><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+2. Modify the<span style="font-weight: bold;"> java.policy</span> file
+as shown below.<br>
+</div>
+<div style="margin-left: 40px;"><br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><br>
+// Standard extensions get all permissions by default<br>
+      <br>
+grant codeBase "file:${{java.ext.dirs}}/*" {<br>
+&nbsp;&nbsp;&nbsp; permission java.security.AllPermission;<br>
+};<br>
+      <br>
+// default permissions granted to all domains<br>
+      <br>
+grant { <br>
+&nbsp;&nbsp;&nbsp; // Allows any thread to stop itself using the
+java.lang.Thread.stop()<br>
+&nbsp;&nbsp;&nbsp; // method that takes no argument.<br>
+&nbsp;&nbsp;&nbsp; // Note that this permission is granted by default
+only to remain<br>
+&nbsp;&nbsp;&nbsp; // backwards compatible.<br>
+&nbsp;&nbsp;&nbsp; // It is strongly recommended that you either remove
+this permission<br>
+&nbsp;&nbsp;&nbsp; // from this policy file or further restrict it to
+code sources<br>
+&nbsp;&nbsp;&nbsp; // that you specify, because Thread.stop() is
+potentially unsafe.<br>
+&nbsp;&nbsp;&nbsp; // See "http://java.sun.com/notes" for more
+information.<br>
+&nbsp;&nbsp;&nbsp; permission java.lang.RuntimePermission "stopThread";<br>
+      <br>
+&nbsp;&nbsp;&nbsp; // allows anyone to listen on un-privileged ports<br>
+&nbsp;&nbsp;&nbsp; permission java.net.SocketPermission
+"localhost:1024-", "listen";<br>
+      <br>
+&nbsp;&nbsp;&nbsp; // "standard" properies that can be read by anyone<br>
+      <br>
+&nbsp;&nbsp;&nbsp; permission java.util.PropertyPermission
+"java.version", "read";<br>
+&nbsp;&nbsp;&nbsp; permission java.util.PropertyPermission
+"java.vendor", "read";<br>
+&nbsp;&nbsp;&nbsp; permission java.util.PropertyPermission
+"java.vendor.url", "read";<br>
+&nbsp;&nbsp;&nbsp; permission java.util.PropertyPermission
+"java.class.version", "read";<br>
+&nbsp;&nbsp;&nbsp; permission java.util.PropertyPermission "os.name",
+"read";<br>
+&nbsp;&nbsp;&nbsp; permission java.util.PropertyPermission
+"os.version", "read";<br>
+&nbsp;&nbsp;&nbsp; permission java.util.PropertyPermission "os.arch",
+"read";<br>
+&nbsp;&nbsp;&nbsp; permission java.util.PropertyPermission
+"file.separator", "read";<br>
+&nbsp;&nbsp;&nbsp; permission java.util.PropertyPermission
+"path.separator", "read";<br>
+&nbsp;&nbsp;&nbsp; permission java.util.PropertyPermission
+"line.separator", "read";<br>
+      <br>
+&nbsp;&nbsp;&nbsp; permission java.util.PropertyPermission
+"java.specification.version", "read";<br>
+&nbsp;&nbsp;&nbsp; permission java.util.PropertyPermission
+"java.specification.vendor", "read";<br>
+&nbsp;&nbsp;&nbsp; permission java.util.PropertyPermission
+"java.specification.name", "read";<br>
+      <br>
+&nbsp;&nbsp;&nbsp; permission java.util.PropertyPermission
+"java.vm.specification.version", "read";<br>
+&nbsp;&nbsp;&nbsp; permission java.util.PropertyPermission
+"java.vm.specification.vendor", "read";<br>
+&nbsp;&nbsp;&nbsp; permission java.util.PropertyPermission
+"java.vm.specification.name", "read";<br>
+&nbsp;&nbsp;&nbsp; permission java.util.PropertyPermission
+"java.vm.version", "read";<br>
+&nbsp;&nbsp;&nbsp; permission java.util.PropertyPermission
+"java.vm.vendor", "read";<br>
+&nbsp;&nbsp;&nbsp; permission java.util.PropertyPermission
+"java.vm.name", "read";<br>
+};<br>
+      <br>
+      <span style="font-weight: bold;">grant codeBase
+"file:/home/server1/src/" {</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; permission
+java.security.AllPermission;</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">};</span><br
+ style="font-weight: bold;">
+      <br style="font-weight: bold;">
+      <span style="font-weight: bold;">grant codeBase
+"file:/home/client1/src/" {</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; permission
+java.security.AllPermission;</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">};</span><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_2">return to top of
+the exercise</a><br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="2.5"></a>(2.5)&nbsp;
+Start RMI registry (if you have not started it already)<br>
+</h3>
+<br>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">rmiregistry</span><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_2">return to top of
+the exercise</a><br>
+<br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="2.6"></a>(2.6)&nbsp;
+Start server</h3>
+<br>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">cd
+C:\home\server1\src</span><br>
+C:\home\server1\src&gt;<span style="font-weight: bold;">java -cp
+c:\home\server1\src;c:\home\server1\public_html\classes\hello.jar
+-Djava.rmi.server.codebase=file:/c:/home/server1/public_html/classes/hello.jar
+-Djava.rmi.server.hostname=localhost
+-Djava.security.policy=server.policy HelloServer<br>
+      </span>Hello2 Server is ready.<span style="font-weight: bold;"><br>
+      </span> </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<img alt="" src="index_files/1_r7.png"
+ style="width: 745px; height: 187px;"><br>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_2">return to top of
+the exercise</a><br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="2.7"></a>(2.7)&nbsp;
+Startclient</h3>
+<div style="margin-left: 40px;"><br>
+Open another terminal<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">cd
+C:\home\client1\src</span><br>
+C:\home\client1\src&gt;<span style="font-weight: bold;">java -cp
+c:\home\client1\src;c:\home\client1\public_html\classes\hello.jar
+-Djava.rmi.server.codebase=file:/c:/home/client1/public_html/classes/
+-Djava.security.policy=client.policy HelloClient <br>
+      </span><span style="font-weight: bold;"><span
+ style="color: rgb(255, 0, 0);">Hello Sang Shin! Your zip code is 45456</span><br>
+      </span> </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<img alt="" src="index_files/1_r6.png"
+ style="width: 769px; height: 523px;"><br>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_2">return to top of
+the exercise</a><br>
+<br>
+<br>
+<br>
+</div>
+<h2><a name="Exercise_3"></a>Exercise 3: Build Compute Server and
+Client RMI applications<br>
+</h2>
+<p class="pBody" style="margin-left: 40px;">In this exercise, you are
+going to build RMI server and client application in which the server
+performs the computation.<br>
+</p>
+<div style="margin-left: 40px;">
+<ol>
+  <li><a href="index.html#3.1">Build JAR file from interface classes<br>
+    </a></li>
+  <li><a href="index.html#3.2">Write and compile server classes<br>
+    </a></li>
+  <li><a href="index.html#3.3">Write and compile client classes</a></li>
+  <li><a href="#3.4">Modify security policy file</a></li>
+  <li><a href="#3.5">Start RMI registry (only if you have not done so
+yet)</a></li>
+  <li><a href="#3.6">Start server</a></li>
+  <li><a href="#3.7">Run client</a><br>
+  </li>
+</ol>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="3.1"></a>(3.1)&nbsp;
+Build JAR file from Interface classes<br>
+</h3>
+<br>
+<div style="margin-left: 40px;">1. Create \home\interrface2\src\compute
+directory.<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">C:&gt;<span
+ style="font-weight: bold;">mkdir \home\interrface2\src\compute<br>
+      </span> C:&gt;<span style="font-weight: bold;">cd
+\home\interrface2\src\compute</span><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+2. Write <span style="font-weight: bold;">Compute.java</span> in the
+\home\interrface2\src\compute directory.<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">/*<br>
+&nbsp;* Copyright (c) 1995, 2008, Oracle and/or its affiliates. All
+rights reserved.<br>
+&nbsp;*<br>
+&nbsp;* Redistribution and use in source and binary forms, with or
+without<br>
+&nbsp;* modification, are permitted provided that the following
+conditions<br>
+&nbsp;* are met:<br>
+&nbsp;*<br>
+&nbsp;*&nbsp;&nbsp; - Redistributions of source code must retain the
+above copyright<br>
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp; notice, this list of conditions and the
+following disclaimer.<br>
+&nbsp;*<br>
+&nbsp;*&nbsp;&nbsp; - Redistributions in binary form must reproduce the
+above copyright<br>
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp; notice, this list of conditions and the
+following disclaimer in the<br>
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp; documentation and/or other materials
+provided with the distribution.<br>
+&nbsp;*<br>
+&nbsp;*&nbsp;&nbsp; - Neither the name of Oracle or the names of its<br>
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp; contributors may be used to endorse or
+promote products derived<br>
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp; from this software without specific
+prior written permission.<br>
+&nbsp;*<br>
+&nbsp;* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
+CONTRIBUTORS "AS<br>
+&nbsp;* IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO,<br>
+&nbsp;* THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+PARTICULAR<br>
+&nbsp;* PURPOSE ARE DISCLAIMED.&nbsp; IN NO EVENT SHALL THE COPYRIGHT
+OWNER OR<br>
+&nbsp;* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL,<br>
+&nbsp;* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+TO,<br>
+&nbsp;* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+OR<br>
+&nbsp;* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF<br>
+&nbsp;* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING<br>
+&nbsp;* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+THIS<br>
+&nbsp;* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.<br>
+&nbsp;*/ <br>
+      <br>
+package compute;<br>
+      <br>
+import java.rmi.Remote;<br>
+import java.rmi.RemoteException;<br>
+      <br>
+public interface Compute extends Remote {<br>
+&nbsp;&nbsp;&nbsp; &lt;T&gt; T executeTask(Task&lt;T&gt; t) throws
+RemoteException;<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+Compute.java<br>
+<br>
+3. Write <span style="font-weight: bold;">Task.java</span> in the
+\home\interrface2\src\compute directory.<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">/*<br>
+&nbsp;* Copyright (c) 1995, 2008, Oracle and/or its affiliates. All
+rights reserved.<br>
+&nbsp;*<br>
+&nbsp;* Redistribution and use in source and binary forms, with or
+without<br>
+&nbsp;* modification, are permitted provided that the following
+conditions<br>
+&nbsp;* are met:<br>
+&nbsp;*<br>
+&nbsp;*&nbsp;&nbsp; - Redistributions of source code must retain the
+above copyright<br>
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp; notice, this list of conditions and the
+following disclaimer.<br>
+&nbsp;*<br>
+&nbsp;*&nbsp;&nbsp; - Redistributions in binary form must reproduce the
+above copyright<br>
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp; notice, this list of conditions and the
+following disclaimer in the<br>
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp; documentation and/or other materials
+provided with the distribution.<br>
+&nbsp;*<br>
+&nbsp;*&nbsp;&nbsp; - Neither the name of Oracle or the names of its<br>
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp; contributors may be used to endorse or
+promote products derived<br>
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp; from this software without specific
+prior written permission.<br>
+&nbsp;*<br>
+&nbsp;* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
+CONTRIBUTORS "AS<br>
+&nbsp;* IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO,<br>
+&nbsp;* THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+PARTICULAR<br>
+&nbsp;* PURPOSE ARE DISCLAIMED.&nbsp; IN NO EVENT SHALL THE COPYRIGHT
+OWNER OR<br>
+&nbsp;* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL,<br>
+&nbsp;* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+TO,<br>
+&nbsp;* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+OR<br>
+&nbsp;* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF<br>
+&nbsp;* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING<br>
+&nbsp;* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+THIS<br>
+&nbsp;* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.<br>
+&nbsp;*/ <br>
+      <br>
+package compute;<br>
+      <br>
+public interface Task&lt;T&gt; {<br>
+&nbsp;&nbsp;&nbsp; T execute();<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+Task.java<br>
+<br>
+3. Compile them.<br>
+<br>
+</div>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">cd
+c:\home\interrface2\src</span><br style="font-weight: bold;">
+C:\home\interrface2\src&gt;<span style="font-weight: bold;">javac
+compute\Compute.java compute\Task.java</span><br
+ style="font-weight: bold;">
+C:\home\interrface2\src&gt;<span style="font-weight: bold;">jar cvf
+compute.jar compute\*.class<br>
+      </span>added manifest<br>
+adding: compute/Compute.class(in = 307) (out= 201)(deflated 34%)<br>
+adding: compute/Task.class(in = 217) (out= 149)(deflated 31%)<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_3">return to top of
+the exercise</a><br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="3.2"></a>(3.2)&nbsp;
+Build Server classes<br>
+</h3>
+<div style="margin-left: 40px;"><br>
+1. Create \home\server2\src\engine directory.<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">C:&gt;<span
+ style="font-weight: bold;">mkdir \home\server2\src\engine<br>
+      </span>C:&gt;<span style="font-weight: bold;">cd
+\home\server2\src\engine</span><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+2. Write <span style="font-weight: bold;">ComputeEngine.java</span> in
+the \home\server2\src\engine directory.<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">/*<br>
+&nbsp;* Copyright (c) 1995, 2008, Oracle and/or its affiliates. All
+rights reserved.<br>
+&nbsp;*<br>
+&nbsp;* Redistribution and use in source and binary forms, with or
+without<br>
+&nbsp;* modification, are permitted provided that the following
+conditions<br>
+&nbsp;* are met:<br>
+&nbsp;*<br>
+&nbsp;*&nbsp;&nbsp; - Redistributions of source code must retain the
+above copyright<br>
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp; notice, this list of conditions and the
+following disclaimer.<br>
+&nbsp;*<br>
+&nbsp;*&nbsp;&nbsp; - Redistributions in binary form must reproduce the
+above copyright<br>
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp; notice, this list of conditions and the
+following disclaimer in the<br>
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp; documentation and/or other materials
+provided with the distribution.<br>
+&nbsp;*<br>
+&nbsp;*&nbsp;&nbsp; - Neither the name of Oracle or the names of its<br>
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp; contributors may be used to endorse or
+promote products derived<br>
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp; from this software without specific
+prior written permission.<br>
+&nbsp;*<br>
+&nbsp;* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
+CONTRIBUTORS "AS<br>
+&nbsp;* IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO,<br>
+&nbsp;* THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+PARTICULAR<br>
+&nbsp;* PURPOSE ARE DISCLAIMED.&nbsp; IN NO EVENT SHALL THE COPYRIGHT
+OWNER OR<br>
+&nbsp;* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL,<br>
+&nbsp;* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+TO,<br>
+&nbsp;* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+OR<br>
+&nbsp;* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF<br>
+&nbsp;* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING<br>
+&nbsp;* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+THIS<br>
+&nbsp;* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.<br>
+&nbsp;*/ <br>
+      <br>
+package engine;<br>
+      <br>
+import java.rmi.RemoteException;<br>
+import java.rmi.registry.LocateRegistry;<br>
+import java.rmi.registry.Registry;<br>
+import java.rmi.server.UnicastRemoteObject;<br>
+import compute.Compute;<br>
+import compute.Task;<br>
+      <br>
+public class ComputeEngine implements Compute {<br>
+      <br>
+&nbsp;&nbsp;&nbsp; public ComputeEngine() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; super();<br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+&nbsp;&nbsp;&nbsp;<span style="font-weight: bold;"> public &lt;T&gt; T
+executeTask(Task&lt;T&gt; t) {</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+return t.execute();</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; }</span><br>
+      <br>
+&nbsp;&nbsp;&nbsp; public static void main(String[] args) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if
+(System.getSecurityManager() == null) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.setSecurityManager(new SecurityManager());<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; try {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+String name = "Compute";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Compute engine = new ComputeEngine();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+ style="font-weight: bold;">Compute stub =</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(Compute) UnicastRemoteObject.exportObject(engine, 0);</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Registry registry = LocateRegistry.getRegistry();</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+registry.rebind(name, stub);</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("ComputeEngine bound");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } catch (Exception e) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.err.println("ComputeEngine exception:");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+e.printStackTrace();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+3. Make \home\server2\public_html\classes directory.<br>
+<br>
+<table style="width: 100%; text-align: left; font-weight: bold;"
+ border="1" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">mkdir
+\home\server2\public_html\classes</td>
+    </tr>
+  </tbody>
+</table>
+<br>
+4. Copy the compute.jar to the server's exeport codebase directory.<br>
+<br>
+<table style="width: 100%; text-align: left; font-weight: bold;"
+ border="1" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">copy
+\home\interrface2\src\compute.jar \home\server2\public_html\classes</td>
+    </tr>
+  </tbody>
+</table>
+<br>
+5. Compile them.<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">cd
+c:\home\server2\src</span><br>
+c:\home\server2\src&gt;<span style="font-weight: bold;">javac -cp
+c:\home\server2\public_html\classes\compute.jar
+engine\ComputeEngine.java</span><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_3">return to top of
+the exercise</a><br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="3.3"></a>(3.3)&nbsp;
+Build Client classes<br>
+</h3>
+<div style="margin-left: 40px;"><br>
+1. Create c:\home\client2\src\client directory.<br>
+<br>
+<table style="width: 100%; text-align: left; font-weight: bold;"
+ border="1" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">mkdir c:\home\client2\src\client<br>
+cd c:\home\client2\src\client</td>
+    </tr>
+  </tbody>
+</table>
+<br>
+2. Create <span style="font-weight: bold;">ComputePi.java</span> in
+the c:\home\client2\src\client directory.<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">/*<br>
+&nbsp;* Copyright (c) 1995, 2008, Oracle and/or its affiliates. All
+rights reserved.<br>
+&nbsp;*<br>
+&nbsp;* Redistribution and use in source and binary forms, with or
+without<br>
+&nbsp;* modification, are permitted provided that the following
+conditions<br>
+&nbsp;* are met:<br>
+&nbsp;*<br>
+&nbsp;*&nbsp;&nbsp; - Redistributions of source code must retain the
+above copyright<br>
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp; notice, this list of conditions and the
+following disclaimer.<br>
+&nbsp;*<br>
+&nbsp;*&nbsp;&nbsp; - Redistributions in binary form must reproduce the
+above copyright<br>
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp; notice, this list of conditions and the
+following disclaimer in the<br>
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp; documentation and/or other materials
+provided with the distribution.<br>
+&nbsp;*<br>
+&nbsp;*&nbsp;&nbsp; - Neither the name of Oracle or the names of its<br>
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp; contributors may be used to endorse or
+promote products derived<br>
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp; from this software without specific
+prior written permission.<br>
+&nbsp;*<br>
+&nbsp;* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
+CONTRIBUTORS "AS<br>
+&nbsp;* IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO,<br>
+&nbsp;* THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+PARTICULAR<br>
+&nbsp;* PURPOSE ARE DISCLAIMED.&nbsp; IN NO EVENT SHALL THE COPYRIGHT
+OWNER OR<br>
+&nbsp;* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL,<br>
+&nbsp;* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+TO,<br>
+&nbsp;* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+OR<br>
+&nbsp;* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF<br>
+&nbsp;* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING<br>
+&nbsp;* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+THIS<br>
+&nbsp;* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.<br>
+&nbsp;*/ <br>
+      <br>
+package client;<br>
+      <br>
+import java.rmi.registry.LocateRegistry;<br>
+import java.rmi.registry.Registry;<br>
+import java.math.BigDecimal;<br>
+import compute.Compute;<br>
+      <br>
+public class ComputePi {<br>
+&nbsp;&nbsp;&nbsp; public static void main(String args[]) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if
+(System.getSecurityManager() == null) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.setSecurityManager(new SecurityManager());<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; try {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+String name = "Compute";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+ style="font-weight: bold;">&nbsp;&nbsp;
+Registry registry = LocateRegistry.getRegistry(args[0]);</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Compute comp = (Compute) registry.lookup(name);</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Pi
+task = new Pi(Integer.parseInt(args[1]));</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+BigDecimal pi = comp.executeTask(task);</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println(pi);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } catch (Exception e) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.err.println("ComputePi exception:");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+e.printStackTrace();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; }&nbsp;&nbsp;&nbsp; <br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+3. Create <span style="font-weight: bold;">Pi.java</span> in the
+c:\home\client2\src\client directory.<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">/*<br>
+&nbsp;* Copyright (c) 1995, 2008, Oracle and/or its affiliates. All
+rights reserved.<br>
+&nbsp;*<br>
+&nbsp;* Redistribution and use in source and binary forms, with or
+without<br>
+&nbsp;* modification, are permitted provided that the following
+conditions<br>
+&nbsp;* are met:<br>
+&nbsp;*<br>
+&nbsp;*&nbsp;&nbsp; - Redistributions of source code must retain the
+above copyright<br>
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp; notice, this list of conditions and the
+following disclaimer.<br>
+&nbsp;*<br>
+&nbsp;*&nbsp;&nbsp; - Redistributions in binary form must reproduce the
+above copyright<br>
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp; notice, this list of conditions and the
+following disclaimer in the<br>
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp; documentation and/or other materials
+provided with the distribution.<br>
+&nbsp;*<br>
+&nbsp;*&nbsp;&nbsp; - Neither the name of Oracle or the names of its<br>
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp; contributors may be used to endorse or
+promote products derived<br>
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp; from this software without specific
+prior written permission.<br>
+&nbsp;*<br>
+&nbsp;* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
+CONTRIBUTORS "AS<br>
+&nbsp;* IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO,<br>
+&nbsp;* THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+PARTICULAR<br>
+&nbsp;* PURPOSE ARE DISCLAIMED.&nbsp; IN NO EVENT SHALL THE COPYRIGHT
+OWNER OR<br>
+&nbsp;* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL,<br>
+&nbsp;* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+TO,<br>
+&nbsp;* PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+OR<br>
+&nbsp;* PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF<br>
+&nbsp;* LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING<br>
+&nbsp;* NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+THIS<br>
+&nbsp;* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.<br>
+&nbsp;*/ <br>
+      <br>
+package client;<br>
+      <br>
+import compute.Task;<br>
+import java.io.Serializable;<br>
+import java.math.BigDecimal;<br>
+      <br>
+public class Pi implements Task&lt;BigDecimal&gt;, Serializable {<br>
+      <br>
+&nbsp;&nbsp;&nbsp; private static final long serialVersionUID = 227L;<br>
+      <br>
+&nbsp;&nbsp;&nbsp; /** constants used in pi computation */<br>
+&nbsp;&nbsp;&nbsp; private static final BigDecimal FOUR =<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BigDecimal.valueOf(4);<br>
+      <br>
+&nbsp;&nbsp;&nbsp; /** rounding mode to use during pi computation */<br>
+&nbsp;&nbsp;&nbsp; private static final int roundingMode = <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BigDecimal.ROUND_HALF_EVEN;<br>
+      <br>
+&nbsp;&nbsp;&nbsp; /** digits of precision after the decimal point */<br>
+&nbsp;&nbsp;&nbsp; private final int digits;<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; /**<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * Construct a task to calculate pi to the
+specified<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * precision.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp; public Pi(int digits) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.digits = digits;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+&nbsp;&nbsp;&nbsp; /**<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * Calculate pi.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp; public BigDecimal execute() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return computePi(digits);<br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+&nbsp;&nbsp;&nbsp; /**<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * Compute the value of pi to the specified
+number of <br>
+&nbsp;&nbsp;&nbsp;&nbsp; * digits after the decimal point.&nbsp; The
+value is <br>
+&nbsp;&nbsp;&nbsp;&nbsp; * computed using Machin's formula:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; *<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pi/4 =
+4*arctan(1/5) - arctan(1/239)<br>
+&nbsp;&nbsp;&nbsp;&nbsp; *<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * and a power series expansion of arctan(x) to
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp; * sufficient precision.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp; public static BigDecimal computePi(int digits) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int scale = digits + 5;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BigDecimal arctan1_5 =
+arctan(5, scale);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BigDecimal arctan1_239 =
+arctan(239, scale);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BigDecimal pi =
+arctan1_5.multiply(FOUR).subtract(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+arctan1_239).multiply(FOUR);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return pi.setScale(digits, <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+BigDecimal.ROUND_HALF_UP);<br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; /**<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * Compute the value, in radians, of the
+arctangent of <br>
+&nbsp;&nbsp;&nbsp;&nbsp; * the inverse of the supplied integer to the
+specified<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * number of digits after the decimal
+point.&nbsp; The value<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * is computed using the power series expansion
+for the<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * arc tangent:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; *<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * arctan(x) = x - (x^3)/3 + (x^5)/5 - (x^7)/7
++ <br>
+&nbsp;&nbsp;&nbsp;&nbsp; *&nbsp;&nbsp;&nbsp;&nbsp; (x^9)/9 ...<br>
+&nbsp;&nbsp;&nbsp;&nbsp; */&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; public static BigDecimal arctan(int inverseX, <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+int scale)&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BigDecimal result, numer,
+term;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BigDecimal invX =
+BigDecimal.valueOf(inverseX);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BigDecimal invX2 = <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+BigDecimal.valueOf(inverseX * inverseX);<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; numer =
+BigDecimal.ONE.divide(invX,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+scale, roundingMode);<br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; result = numer;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i = 1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; do {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+numer = <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+numer.divide(invX2, scale, roundingMode);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int
+denom = 2 * i + 1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; term
+= <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+numer.divide(BigDecimal.valueOf(denom),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+scale, roundingMode);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if
+((i % 2) != 0) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+result = result.subtract(term);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+else {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+result = result.add(term);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i++;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } while
+(term.compareTo(BigDecimal.ZERO) != 0);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return result;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+Pi.java<br>
+<br>
+4. Make \home\client2\public_html\classes directory.&nbsp; This is
+client export codebase directory.<br>
+<br>
+<table style="width: 100%; text-align: left; font-weight: bold;"
+ border="1" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">mkdir
+\home\client2\public_html\classes</td>
+    </tr>
+  </tbody>
+</table>
+<br>
+5. Copy the compute.jar to the client's export directory.<br>
+<br>
+<table style="width: 100%; text-align: left; font-weight: bold;"
+ border="1" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">copy
+\home\interface2\src\compute.jar \home\client2\public_html\classes</td>
+    </tr>
+  </tbody>
+</table>
+<br>
+6. Compile them.<br>
+<br>
+<table style="width: 100%; text-align: left; font-weight: bold;"
+ border="1" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">cd c:\home\client2\src<br>
+javac -cp c:\home\client2\public_html\classes\compute.jar
+client\ComputePi.java client\Pi.java</td>
+    </tr>
+  </tbody>
+</table>
+<br>
+7. Copy Pi.class to the client's export directory.<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">c:\home\client2\src&gt;<span
+ style="font-weight: bold;">mkdir
+c:\home\client2\public_html\classes\client</span><br>
+c:\home\client2\src&gt;<span style="font-weight: bold;">copy
+client\Pi.class c:\home\client2\public_html\classes\client</span><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_3">return to top of
+the exercise</a><br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="3.4"></a>(3.4)&nbsp;
+Modify security policy file<br>
+</h3>
+<div style="margin-left: 40px;"><br>
+</div>
+<div style="margin-left: 40px;">1. Go to the <span
+ style="font-weight: bold;">%JAVA_HOME%\jre\lib\security </span>directory.<span
+ style="font-weight: bold;"><br>
+<br>
+</span></div>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">cd
+%JAVA_HOME%\jre\lib\security</span><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+2. Modify the<span style="font-weight: bold;"> java.policy</span> file
+as shown below.<br>
+</div>
+<div style="margin-left: 40px;"><br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><br>
+// Standard extensions get all permissions by default<br>
+      <br>
+grant codeBase "file:${{java.ext.dirs}}/*" {<br>
+&nbsp;&nbsp;&nbsp; permission java.security.AllPermission;<br>
+};<br>
+      <br>
+// default permissions granted to all domains<br>
+      <br>
+grant { <br>
+&nbsp;&nbsp;&nbsp; // Allows any thread to stop itself using the
+java.lang.Thread.stop()<br>
+&nbsp;&nbsp;&nbsp; // method that takes no argument.<br>
+&nbsp;&nbsp;&nbsp; // Note that this permission is granted by default
+only to remain<br>
+&nbsp;&nbsp;&nbsp; // backwards compatible.<br>
+&nbsp;&nbsp;&nbsp; // It is strongly recommended that you either remove
+this permission<br>
+&nbsp;&nbsp;&nbsp; // from this policy file or further restrict it to
+code sources<br>
+&nbsp;&nbsp;&nbsp; // that you specify, because Thread.stop() is
+potentially unsafe.<br>
+&nbsp;&nbsp;&nbsp; // See "http://java.sun.com/notes" for more
+information.<br>
+&nbsp;&nbsp;&nbsp; permission java.lang.RuntimePermission "stopThread";<br>
+      <br>
+&nbsp;&nbsp;&nbsp; // allows anyone to listen on un-privileged ports<br>
+&nbsp;&nbsp;&nbsp; permission java.net.SocketPermission
+"localhost:1024-", "listen";<br>
+      <br>
+&nbsp;&nbsp;&nbsp; // "standard" properies that can be read by anyone<br>
+      <br>
+&nbsp;&nbsp;&nbsp; permission java.util.PropertyPermission
+"java.version", "read";<br>
+&nbsp;&nbsp;&nbsp; permission java.util.PropertyPermission
+"java.vendor", "read";<br>
+&nbsp;&nbsp;&nbsp; permission java.util.PropertyPermission
+"java.vendor.url", "read";<br>
+&nbsp;&nbsp;&nbsp; permission java.util.PropertyPermission
+"java.class.version", "read";<br>
+&nbsp;&nbsp;&nbsp; permission java.util.PropertyPermission "os.name",
+"read";<br>
+&nbsp;&nbsp;&nbsp; permission java.util.PropertyPermission
+"os.version", "read";<br>
+&nbsp;&nbsp;&nbsp; permission java.util.PropertyPermission "os.arch",
+"read";<br>
+&nbsp;&nbsp;&nbsp; permission java.util.PropertyPermission
+"file.separator", "read";<br>
+&nbsp;&nbsp;&nbsp; permission java.util.PropertyPermission
+"path.separator", "read";<br>
+&nbsp;&nbsp;&nbsp; permission java.util.PropertyPermission
+"line.separator", "read";<br>
+      <br>
+&nbsp;&nbsp;&nbsp; permission java.util.PropertyPermission
+"java.specification.version", "read";<br>
+&nbsp;&nbsp;&nbsp; permission java.util.PropertyPermission
+"java.specification.vendor", "read";<br>
+&nbsp;&nbsp;&nbsp; permission java.util.PropertyPermission
+"java.specification.name", "read";<br>
+      <br>
+&nbsp;&nbsp;&nbsp; permission java.util.PropertyPermission
+"java.vm.specification.version", "read";<br>
+&nbsp;&nbsp;&nbsp; permission java.util.PropertyPermission
+"java.vm.specification.vendor", "read";<br>
+&nbsp;&nbsp;&nbsp; permission java.util.PropertyPermission
+"java.vm.specification.name", "read";<br>
+&nbsp;&nbsp;&nbsp; permission java.util.PropertyPermission
+"java.vm.version", "read";<br>
+&nbsp;&nbsp;&nbsp; permission java.util.PropertyPermission
+"java.vm.vendor", "read";<br>
+&nbsp;&nbsp;&nbsp; permission java.util.PropertyPermission
+"java.vm.name", "read";<br>
+};<br>
+      <br>
+grant codeBase "file:/home/server1/src/" {<br>
+&nbsp;&nbsp;&nbsp; permission java.security.AllPermission;<br>
+};<br>
+      <br>
+grant codeBase "file:/home/client1/src/" {<br>
+&nbsp;&nbsp;&nbsp; permission java.security.AllPermission;<br>
+};<span style="font-weight: bold;"><br>
+      <br>
+grant codeBase "file:/home/server2/src/" {<br>
+&nbsp;&nbsp;&nbsp; permission java.security.AllPermission;<br>
+};<br>
+      <br>
+grant codeBase "file:/home/client2/src/" {<br>
+&nbsp;&nbsp;&nbsp; permission java.security.AllPermission;<br>
+};<br>
+      </span><span style="font-weight: bold;"></span><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_3">return to top of
+the exercise</a><br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="3.5"></a>(3.5)&nbsp;
+Start RMI registry (if you have not started it already)<br>
+</h3>
+<br>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">rmiregistry</span><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_3">return to top of
+the exercise</a><br>
+<br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="3.6"></a>(3.6)&nbsp;
+Start server</h3>
+<br>
+<div style="margin-left: 40px;">
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">cd
+C:\home\server2\src</span><br>
+C:\home\server2\src&gt;<span style="font-weight: bold;">java -cp
+c:\home\server2\src;c:\home\server2\public_html\classes\compute.jar
+-Djava.rmi.server.codebase=file:/c:/home/server2/public_html/classes/compute.jar
+-Djava.rmi.server.hostname=localhost
+-Djava.security.policy=server.policy engine.ComputeEngine<br>
+      </span>ComputeEngine bound<span style="font-weight: bold;"><br>
+      </span> </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<img alt="" src="index_files/1_r3.png"
+ style="width: 805px; height: 459px;"><br>
+<br>
+<span style="color: rgb(255, 0, 0);">Trouble-shooting</span>: If you
+experience java.security.AccessControlException: access denied
+exception, it is because the security policy file has not been set up
+correctly.<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">C:\home\server2\src&gt;java -cp
+c:\home\server2\src;c:\home\server2\public_html\classes\compute.jar
+-Djava.rmi.server.codebase=file:/c:/home/server2/public_html/classes/compute.jar
+-Djava.rmi.server.hostname=localhost
+-Djava.security.policy=server.policy engine.ComputeEngine<br>
+ComputeEngine exception:<br>
+java.security.AccessControlException: access denied
+(java.net.SocketPermission 127.0.0.1:1099 connect,resolve)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at
+java.security.AccessControlContext.checkPermission(AccessControlContext.java:323)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at
+java.security.AccessController.checkPermission(AccessController.java:546)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at
+java.lang.SecurityManager.checkPermission(SecurityManager.java:532)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at
+java.lang.SecurityManager.checkConnect(SecurityManager.java:1034)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at
+java.net.Socket.connect(Socket.java:519)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at
+java.net.Socket.connect(Socket.java:475)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at
+java.net.Socket.&lt;init&gt;(Socket.java:372)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at
+java.net.Socket.&lt;init&gt;(Socket.java:186)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at
+sun.rmi.transport.proxy.RMIDirectSocketFactory.createSocket(RMIDirectSocketFactory.java:22)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at
+sun.rmi.transport.proxy.RMIMasterSocketFactory.createSocket(RMIMasterSocketFactory.java:128)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at
+sun.rmi.transport.tcp.TCPEndpoint.newSocket(TCPEndpoint.java:595)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at
+sun.rmi.transport.tcp.TCPChannel.createConnection(TCPChannel.java:198)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at
+sun.rmi.transport.tcp.TCPChannel.newConnection(TCPChannel.java:184)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at
+sun.rmi.server.UnicastRef.newCall(UnicastRef.java:322)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at
+sun.rmi.registry.RegistryImpl_Stub.rebind(Unknown Source)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at
+engine.ComputeEngine.main(ComputeEngine.java:61)<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<img alt="" src="index_files/1_r5.png"
+ style="width: 805px; height: 667px;"><br>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_3">return to top of
+the exercise</a><br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="3.7"></a>(3.7)&nbsp;
+Startclient</h3>
+<div style="margin-left: 40px;"><br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">cd
+C:\home\client2\src</span><br>
+C:\home\client2\src&gt;<span style="font-weight: bold;">java -cp
+c:\home\client2\src;c:\home\client2\public_html\classes\compute.jar
+-Djava.rmi.server.codebase=file:/c:/home/client2/public_html/classes/
+-Djava.security.policy=client.policy client.ComputePi localhost 45<br>
+      </span>3.141592653589793238462643383279502884197169399<span
+ style="font-weight: bold;"><br>
+      </span> </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<img alt="" src="index_files/1_r4.png"
+ style="width: 769px; height: 523px;"><br>
+<br>
+<span style="color: rgb(255, 0, 0);">Trouble-shooting</span>: If you
+experience the following problem, it means the server was able to
+download the client.Pi.class file because somehow there was a problem
+exporting the class.<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">C:\home\client2\src&gt;java -cp
+c:\home\client2\src;c:\home\client2\public_html\classes\compute.jar
+-Djava.rmi.server.codebase=file:/c:/home/client2/public_html/classes/
+-Djava.security.policy=client.policy client.ComputePi localhost 45<br>
+ComputePi exception:<br>
+java.rmi.ServerException: RemoteException occurred in server thread;
+nested exception is:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; java.rmi.UnmarshalException:
+error unmarshalling arguments; nested exception is:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+java.lang.ClassNotFoundException: client.Pi<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at
+sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:336)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at
+sun.rmi.transport.Transport$1.run(Transport.java:159)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at
+java.security.AccessController.doPrivileged(Native Method)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at
+sun.rmi.transport.Transport.serviceCall(Transport.java:155)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at
+sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:535)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at
+sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:790)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at
+sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:649)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at
+java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at
+java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at
+java.lang.Thread.run(Thread.java:619)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at
+sun.rmi.transport.StreamRemoteCall.exceptionReceivedFromServer(StreamRemoteCall.java:255)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at
+sun.rmi.transport.StreamRemoteCall.executeCall(StreamRemoteCall.java:233)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at
+sun.rmi.server.UnicastRef.invoke(UnicastRef.java:142)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at
+java.rmi.server.RemoteObjectInvocationHandler.invokeRemoteMethod(RemoteObjectInvocationHandler.java:178)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at
+java.rmi.server.RemoteObjectInvocationHandler.invoke(RemoteObjectInvocationHandler.java:132)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at
+$Proxy0.executeTask(Unknown Source)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at
+client.ComputePi.main(ComputePi.java:49)<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_3">return to top of
+the exercise</a><br>
+</div>
+<br>
+<br>
+<br>
+<h2><a name="Homework_Exercise"></a><a name="Homework"></a>Homework
+Exercise<br>
+</h2>
+<br>
+<div style="margin-left: 40px;">
+</div>
+<div class="indent">
+<div style="margin-left: 40px;">1. The homework exercise is to create <span
+ style="font-weight: bold;">AddNumbers </span>RMI server and client
+applications as following<br>
+<ul>
+  <li>Use the following as remote interface</li>
+</ul>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">public interface
+AddNumbersInterface extends <span style="font-weight: bold;">Remote </span>{<br>
+&nbsp;&nbsp;&nbsp; public int add(int x, int y) throws <span
+ style="font-weight: bold;">RemoteException</span>;<br>
+}</td>
+    </tr>
+  </tbody>
+</table>
+<ul>
+  <li>Use different codebases as in the case of Exercise 2 and 3 above<br>
+  </li>
+</ul>
+</div>
+<div style="margin-left: 40px;">2. Send the following files to <a
+ href="mailto:javase_adv_homework@javapassion.com">javase_adv_homework@javapassion.com</a>
+with <span style="font-weight: bold;">Subject </span>as <span
+ style="font-weight: bold;"></span><span style="font-weight: bold;">javase_rmi.<br>
+</span>
+<ul>
+  <li>Zip file of the directory that contains the interface, server,
+and client code.&nbsp; <br>
+  </li>
+  <li>Captured output screen&nbsp;<span style="font-weight: bold;"> </span>-
+name it as <span style="font-weight: bold;">javase_rmi.gif</span>
+or <span style="font-weight: bold;">javase_rmi</span><span
+ style="font-weight: bold;">.jpg</span> (or javase_rmi.&lt;whatever
+graphics format&gt;)</li>
+  <ul>
+    <li>Any screen capture that shows that your program is working is
+good enough.&nbsp; No cosmetic polishment is required.</li>
+  </ul>
+</ul>
+<span style="font-weight: bold;"></span></div>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp; <a href="../javase5_annotation/index.html#Tutorial_Exercises">return
+to the top</a><br>
+<br>
+<br>
+</div>
+<br>
+<p> </p>
+<!-- ======================================================================================== -->
+</body>
+</html>

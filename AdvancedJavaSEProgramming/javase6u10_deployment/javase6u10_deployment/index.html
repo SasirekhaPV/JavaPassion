@@ -1,0 +1,1297 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <script src="index_files/tigris.txt" type="text/javascript"></script>
+  <link rel="stylesheet" type="text/css" href="index_files/netbeans.css">
+  <title>LAB-1513: Java SE 6 Update 10 - Deployment</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="SourceCastVersion" content="2.6.2.4.10">
+  <meta name="keywords"
+ content="NetBeans, IDE, Platform, free, open source, developer">
+  <link rel="stylesheet" href="index_files/netbeans_002.css">
+  <meta name="author" content="Sang Shin">
+  <style type="text/css">
+#search {height:100%;}
+#topmodule {align:right;}
+  </style>
+  <script language="JavaScript" type="text/javascript">
+<!--
+function get_sc_login() {
+  var sclogin = "guest";
+  return (sclogin);
+}
+var username=get_sc_login();
+//-->
+  </script>
+</head>
+<body onload="loginfocus()" class="composite"
+ style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);"
+ alink="#000099" link="#000099" vlink="#990099">
+<!-- begin TopTabs --><!-- end TopTabs --><!-- start NavCol --><!-- end NavCol --><!-- Servlet-Specific template --><!-- Show servlet name if it is a servlet -->
+<br>
+<br>
+<h1 style="text-align: center;">Java SE 6 Update 10 -Deployment<br>
+</h1>
+<div class="articledate" style="margin-left: 0px; text-align: center;">
+<a href="http://www.javapassion.com/SangShinSchedule.html">Sang Shin</a>,
+<a href="http://www.javapassion.com">www.javapassion.com</a><a
+ href="mailto:sangshinpassion@gmail.com"><i>
+</i></a></div>
+<div class="indent"><br>
+<div style="text-align: center;">&nbsp; <img alt=""
+ src="index_files/sangshin2009.jpg" style="width: 75px; height: 87px;"><br>
+</div>
+<br>
+<span name="intelliTxt" id="intelliTxt"></span><br>
+This release introduces a new (default) implementation of the Java
+Plug-in that provides support for applets in the web browser. The next
+generation Java Plug-in combines the best architectural features of
+applet and Java Web Start technologies.<br>
+<b><br>
+</b>
+<div style="text-align: center;"><b>Expected duration: 90 minutes
+(excluding homework)<br>
+<br>
+</b></div>
+<br>
+<p></p>
+<br>
+<br>
+<h3 class="tutorial">Resources</h3>
+<ul>
+  <li><a href="https://jdk6.dev.java.net/6u10ea.html#Overview">Overview</a>
+page from jdk6.dev.java.net</li>
+  <li><a
+ href="http://java.sun.com/developer/technicalArticles/javase/java6u10/">Introducing
+Java SE 6 update 10</a> article by Ethan Nicholas from java.sun.com
+(April, 2008)</li>
+  <li>Plug-in technology</li>
+  <ul>
+    <li>Screencasts</li>
+    <ul>
+      <li><a
+ href="http://www.youtube.com/watch?v=4wi9Q1x8j7E&amp;feature=channel">Applets
+reloaded: the new Java plug-in</a> screencast from Google techtalk<br>
+      </li>
+    </ul>
+    <li>Articles<br>
+    </li>
+    <ul>
+      <li><a href="http://jdk6.dev.java.net/6u10ea.html">Next-Generation
+Java Plug-in Technology</a> article by Ken Russell (June, 2008)<br>
+      </li>
+      <li><a href="https://jdk6.dev.java.net/plugin2/">Release notes
+for
+the Next-Generation Java Plug-in Technology</a> from jdk6.dev.java.net</li>
+    </ul>
+  </ul>
+  <li>Applet</li>
+  <ul>
+    <li><a
+ href="http://download.oracle.com/javase/tutorial/deployment/applet/examplesIndex.html#HelloWorld">Applet
+development examples</a> website<br>
+    </li>
+  </ul>
+</ul>
+<br>
+<br>
+<br>
+<h3 class="tutorial"><a name="Change_Log"></a>Change Log<br>
+</h3>
+<ul>
+  <li>Nov. 5th, 2009: Created</li>
+  <li>Oct. 4th, 2011: JavaFX related exercises are removed for now.
+(Sang Shin)</li>
+  <li>Oct. 22nd, 2011: Exercise 2 and 3 are added&nbsp; (Sang Shin)<br>
+  </li>
+</ul>
+<br>
+<br>
+<h3 class="tutorial"><a name="Tutorial_Exercises"></a>Lab Exercises</h3>
+<ul>
+  <li><a href="#Exercise_0">Exercise 0: Configure JRE 6 update 10 (or
+later version) with Firefox browser 3.x</a><br>
+  </li>
+  <li><a href="index.html#Exercise_1">Exercise 1: Java Deployment
+Toolkit (30
+minutes)</a></li>
+  <li><a href="#Exercise_2">Exercise 2: Launching Applet through JNLP
+(30 minutes)</a><br>
+  </li>
+  <li><a href="#Exercise_3">Exercise 3: Applet and JavaScript
+integration (30 minutes)</a><br>
+  </li>
+  <li><a href="#Homework_Exercise">Homework
+Exercise<br>
+    </a></li>
+</ul>
+</div>
+<br>
+<h2><a name="Exercise_0"></a>Exercise 0: Configure JRE 6 Update 10 (or
+later version) with Firefox browser 3.x<br>
+</h2>
+<br>
+<div style="margin-left: 40px;">In this exercise, you are going to
+configure your browser (Firefox browser 3.x or IE 7) with JRE 6 update
+10 or later version. (Java Deployment Toolkit introduced in Java SE 6
+update 10 does allow Java Runtime (JRE) to be installed on a system or
+a browser, which do not have JRE pre-installed.&nbsp; For the sake of
+simplicity of the exercises, we pre-install JRE in this hands-on lab.)<br>
+<ol>
+  <li><a href="#0.1">Verify that JRE 6 update 10 (or later versio) is
+installed on your
+system</a></li>
+  <li><a href="#0.2">Download and install Firefix 3.x</a></li>
+  <li><a href="#0.3">Verify that Firefox is configured with JRE 6
+update 10 (or later verison)</a><br>
+  </li>
+</ol>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="0.1"></a>(0.1)
+Verify that JRE 6
+update 10 is installed<br>
+</h3>
+<br>
+<div style="margin-left: 40px;">1. Display Java control panel<br>
+<br>
+</div>
+<div style="margin-left: 40px;"><img alt="" src="index_files/0_b1.png"
+ style="width: 870px; height: 600px;"><br>
+<br>
+<img alt="" src="index_files/0stop.jpg"
+ style="width: 11px; height: 12px;"> If you somehow do not see the Java
+icon in the control panel - for example, if you are running 64bit JDK
+over Windows 64 bit Vista, you might not see the Java icon -, enter "<span
+ style="font-weight: bold;">javaws -viewer</span>" in the terminal
+window as a workaround.<br>
+<br>
+2. View Java runtime environment setting.&nbsp; Make sure Java SE
+update 10 or later version is configured.<br>
+<br>
+<img alt="" src="index_files/0_b2.png"
+ style="width: 410px; height: 433px;"><br>
+<br>
+<img alt="" src="index_files/0_b3.png"
+ style="width: 537px; height: 345px;"><br>
+<br>
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp; <a href="index.html#Exercise_0">return
+to
+top of the
+exercise</a><br>
+</div>
+<div style="margin-left: 40px;">
+<div style="margin-left: 40px;"><br>
+</div>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="0.2"></a>(0.2)
+Download and install Firefox
+Version 3 (if it has not been done yet)<br>
+</h3>
+<br>
+<div style="margin-left: 40px;">1. Go to <a
+ href="http://www.mozilla.com/en-US/firefox/all-rc.html">http://www.mozilla.com/en-US/firefox/all-rc.html</a>
+and download it.<br>
+<br>
+<img alt="" src="index_files/0_b9.png"
+ style="width: 868px; height: 858px;"><br>
+</div>
+<div style="margin-left: 40px;"><br>
+<br>
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp; <a href="index.html#Exercise_0">return
+to
+top of the
+exercise</a><br>
+</div>
+<br>
+<br>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="0.3"></a>(0.3)
+Verify that
+Firefox is configured with JRE 6 Update 10 (or later version)<br>
+</h3>
+<br>
+<div style="margin-left: 40px;">1. In the URL field, enter <span
+ style="font-weight: bold; color: rgb(255, 0, 0);">about:plugins</span>.<br>
+2. Verify that Java(TM) Platform SE 6 U1x plug-in has been installed.<br>
+<br>
+</div>
+<div style="margin-left: 40px;"><img alt="" src="index_files/0_b5.png"
+ style="width: 866px; height: 646px;"><br>
+<br>
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp; <a href="index.html#Exercise_0">return
+to
+top of the
+exercise</a><br>
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp; <a href="#Tutorial_Exercises">return
+to
+top</a><br>
+<br>
+<br>
+</div>
+<br>
+<h2><a name="Exercise_1"></a>Exercise 1: Java Deployment Toolkit<br>
+</h2>
+<br>
+<div style="margin-left: 40px;">In this exercise, you are study
+JavaScript functions that are provided as part of Java Deployment
+Toolkit. For detailed information on Java Deployment Kit, please go to <a
+ href="http://java.sun.com/javase/6/docs/technotes/guides/jweb/deployment_advice.html#deplToolkit">Java
+Web App Deployment Advice for JavaSE 6u10</a> document.&nbsp; For the
+functions that can be called against deployJava Javascript object,
+please read <a
+ href="http://java.sun.com/javase/6/docs/technotes/guides/jweb/deployment_advice.html#deplToolkit">this</a>.<br>
+<br>
+The <span style="font-weight: bold;">deployJava.js</span> exposes a
+single object, named deployJava, which contains the following public
+functions:<br>
+<ul>
+  <li><span style="font-weight: bold;">getJREs()</span> - Returns a
+list of currently-installed JRE versions.</li>
+  <li><span style="font-weight: bold;">installLatestJRE()</span> -
+Triggers the installation of the latest JRE </li>
+  <li><span style="font-weight: bold;">installJRE(requestVersion) </span>-
+Triggers the installation of the specified requestVersion, the latest
+version matching the specified requestVersion, or the latest JRE. </li>
+  <li><span style="font-weight: bold;">versionCheck(version) </span>-
+Returns true if there is a matching JRE version currently installed
+(among those detected by getJREs()). </li>
+  <li><span style="font-weight: bold;">writeAppletTag(attributes,
+parameters)</span> - Outputs an applet tag with the specified
+attributes and parameters. The parameters argument is optional. </li>
+  <li><span style="font-weight: bold;">runApplet(attributes,
+parameters, minimumVersion)</span> - Ensures that an appropriate JRE is
+installed and then runs an applet. </li>
+  <li><span style="font-weight: bold;">isWebStartInstalled(minimumVersion)
+    </span>- Returns true if an installation of Java Web Start of the
+specified minimumVersion is found. </li>
+  <li><span style="font-weight: bold;">createWebStartLaunchButton(jnlp,
+minimumVersion)</span> - Outputs a launch button for the specified JNLP
+URL. When clicked, the button will ensure that an appropriate JRE is
+installed and then launch the JNLP application.</li>
+  <li><span style="font-weight: bold;">setInstallerType(type)</span> -
+Sets the preferred install type : null, online, kernel.</li>
+  <li><span style="font-weight: bold;">setAdditionalPackages(packageList)
+    </span>- Sets additional package list to be used by kernel
+installer.</li>
+</ul>
+You need an internet connection to do these exercises.<br>
+</div>
+<div style="margin-left: 40px;">
+<ol>
+  <li><a href="index.html#1.1">Check JRE versions installed<br>
+    </a></li>
+  <li><a href="index.html#1.2">Install a new JRE version</a></li>
+</ol>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.1"></a>(1.1)
+Check JRE versions installed<br>
+</h3>
+<div style="margin-left: 40px;"><br>
+1. Create <span style="font-weight: bold;">TestJavaDeploymentToolkit.html</span>
+to the <span style="font-weight: bold;">DummyWebapp </span>application<br>
+<br>
+<img alt="" src="index_files/4_deploy1.png"
+ style="width: 860px; height: 658px;"><br>
+<br>
+<img alt="" src="index_files/4_deploy2.png"
+ style="width: 616px; height: 450px;"><br>
+<br>
+2. Modify <span style="font-weight: bold;">TestJavaDeploymentToolkit.html
+</span>with the one below.<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">&lt;!DOCTYPE HTML PUBLIC
+"-//W3C//DTD HTML 4.01 Transitional//EN"&gt;<br>
+&lt;html&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;head&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;title&gt;&lt;/title&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;meta
+http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+ style="font-weight: bold;">&lt;script
+src="http://java.com/js/deployJava.js"&gt;&lt;/script&gt;</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;script&gt;</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// Display list of currently-installed JRE versions</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+console.log("JREs installed = %s", deployJava.getJREs());</span><br
+ style="font-weight: bold;">
+      <br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// Check if there is a matching JRE version currently installed</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+console.log("JRE 1.6.0_14 installed = %s",
+deployJava.versionCheck("1.6.0_14"));</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+console.log("JRE 1.6.0_13 installed = %s",
+deployJava.versionCheck("1.6.0_13"));</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+console.log("JRE 1.6.0_2 installed = %s",
+deployJava.versionCheck("1.6.0_2"));</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+console.log("JRE 1.5.0_09 installed = %s",
+deployJava.versionCheck("1.5.0_09"));</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+console.log("JRE 1.4.0_12 installed = %s",
+deployJava.versionCheck("1.4.0_12"));</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;/script&gt;</span><br>
+      <br>
+&nbsp;&nbsp;&nbsp; &lt;/head&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;body&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Enable Firebug to see the
+messages being displayed!<br>
+&nbsp;&nbsp;&nbsp; &lt;/body&gt;<br>
+&lt;/html&gt;<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<img alt="" src="index_files/4_deploy3.png"
+ style="width: 860px; height: 757px;"><br>
+<br>
+3. Redeploy the <span style="font-weight: bold;">DummyWebapp</span>
+application.<br>
+<br>
+<img alt="" src="index_files/4_deploy4.png"
+ style="width: 860px; height: 757px;"><br>
+<br>
+4. Test the Java Development Toolkit functions. <br>
+<ul>
+  <li>From your browser, go to <a
+ href="http://localhost:8080/DummyWebapp/TestJavaDeploymentToolkit.html">http://localhost:8080/DummyWebapp/TestJavaDeploymentToolkit.html</a></li>
+  <li>Enable Firebug.</li>
+  <li>Observe the message displayed in the Firebug console.<br>
+  </li>
+</ul>
+<img alt="" src="index_files/4_deploy5.png"
+ style="width: 856px; height: 632px;"><br>
+<br>
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp; <a href="index.html#Exercise_1">return
+to
+top of the
+exercise</a><br>
+<br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.2"></a>(1.2)
+Install a new JRE<br>
+</h3>
+<div style="margin-left: 40px;"><br>
+1. Create <span style="font-weight: bold;">TestJavaDeploymentToolkit2.html</span>
+to the <span style="font-weight: bold;">DummyWebapp </span>application.<br>
+2. Modify <span style="font-weight: bold;">TestJavaDeploymentToolkit2.html
+</span>with the one below.<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">&lt;html&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;head&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;title&gt;&lt;/title&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;meta
+http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;script
+src="http://java.com/js/deployJava.js"&gt;&lt;/script&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;script&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// Display list of currently-installed JRE versions</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+console.log("JREs installed = %s", deployJava.getJREs());</span><br
+ style="font-weight: bold;">
+      <br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+var my_jre_version = "1.5.0_10";</span><br style="font-weight: bold;">
+      <br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// Check if there is a matching JRE version currently installed</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+console.log("JRE %s installed = %s", my_jre_version,
+deployJava.versionCheck(my_jre_version));</span><br
+ style="font-weight: bold;">
+      <br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// Install a version of JRE you don't have'</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+deployJava.installJRE(</span><span style="font-weight: bold;">my_jre_version</span><span
+ style="font-weight: bold;">);</span><br style="font-weight: bold;">
+      <br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// Check if the new version has been installed</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+console.log("JRE %s installed = %s", my_jre_version,
+deployJava.versionCheck(my_jre_version));</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/script&gt;<br>
+      <br>
+&nbsp;&nbsp;&nbsp; &lt;/head&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;body&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Enable Firebug to see the
+messages being displayed!<br>
+&nbsp;&nbsp;&nbsp; &lt;/body&gt;<br>
+&lt;/html&gt;<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+3. Redeploy the <span style="font-weight: bold;">DummyWebapp</span>
+application.<br>
+4. Test the Java Development Toolkit functions. <br>
+<ul>
+  <li>From your browser, go to&nbsp;<a
+ href="http://localhost:8080/DummyWebapp/TestJavaDeploymentToolkit2.html">http://localhost:8080/DummyWebapp/TestJavaDeploymentToolkit2.html</a></li>
+  <li>Enable Firebug.</li>
+  <li>Observe the message displayed in the Firebug console.</li>
+</ul>
+<img alt="" src="index_files/4_deploy6.png"
+ style="width: 504px; height: 380px;"><br>
+<br>
+<img alt="" src="index_files/4_deploy7.png"
+ style="width: 504px; height: 380px;"><br>
+<br>
+<img alt="" src="index_files/4_deploy8.png"
+ style="width: 504px; height: 380px;"><br>
+<br>
+<img alt="" src="index_files/4_deploy9.png"
+ style="width: 842px; height: 758px;"><br>
+<br>
+<br>
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp; <a href="index.html#Exercise_1">return
+to
+top of the
+exercise</a><br>
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp; <a href="#Tutorial_Exercises">return
+to
+top</a><br>
+<br>
+<br>
+</div>
+<br>
+<h2><a name="Exercise_2"></a>Exercise 2: Launching Applet through JNLP<br>
+</h2>
+<br>
+<div style="margin-left: 40px;">Learning points:<br>
+<ul>
+  <li>Applet can be launched through JNLP (this is a new feature
+enabled by new Java plug-in the browser)<br>
+  </li>
+</ul>
+Tasks to be performed:<br>
+</div>
+<div style="margin-left: 40px;">
+<ol>
+  <li><a href="index.html#2.1">Create a jar file from applet source code<br>
+    </a></li>
+  <li><a href="index.html#2.2">Study the code<br>
+    </a></li>
+</ol>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="2.1"></a>(2.1)
+Create a jar file from Applet source code<br>
+</h3>
+<br>
+<div style="margin-left: 40px;">1. Create a jar file that contains the
+applet class.<br>
+<br>
+</div>
+<div style="margin-left: 40px;"><img alt="" src="index_files/0_b10.png"
+ style="width: 823px; height: 726px;"><br>
+<br>
+2. Verify that the jar file has been created.<br>
+<br>
+<img alt="" src="index_files/0_b11.png"
+ style="width: 823px; height: 726px;"><br>
+<br>
+3. Verify that the following files are present under ./dist/ directory.<br>
+<br>
+- AppletPage.html<br>
+- applettakesparams.jnlp<br>
+- applet_AppletWithParameters.jar<br>
+<br>
+<img alt="" src="index_files/0_b13.png"
+ style="width: 823px; height: 726px;"><br>
+<br>
+</div>
+<div style="margin-left: 40px;">4. .Using your browser access the <span
+ style="font-weight: bold;">AppletPage.html</span> in your file stystem.<br>
+<br>
+<img alt="" src="index_files/0_b20.png"
+ style="width: 828px; height: 730px;"><br>
+<br>
+<img alt="" src="index_files/0_b21.png"
+ style="width: 796px; height: 658px;"><br>
+<br>
+5. Observe the applet is being displayed.<br>
+<span style="font-weight: bold;"><br>
+<img alt="" src="index_files/0_b12.png"
+ style="width: 831px; height: 732px;"><br>
+<br>
+</span><br>
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp; <a href="index.html#Exercise_2">return
+to
+top of the
+exercise</a><br>
+&nbsp; <br>
+<span style="font-weight: bold;"></span><br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="2.2"></a>(2.2)
+Study code<br>
+</h3>
+<br>
+<div style="margin-left: 40px;">1. Applet - AppletTakesParams.java<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><br>
+import javax.swing.JApplet;<br>
+import javax.swing.SwingUtilities;<br>
+import javax.swing.JLabel;<br>
+      <br>
+public class AppletTakesParams extends JApplet {<br>
+&nbsp;&nbsp;&nbsp; public void init() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+ style="font-weight: bold;">final String&nbsp; inputStr =
+getParameter("paramStr");&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+final int inputInt = Integer.parseInt(getParameter("paramInt"));</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+final String inputOutsideJNLPFile =
+getParameter("paramOutsideJNLPFile");</span><br>
+      <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; try {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+SwingUtilities.invokeAndWait(new Runnable() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+public void run() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+createGUI(inputStr, inputInt, inputOutsideJNLPFile);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; });<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } catch (Exception e) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.err.println("createGUI didn't successfully complete");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; private void createGUI(String inputStr, int
+inputInt, String inputOutsideJNLPFile) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String text = "Applet's
+parameters are -- inputStr: " + inputStr +<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+",&nbsp;&nbsp; inputInt: " + inputInt +<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+",&nbsp;&nbsp; paramOutsideJNLPFile: " + inputOutsideJNLPFile;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; JLabel lbl = new
+JLabel(text);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; add(lbl);<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+2. JNLP file - <span style="font-weight: bold; color: rgb(255, 0, 0);">applettakesparams.jnlp</span>.&nbsp;
+<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><br>
+      <br>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;<br>
+&lt;jnlp spec="1.0+" codebase="" href=""&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;information&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;title&gt;Applet Takes
+Params&lt;/title&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;vendor&gt;Dynamic
+Team&lt;/vendor&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/information&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;resources&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;!-- Application
+Resources --&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;j2se version="1.6+"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+href="http://java.sun.com/products/autodl/j2se"/&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;jar href="<span
+ style="font-weight: bold;">applet_AppletWithParameters.jar</span>"
+main="true" /&gt;<br>
+      <br>
+&nbsp;&nbsp;&nbsp; &lt;/resources&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;applet-desc <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; name="Applet Takes
+Params"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+main-class="AppletTakesParams"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; width="800"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; height="50"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <span style="font-weight: bold;">&lt;param name="paramStr"
+value="someString"/&gt;</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;param name="paramInt" value="22"/&gt;</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp; &lt;/applet-desc&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp; &lt;update check="background"/&gt;<br>
+&lt;/jnlp&gt;<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+3.&nbsp; HTML file that hosts the applet - <span
+ style="font-weight: bold;">AppletPage.html</span>. <br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><br>
+      <br>
+&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"&gt;<br>
+&lt;html lang="en-US"&gt;<br>
+&nbsp; &lt;head&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;title&gt;Applet Takes Params&lt;/title&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;meta http-equiv="Content-Type"
+content="text/html; charset=windows-1252"&gt;<br>
+&nbsp; &lt;/head&gt;<br>
+&nbsp; &lt;body&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;noscript&gt;A browser with JavaScript enabled is
+required for this page to operate properly.&lt;/noscript&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;h1&gt;Applet Takes Params&lt;/h1&gt;<br>
+      <br>
+&nbsp;&nbsp;&nbsp; &lt;script
+src="http://www.java.com/js/deployJava.js"&gt;&lt;/script&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;script&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+ style="font-weight: bold;"> var attributes = {
+code:'AppletTakesParams.class',</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+archive:'applet_AppletWithParameters.jar',&nbsp; width:800, height:50} ;</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+var parameters = {<span style="color: rgb(255, 0, 0);">jnlp_href:
+'applettakesparams.jnlp',</span> paramOutsideJNLPFile:
+'fooOutsideJNLP'} ;</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+deployJava.runApplet(attributes, parameters, '1.6');</span><br>
+&nbsp;&nbsp;&nbsp; &lt;/script&gt;<br>
+&nbsp; &lt;/body&gt;<br>
+&lt;/html&gt;<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp; <a href="index.html#Exercise_1">return
+to
+top of the
+exercise</a><br>
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp; <a href="#Tutorial_Exercises">return
+to
+top</a><br>
+</div>
+<br>
+<h2><a name="Exercise_3"></a>Exercise 3: Applet and JavaScript
+interaction<br>
+</h2>
+<br>
+<div style="margin-left: 40px;">
+<p>JavaScript code on a web page can interact with Java applets
+embedded on the page. JavaScript code can perform operations such as
+the following:</p>
+<ul>
+  <li>Invoke methods on Java objects</li>
+  <li>Get and set fields in Java objects</li>
+  <li>Get and set Java array elements</li>
+  <li>Create new instances of Java objects</li>
+</ul>
+Tasks to be performed<br>
+</div>
+<div style="margin-left: 40px;">
+<ol>
+  <li><a href="index.html#3.1">Create jar file from the applet source
+files<br>
+    </a></li>
+  <li><a href="index.html#3.2">Study the code<br>
+    </a></li>
+</ol>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="3.1"></a>(3.1)
+Create jar file from applet java source files<br>
+</h3>
+<br>
+<div style="margin-left: 40px;">1. Create jar file that contains the
+applet class.<br>
+<br>
+</div>
+<div style="margin-left: 40px;"><img alt="" src="index_files/0_b14.png"
+ style="width: 774px; height: 741px;"><br>
+<br>
+2. Verify that the files are present.<br>
+<br>
+<img alt="" src="index_files/0_b15.png"
+ style="width: 774px; height: 741px;"><br>
+</div>
+<br>
+<div style="margin-left: 40px;">3. .Using your browser access the <span
+ style="font-weight: bold;">AppletPage.html</span> in your file stystem.<br>
+<br>
+<img alt="" src="index_files/0_b20.png"
+ style="width: 828px; height: 730px;"><br>
+<br>
+4. Run applet<br>
+<br>
+<img alt="" src="index_files/0_b22.png"
+ style="width: 820px; height: 626px;"><br>
+<br>
+- Enter a number - like 5.<br>
+- Click OK<br>
+<br>
+<img alt="" src="index_files/0_b17.png"
+ style="width: 442px; height: 158px;"><br>
+<br>
+5. Observe that dialog box gets displayed.&nbsp; <br>
+<br>
+- Enter a number - like 7.<br>
+- Click OK<br>
+<br>
+<img alt="" src="index_files/0_b18.png"
+ style="width: 442px; height: 158px;"><br>
+<br>
+6. Observe that the result is displayed in the page.<br>
+<br>
+<img alt="" src="index_files/0_b19.png"
+ style="width: 828px; height: 730px;"><br>
+<br>
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp; <a href="index.html#Exercise_3">return
+to
+top of the
+exercise</a><br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="3.2"></a>(3.2)
+Study the code<br>
+</h3>
+<div style="margin-left: 40px;"><br>
+1. Applet - math-applet.java<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">package jstojava;<br>
+import java.applet.Applet;<br>
+      <br>
+public class MathApplet extends Applet{<br>
+      <br>
+&nbsp;&nbsp;&nbsp; public String userName = null;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; public String getGreeting() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return "Hello " + userName;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; public Calculator getCalculator() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return new Calculator();<br>
+&nbsp;&nbsp;&nbsp; } <br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+2. Caculator.java<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">package jstojava;<br>
+      <br>
+public class Calculator {<br>
+&nbsp;&nbsp;&nbsp; private int a = 0;<br>
+&nbsp;&nbsp;&nbsp; private int b = 0; // assume b &gt; a<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; public void setNums(int numA, int numB) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a = numA;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; b = numB;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; public int add() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return a + b;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; public int [] getNumInRange() {&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int x = a;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int len = (b - a) + 1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int [] range = new int [len];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (int i = 0; i &lt; len;
+i++) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+range[i]= x++;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+System.out.println("i: " + i + " ; range[i]: " + range[i]);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return range;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+3.&nbsp; DateHelper.java<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">package jstojava;<br>
+import java.util.Date;<br>
+import java.text.SimpleDateFormat;<br>
+      <br>
+public class DateHelper {<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; public static String label = null;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; public String getDate() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return label + " " + new
+SimpleDateFormat().format(new Date());<br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+4. JNLP file - math-applet.jnlp<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">&lt;?xml version="1.0"
+encoding="UTF-8"?&gt;<br>
+&lt;jnlp spec="1.0+" codebase="" href=""&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;information&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;title&gt;Math Applet -
+JavaScript to Java LiveConnect&lt;/title&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;vendor&gt;Sun&lt;/vendor&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/information&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;resources&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;!-- Application
+Resources --&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;j2se version="1.6+"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+href="http://java.sun.com/products/autodl/j2se"/&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;jar
+href="applet_InvokingAppletMethodsFromJavaScript.jar" main="true" /&gt;<br>
+      <br>
+&nbsp;&nbsp;&nbsp; &lt;/resources&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;applet-desc <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; name="Math Applet"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+main-class="jstojava.MathApplet"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; width="1"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; height="1"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp; &lt;/applet-desc&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp; &lt;update check="background"/&gt;<br>
+&lt;/jnlp&gt;<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+5. AppletPage.html<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">&lt;!DOCTYPE HTML PUBLIC
+"-//W3C//DTD HTML 4.01 Transitional//EN"&gt;<br>
+&lt;html lang="en-US"&gt;<br>
+&nbsp; &lt;head&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;title&gt;Math Applet Page - JavaScript to Java
+LiveConnect&lt;/title&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;meta http-equiv="Content-Type"
+content="text/html; charset=windows-1252"&gt;<br>
+&nbsp;&nbsp;&nbsp; <span style="font-weight: bold;">&lt;script
+language="javascript"&gt;</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <span style="color: rgb(255, 0, 0);">function
+enterNums(){</span></span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; var numA = prompt('Enter number
+\'a\' greater than or equal to zero:','0');</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+var numB = prompt('Enter number \'b\' (should be greater than number
+\'a\') :','2');</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; // set applet's public variable</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+mathApplet.userName = "John Doe";</span><br style="font-weight: bold;">
+      <br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+ style="color: rgb(255, 0, 0);"> // invoke public applet method</span></span><br
+ style="font-weight: bold; color: rgb(255, 0, 0);">
+      <span style="font-weight: bold; color: rgb(255, 0, 0);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+var greeting = mathApplet.getGreeting();</span><br
+ style="font-weight: bold; color: rgb(255, 0, 0);">
+      <br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;
+      <span style="font-weight: bold; color: rgb(255, 0, 0);">// get
+another class referenced by applet and invoke its methods</span><br
+ style="font-weight: bold; color: rgb(255, 0, 0);">
+      <span style="font-weight: bold; color: rgb(255, 0, 0);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+var calculator = mathApplet.getCalculator();</span><br
+ style="font-weight: bold; color: rgb(255, 0, 0);">
+      <span style="font-weight: bold; color: rgb(255, 0, 0);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+calculator.setNums(numA, numB);</span><br
+ style="font-weight: bold; color: rgb(255, 0, 0);">
+      <br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+ style="color: rgb(255, 0, 0);">&nbsp; // primitive datatype returned
+by applet</span></span><br
+ style="font-weight: bold; color: rgb(255, 0, 0);">
+      <span style="font-weight: bold; color: rgb(255, 0, 0);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+var sum = calculator.add();</span><br
+ style="font-weight: bold; color: rgb(255, 0, 0);">
+      <br style="font-weight: bold; color: rgb(255, 0, 0);">
+      <span style="font-weight: bold; color: rgb(255, 0, 0);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// array returned by applet</span><br
+ style="font-weight: bold; color: rgb(255, 0, 0);">
+      <span style="font-weight: bold; color: rgb(255, 0, 0);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+var numRange = calculator.getNumInRange();</span><br
+ style="font-weight: bold; color: rgb(255, 0, 0);">
+      <span style="font-weight: bold; color: rgb(255, 0, 0);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+var numRangeStr = arrayToString(numRange);</span><br
+ style="font-weight: bold; color: rgb(255, 0, 0);">
+      <br style="font-weight: bold; color: rgb(255, 0, 0);">
+      <span style="font-weight: bold; color: rgb(255, 0, 0);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// "Packages" keyword; check Java console log for this message</span><br
+ style="font-weight: bold; color: rgb(255, 0, 0);">
+      <span style="font-weight: bold; color: rgb(255, 0, 0);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+mathApplet.Packages.java.lang.System.out.println("Testing printing to
+System.out");</span><br
+ style="font-weight: bold; color: rgb(255, 0, 0);">
+      <br style="font-weight: bold; color: rgb(255, 0, 0);">
+      <span style="font-weight: bold; color: rgb(255, 0, 0);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// Set static field using "Packages" keyword; static methods may be
+similarly invoked</span><br
+ style="font-weight: bold; color: rgb(255, 0, 0);">
+      <span style="font-weight: bold; color: rgb(255, 0, 0);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+mathApplet.Packages.jstojava.DateHelper.label = "Today\'s date is: ";</span><br
+ style="font-weight: bold; color: rgb(255, 0, 0);">
+      <br style="font-weight: bold; color: rgb(255, 0, 0);">
+      <span style="font-weight: bold; color: rgb(255, 0, 0);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// Create an instance of a class and invoke method using "Packages"
+keyword</span><br style="font-weight: bold; color: rgb(255, 0, 0);">
+      <span style="font-weight: bold; color: rgb(255, 0, 0);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+var dateHelper = new mathApplet.Packages.jstojava.DateHelper();</span><br
+ style="font-weight: bold; color: rgb(255, 0, 0);">
+      <span style="font-weight: bold; color: rgb(255, 0, 0);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+var dateStr = dateHelper.getDate();</span><br style="font-weight: bold;">
+      <br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+document.writeln("&lt;p&gt;Results of JavaScript to Java
+Communication&lt;/p&gt;");</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+document.writeln("&lt;p&gt;" + greeting + "&lt;/p&gt;");</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+document.writeln("&lt;p&gt; a = " + numA + " ; b = " + numB + "
+&lt;/p&gt;");</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+document.writeln("&lt;p&gt;Sum: " + sum + "&lt;/p&gt;");</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+document.writeln("&lt;p&gt;Numbers in range array: " + numRangeStr +
+"&lt;/p&gt;");</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+document.writeln("&lt;p&gt;" + dateStr + "&lt;/p&gt;");</span><br
+ style="font-weight: bold;">
+      <br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; }</span><br style="font-weight: bold;">
+      <br style="font-weight: bold;">
+      <br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+function arrayToString(arr) {</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+var ret = "[ ";</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+for (i = 0; i &lt; arr.length; i++) {</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+if (i &gt; 0) {</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ret += ", ";</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+}</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ret += arr[i];</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+}</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ret += " ]";</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+return ret;</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+}</span><br style="font-weight: bold;">
+      <br style="font-weight: bold;">
+      <br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;
+&lt;/script&gt;</span><br>
+      <br>
+&nbsp; &lt;/head&gt;<br>
+&nbsp; &lt;body&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;noscript&gt;A browser with JavaScript enabled is
+required for this page to operate properly.&lt;/noscript&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;script
+src="http://www.java.com/js/deployJava.js"&gt;&lt;/script&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;script&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;!-- applet id can be
+used to get a reference to the applet object --&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; var attributes = {
+id:'mathApplet', code:'jstojava.MathApplet',&nbsp; width:1, height:1} ;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; var parameters = {<span
+ style="font-weight: bold;">jnlp_href: 'math-applet.jnlp</span>'} ;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+ style="font-weight: bold;">deployJava.runApplet(attributes,
+parameters, '1.6');</span><br>
+&nbsp;&nbsp;&nbsp; &lt;/script&gt;<br>
+      <br>
+      <br>
+&nbsp;&nbsp;&nbsp; &lt;h1&gt;Math Applet&lt;/h1&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;p&gt;Javascript prompts user to enter two
+numbers and returns a set of results.&lt;/p&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;p&gt;This page works best on the Firefox web
+browser&lt;/p&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;p&gt;&lt;a href="<span
+ style="font-weight: bold; color: rgb(255, 0, 0);">javascript:enterNums()</span>;"&gt;Launch
+Example&lt;/a&gt;&lt;/p&gt;<br>
+&nbsp; &lt;/body&gt;<br>
+&lt;/html&gt;<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp; <a href="index.html#Exercise_3">return
+to
+top of the
+exercise</a><br>
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp; <a href="#Tutorial_Exercises">return
+to
+top</a><br>
+</div>
+<br>
+<h2><a name="Homework_Exercise"></a><a name="Homework"></a>Homework
+Exercise<br>
+</h2>
+<br>
+<div style="margin-left: 40px;">1. The homework is to install JRE
+version that is not present in your system as you've done in Exercise
+1.2 above.<br>
+<br>
+2. Send the following files to <a
+ href="mailto:javase_adv_homework@javapassion.com">javase_adv_homework@javapassion.com</a>
+with <span style="font-weight: bold;">Subject </span>as <span
+ style="font-weight: bold;"></span><span style="font-weight: bold;">javase6u10_deployment.<br>
+</span>
+<ul>
+  <li>Zip file of the<span style="font-weight: bold;">
+MyOwnAnnotationExample</span><span style="font-weight: bold;"></span>
+NetBeans project.&nbsp; (Someone else
+should be able to open and run it as a NetBeans project.)&nbsp; You can
+use your favorite zip utility or you can use "jar" utility that comes
+with JDK as following.<br>
+  </li>
+  <ul>
+    <li>cd &lt;parent directory that contains MyOwnAnnotationExample
+directory&gt;
+(assuming you named your project as MyOwnAnnotationExample)<br>
+    </li>
+    <li>jar cvf MyOwnAnnotationExample.zip MyOwnAnnotationExample
+(MyOwnAnnotationExample<span style="font-weight: bold;"> </span>directory
+should
+contain <span style="font-weight: bold;">nbproject </span>directory)</li>
+  </ul>
+  <li>Captured output screen&nbsp;<span style="font-weight: bold;"> </span>-
+name it as <span style="font-weight: bold;">javase6u10_deployment.gif</span>
+or <span style="font-weight: bold;">javase6u10_deployment</span><span
+ style="font-weight: bold;">.jpg</span> (or
+javase6u10_deployment.&lt;whatever
+graphics format&gt;)</li>
+  <ul>
+    <li>Any screen capture that shows that your program is working is
+good enough.&nbsp; No cosmetic polishment is required.</li>
+  </ul>
+  <li>If you decide to use
+different IDE other than NetBeans, the zip
+file should contain all the files that are needed for rebuilding the
+project - war file with necessary source files is OK.</li>
+</ul>
+</div>
+<div style="margin-left: 40px;"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp; <a href="index.html#Tutorial_Exercises">return
+to the top</a></div>
+<div class="indent"><br>
+<br>
+<br>
+</div>
+<br>
+<p> </p>
+<!-- ======================================================================================== -->
+</body>
+</html>

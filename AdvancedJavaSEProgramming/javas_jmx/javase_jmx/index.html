@@ -1,0 +1,812 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <script src="index_files/tigris.txt" type="text/javascript"></script>
+  <link rel="stylesheet" type="text/css" href="index_files/netbeans.css">
+  <title>LAB-1604: JMX</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="SourceCastVersion" content="2.6.2.4.10">
+  <meta name="keywords"
+ content="NetBeans, IDE, Platform, free, open source, developer">
+  <link rel="stylesheet" href="index_files/netbeans_002.css">
+  <meta name="author" content="Sang Shin">
+  <style type="text/css">
+#search {height:100%;}
+#topmodule {align:right;}
+  </style>
+  <script language="JavaScript" type="text/javascript">
+<!--
+function get_sc_login() {
+  var sclogin = "guest";
+  return (sclogin);
+}
+var username=get_sc_login();
+//-->
+  </script>
+</head>
+<body onload="loginfocus()" class="composite">
+<!-- begin TopTabs --><!-- end TopTabs --><!-- start NavCol --><!-- end NavCol --><!-- Servlet-Specific template --><!-- Show servlet name if it is a servlet -->
+<br>
+<br>
+<h1 style="text-align: center;">JMX<br>
+</h1>
+<div class="articledate" style="margin-left: 0px; text-align: center;"><a
+ href="http://www.javapassion.com/SangSchedule.html#Bio">Sang Shin</a>,
+<a href="http://micmacfr.homeunix.org/">Michèle Garoche</a>,
+<a href="http://www.javapassion.com">www.javapassion.com</a><a
+ href="mailto:sangshinpassion@gmail.com"><i>
+</i></a></div>
+<div class="indent"><br>
+<div style="text-align: center;"><img alt=""
+ src="index_files/sangshin2010.jpg" style="width: 102px; height: 102px;">&nbsp;
+<img alt="" src="index_files/Michele.jpg"
+ style="width: 102px; height: 102px;"><br>
+</div>
+<br>
+<span class="txtplain1"><br>
+</span>The JMX technology provides the tools for building distributed,
+Web-based, modular and dynamic solutions for managing and monitoring
+devices, applications, and service-driven networks. By design, this
+standard is suitable for adapting legacy systems, implementing new
+management and monitoring solutions, and plugging into those of the
+future.<br>
+<br>
+<br>
+<div style="text-align: center;"><b>Expected duration: 30 minutes
+(excluding resource reading &amp; homework)<br>
+<br>
+</b></div>
+<br>
+<p><br>
+&nbsp;
+<br>
+</p>
+<p></p>
+<ul>
+</ul>
+<h3 class="tutorial">Resources<br>
+</h3>
+<ul>
+  <li><span style="text-decoration: underline;"><span
+ style="font-weight: bold;"></span></span><a
+ href="http://java.sun.com/javase/technologies/core/mntr-mgmt/javamanagement/">JMX</a>
+homesite <br>
+  </li>
+  <li><a href="http://netbeans.org/kb/docs/java/jmx-getstart.html">Getting
+Started with JMX Monitoring in NetBeans IDE</a> tutorial <br>
+  </li>
+  <li><a href="http://netbeans.org/kb/docs/java/jmx-tutorial.html">Adding
+JMX Instrumentation to a Java Application</a> tutorial <br>
+  </li>
+</ul>
+<br>
+<h3 class="tutorial"><a name="Change_Log"></a>Change Log<br>
+</h3>
+<ul>
+  <li>Nov. 16th, 2010: Created<br>
+  </li>
+</ul>
+<br>
+<br>
+&nbsp;<br>
+<h3 class="tutorial"><a name="Tutorial_Exercises"></a>Lab Exercises</h3>
+<br>
+<ul>
+  <li><a href="#Exercise_0">Exercise 0: Install JMX and JConsole
+plugins to NetBeans IDE (10 minutes)</a><br>
+  </li>
+  <li><a href="#Exercise_1">Exercise 1: Build and run JMX-enabled
+"Anagram" application
+(20 minutes)</a></li>
+  <li><a href="#Homework_Exercise">Homework
+Exercise<br>
+    </a></li>
+</ul>
+</div>
+<br>
+<h2><a name="Exercise_0"></a>Exercise 0: Install JMX and JConsole
+plugins to NetBeans IDE</h2>
+<br>
+<div style="margin-left: 40px;"><img alt="" src="index_files/1_x2.png"
+ style="width: 747px; height: 663px;"><br>
+</div>
+<br>
+<div style="margin-left: 40px;"><img alt="" src="index_files/1_x1.png"
+ style="width: 731px; height: 535px;"><br>
+</div>
+<br>
+<br>
+<h2><a name="Exercise_1"></a>Exercise 1: Build and run JMX-enabled
+Anagram application</h2>
+<div style="margin-left: 40px;"><br>
+</div>
+<div style="margin-left: 40px;">In this exercise, you are going to
+build and run JMX-enabled Anagram sample application that comes with
+NetBeans IDE.<br>
+</div>
+<div style="margin-left: 40px;">
+<ol>
+  <li><a href="#1.2">Create a new project from samples<br>
+    </a></li>
+  <li><a href="#1.3">Run project with JConsole<br>
+    </a></li>
+  <li><a href="#1.4">Display attributes<br>
+    </a></li>
+  <li><a href="#1.4">Perform an operation<br>
+    </a></li>
+  <li><a href="#1.5">Subscrible notification<br>
+    </a></li>
+  <li><a href="#1.6">Study the code<br>
+    </a></li>
+</ol>
+<br>
+</div>
+<div style="margin-left: 40px;"><br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.1"></a>(1.1)&nbsp;
+Create a new project from samples<br>
+</h3>
+<br>
+<div style="margin-left: 40px;"><img alt="" src="index_files/1_x3.png"
+ style="width: 747px; height: 663px;"><br>
+<br>
+<img alt="" src="index_files/1_x4.png"
+ style="width: 737px; height: 507px;"><br>
+<br>
+<img alt="" src="index_files/1_x5.png"
+ style="width: 737px; height: 507px;"><br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.2"></a>(1.2)&nbsp;
+Run project with JConsole<br>
+</h3>
+<div style="margin-left: 40px;"><br>
+<img alt="" src="index_files/1_x6.png"
+ style="width: 747px; height: 663px;"><br>
+<br>
+<img alt="" src="index_files/1_x7.png"
+ style="width: 369px; height: 219px;"><br>
+<br>
+<img alt="" src="index_files/1_x8.png"
+ style="width: 743px; height: 634px;"><br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.3"></a>(1.3)
+Display attributes<br>
+</h3>
+<div style="margin-left: 40px;"><br>
+<img alt="" src="index_files/1_x9.png"
+ style="width: 743px; height: 634px;"><br>
+<br>
+<img alt="" src="index_files/1_x13.png"
+ style="width: 743px; height: 634px;"><br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.4"></a>(1.4)&nbsp;
+Perform operation<br>
+</h3>
+<div style="margin-left: 40px;"><br>
+<img alt="" src="index_files/1_x10.png"
+ style="width: 743px; height: 634px;"><br>
+<br>
+<img alt="" src="index_files/1_x11.png"
+ style="width: 268px; height: 118px;"><br>
+<br>
+<img alt="" src="index_files/1_x12.png"
+ style="width: 743px; height: 634px;"><br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.5"></a>(1.5)&nbsp;
+Subscribe notification<br>
+</h3>
+<div style="margin-left: 40px;"><br>
+<img alt="" src="index_files/1_x14.png"
+ style="width: 743px; height: 634px;"><br>
+<br>
+<img alt="" src="index_files/1_x15.png"
+ style="width: 369px; height: 219px;"><br>
+<br>
+<img alt="" src="index_files/1_x16.png"
+ style="width: 743px; height: 634px;"><br>
+<br>
+</div>
+<h3 style="margin-left: 40px;" class="tutorial"><a name="1.6"></a>(1.6)
+Study the code<br>
+</h3>
+<div style="margin-left: 40px;"><br>
+<img alt="" src="index_files/1_x17.png"
+ style="width: 775px; height: 709px;"><br>
+<br>
+AnagramsMBean.java<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">/**<br>
+&nbsp;* AnagramsMBean.java<br>
+&nbsp;*<br>
+&nbsp;* Created on Wed May 11 09:37:26 MEST 2005<br>
+&nbsp;*/<br>
+package com.toy.anagrams.mbeans;<br>
+      <br>
+/**<br>
+&nbsp;* Interface AnagramsStatsMBean<br>
+&nbsp;* Anagrams Description<br>
+&nbsp;*/<br>
+public interface <span style="font-weight: bold;">AnagramsStatsMBean</span><br>
+{<br>
+&nbsp;&nbsp; /**<br>
+&nbsp;&nbsp;&nbsp; * Get The time it tooks for a user to resolve the
+last anagram<br>
+&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp; public int getLastThinkingTime();<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp; /**<br>
+&nbsp;&nbsp;&nbsp; * Get The maximum time it tooks for a user to
+resolve an anagram<br>
+&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp; public int getMaxThinkingTime();<br>
+      <br>
+&nbsp;&nbsp; /**<br>
+&nbsp;&nbsp;&nbsp; * Get The minimum time it tooks for a user to
+resolve an anagram<br>
+&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp; public int getMinThinkingTime();<br>
+      <br>
+&nbsp;&nbsp; /**<br>
+&nbsp;&nbsp;&nbsp; * Get Number of resolved anagrams<br>
+&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp; public int getNumResolvedAnagrams();<br>
+      <br>
+&nbsp;&nbsp; /**<br>
+&nbsp;&nbsp;&nbsp; * Get The current anagram<br>
+&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp; public String getCurrentAnagram();<br>
+      <br>
+&nbsp;&nbsp; /**<br>
+&nbsp;&nbsp;&nbsp; * Resety all thinking related counters<br>
+&nbsp;&nbsp;&nbsp; *<br>
+&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp; public void resetThinkingTimes();<br>
+      <br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+AnagramsStats.java<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">/**<br>
+&nbsp;* AnagramsStats.java<br>
+&nbsp;*<br>
+&nbsp;* Created on Wed May 11 09:37:26 MEST 2005<br>
+&nbsp;*/<br>
+package com.toy.anagrams.mbeans;<br>
+      <br>
+import javax.management.*;<br>
+      <br>
+/**<br>
+&nbsp;* Class AnagramsStats<br>
+&nbsp;* Anagrams MBean<br>
+&nbsp;*/<br>
+public class <span style="font-weight: bold;">AnagramsStats implements
+AnagramsStatsMBean,
+NotificationEmitter</span><br>
+{<br>
+&nbsp;&nbsp;&nbsp; /** Attribute : LastThinkingTime */<br>
+&nbsp;&nbsp;&nbsp; private int lastThinkingTime = 0;<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; /** Attribute : MaxThinkingTime */<br>
+&nbsp;&nbsp;&nbsp; private int maxThinkingTime = 0;<br>
+      <br>
+&nbsp;&nbsp;&nbsp; /** Attribute : MinThinkingTime */<br>
+&nbsp;&nbsp;&nbsp; private int minThinkingTime = 0;<br>
+      <br>
+&nbsp;&nbsp;&nbsp; /** Attribute : NumResolvedAnagrams */<br>
+&nbsp;&nbsp;&nbsp; private int NumResolvedAnagrams = 0;<br>
+      <br>
+&nbsp;&nbsp;&nbsp; /** Attribute : CurrentAnagram */<br>
+&nbsp;&nbsp;&nbsp; private String currentAnagram = null;<br>
+      <br>
+&nbsp;&nbsp; /* Creates a new instance of AnagramsStats */<br>
+&nbsp;&nbsp;&nbsp; public AnagramsStats()<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; /**<br>
+&nbsp;&nbsp;&nbsp; * Get The time it tooks for a user to resolve the
+last anagram<br>
+&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp; public int getLastThinkingTime() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return lastThinkingTime;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp; /**<br>
+&nbsp;&nbsp;&nbsp; * Get The maximum time it tooks for a user to
+resolve an anagram<br>
+&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp; public int getMaxThinkingTime()<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return maxThinkingTime;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+&nbsp;&nbsp; /**<br>
+&nbsp;&nbsp;&nbsp; * Get The minimum time it tooks for a user to
+resolve an anagram<br>
+&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp; public int getMinThinkingTime()<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return minThinkingTime;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+&nbsp;&nbsp; /**<br>
+&nbsp;&nbsp;&nbsp; * Get Number of resolved anagrams<br>
+&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp; public int getNumResolvedAnagrams()<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return NumResolvedAnagrams;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+&nbsp;&nbsp; /**<br>
+&nbsp;&nbsp;&nbsp; * Get The current anagram<br>
+&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp; public String getCurrentAnagram()<br>
+&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return currentAnagram;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+&nbsp;&nbsp; <span style="font-weight: bold;">/**</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; * Resety all
+thinking related counters</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; */</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; public void
+resetThinkingTimes()</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; {</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+//TODO Add the operation implementation</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+minThinkingTime = 0;</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+maxThinkingTime = 0;</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+lastThinkingTime = 0;</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; }</span><br>
+      <br>
+&nbsp;&nbsp;&nbsp; /**<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * Methods exposed to Anagrams UI components to
+feed management with data.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; /*<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * A new Anagram is porposed to the user. He
+starts thinking...<br>
+&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp; public void startThinking() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; startTime =
+System.currentTimeMillis();<br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+&nbsp;&nbsp;&nbsp; /*<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * An Anagram has been resolved.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp; public void stopThinking() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //Update the number of
+resolved anagrams<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NumResolvedAnagrams++;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Computes max and min<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; long stopTime =
+System.currentTimeMillis();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; long oldMin =
+minThinkingTime;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lastThinkingTime = (int)
+(stopTime - startTime) / 1000 ;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; minThinkingTime =
+(lastThinkingTime &lt; minThinkingTime) || minThinkingTime == 0 ?
+lastThinkingTime : minThinkingTime;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; maxThinkingTime =
+lastThinkingTime &gt; maxThinkingTime ? lastThinkingTime :
+maxThinkingTime;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //Create a JMX Notification<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Notification notification =
+new Notification(AttributeChangeNotification.ATTRIBUTE_CHANGE,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+this,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+getNextSeqNumber(),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+"Anagram resolved!");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Send a JMX notification.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+broadcaster.sendNotification(notification);<br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; /**<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * Updates the current anagram coputed by the
+application<br>
+&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp; public void setCurrentAnagram(String currentAnagram)
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.currentAnagram =
+currentAnagram;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp; <span style="font-weight: bold;">/**</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; * MBean
+Notification support</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; * You
+shouldn't update these methods</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; */</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp; // &lt;editor-fold
+defaultstate="collapsed" desc=" Generated Code "&gt;</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; public void
+addNotificationListener(NotificationListener listener,</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+NotificationFilter filter, Object handback)</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+throws IllegalArgumentException {</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+broadcaster.addNotificationListener(listener, filter, handback);</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; }</span><br
+ style="font-weight: bold;">
+      <br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; public
+MBeanNotificationInfo[] getNotificationInfo() {</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+return new MBeanNotificationInfo[] {</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+new MBeanNotificationInfo(new String[] {</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+AttributeChangeNotification.ATTRIBUTE_CHANGE},</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+javax.management.Notification.class.getName(),</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+"When an anagram is resolved time")</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+};</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; }</span><br
+ style="font-weight: bold;">
+      <br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; public void
+removeNotificationListener(NotificationListener listener)</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+throws ListenerNotFoundException {</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+broadcaster.removeNotificationListener(listener);</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; }</span><br
+ style="font-weight: bold;">
+      <br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; public void
+removeNotificationListener(NotificationListener listener,</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+NotificationFilter filter, Object handback)</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+throws ListenerNotFoundException {</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+broadcaster.removeNotificationListener(listener, filter, handback);</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; }</span><br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; private synchronized long getNextSeqNumber() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return seqNumber++;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; private long seqNumber;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // &lt;/editor-fold&gt;<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; private final NotificationBroadcasterSupport
+broadcaster =<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+new NotificationBroadcasterSupport();<br>
+      <br>
+&nbsp;&nbsp;&nbsp; //Stores the time a new anagram is proposed to the
+user.<br>
+&nbsp;&nbsp;&nbsp; private long startTime;<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+JMXAgent.java<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">/*<br>
+&nbsp;* JMXAgent.java<br>
+&nbsp;*<br>
+&nbsp;* Created on May 11, 2005, 9:28 AM<br>
+&nbsp;*/<br>
+      <br>
+package com.toy.anagrams.agent;<br>
+      <br>
+import javax.management.ObjectName;<br>
+import javax.management.MBeanServer;<br>
+import java.lang.management.ManagementFactory;<br>
+      <br>
+import com.toy.anagrams.mbeans.AnagramsStats;<br>
+      <br>
+/**<br>
+&nbsp;* JMX agent class.<br>
+&nbsp;* You may use the New JMX MBean wizard to create a Managed Bean.<br>
+&nbsp;* @author jfdenise<br>
+&nbsp;*/<br>
+public class JMXAgent {<br>
+&nbsp;&nbsp;&nbsp; <span style="font-weight: bold;">private
+AnagramsStats mbean</span>;<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; public AnagramsStats getAnagramsStats() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return mbean;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; /**<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * Instantiate and register your MBeans.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp; public void init() throws Exception {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //TODO Add your MBean
+registration code here<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;
+// Instantiate Anagrams MBean</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+mbean =</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+new AnagramsStats();</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ObjectName mbeanName = new ObjectName
+("anagrams.toy.com:type=AnagramsStats");</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+//Register the Anagrams MBean</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+getMBeanServer().registerMBean(mbean, mbeanName);</span><br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; /**<br>
+&nbsp;&nbsp;&nbsp;&nbsp; * Returns an agent singleton.<br>
+&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp; public synchronized static JMXAgent getDefault()
+throws Exception {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(singleton == null) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+singleton = new JMXAgent();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+singleton.init();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return singleton;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; public MBeanServer getMBeanServer() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return mbs;<br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; // Platform MBeanServer used to register your MBeans<br>
+&nbsp;&nbsp;&nbsp; private final MBeanServer mbs =
+ManagementFactory.getPlatformMBeanServer();<br>
+&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; // Singleton instance<br>
+&nbsp;&nbsp;&nbsp; private static JMXAgent singleton;<br>
+}<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+Anagram.java<br>
+<br>
+<table style="width: 100%; text-align: left;" border="1" cellpadding="2"
+ cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">...<br>
+public class Anagrams extends JFrame {<br>
+      <br>
+&nbsp;&nbsp;&nbsp; public static void main(String[] args) throws
+Exception {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; new
+Anagrams().setVisible(true);<br>
+&nbsp;&nbsp;&nbsp; }<br>
+      <br>
+&nbsp;&nbsp;&nbsp; private int wordIdx = 0;<br>
+      <br>
+&nbsp;&nbsp;&nbsp; /** Creates new form Anagrams */<br>
+&nbsp;&nbsp;&nbsp; public Anagrams() throws Exception {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; initComponents();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+getRootPane().setDefaultButton(guessButton);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+scrambledWord.setText(WordLibrary.getScrambledWord(wordIdx));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pack();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+guessedWord.requestFocusInWindow();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Center in the screen<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dimension screenSize =
+Toolkit.getDefaultToolkit().getScreenSize();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dimension frameSize =
+getSize();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; setLocation(new
+Point((screenSize.width - frameSize.width) / 2,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(screenSize.height - frameSize.width) / 2));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight: bold;">&nbsp;&nbsp;
+//JMX Management initialization</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+initManagement();</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp; <br>
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; /**</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp; * JMX
+initialization. Creates and initializes a JMX Agent.</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp; *
+Connect Anagrams UI components to Management.</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp; */</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; private void
+initManagement() throws Exception {</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+JMXAgent agent = JMXAgent.getDefault();</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      </span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// When the Anagrams game is first displayed, a word is proposed to the
+user.</span><br style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// We must start time computing and set the current anagram</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+agent.getAnagramsStats().startThinking();</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+agent.getAnagramsStats().setCurrentAnagram(WordLibrary.getScrambledWord(wordIdx));</span><br
+ style="font-weight: bold;">
+      <span style="font-weight: bold;">&nbsp;&nbsp;&nbsp; }</span><br>
+&nbsp;&nbsp;&nbsp; ...<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+</div>
+<div style="margin-left: 40px;"></div>
+<div style="margin-left: 40px;">&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Exercise_1">return to top of
+the exercise</a><br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; <a href="index.html#Tutorial_Exercises">return to
+top of the document</a><br>
+<br>
+</div>
+<br>
+<h2><a name="Homework_Exercise"></a><a name="Homework"></a>Homework
+Exercise<br>
+</h2>
+<br>
+<div style="margin-left: 40px;">
+</div>
+<div class="indent">
+<div style="margin-left: 40px;">1. The homework is to add JMX feature
+to the <span style="font-weight: bold;">CelsiusConverter </span>project,
+which is provided under <span style="font-weight: bold;">&lt;LAB_UNZIPPED_DIRECTORY&gt;/javase_jmx/samples</span>
+directory.&nbsp; (You might want to create a new project called <span
+ style="font-weight: bold;">MyCelsiusConverter</span> if you want to
+preserve the original project.)</div>
+<ul style="margin-left: 40px;">
+  <li><span style="font-weight: bold;"></span> <span
+ style="color: rgb(0, 0, 0);"><span style="font-weight: bold;"></span></span>Add
+"LastThinkingTime", "MaxThinkingTime", "MinThinkingTime", and
+"AverageThinkingTime" as JMX attributes</li>
+  <li>Add "resetThinkingTimes" operation<br>
+  </li>
+  <li>Every 3rd try, send a notification to the manger.</li>
+</ul>
+<br>
+<div style="margin-left: 40px;">2. Send the following files to <a
+ href="mailto:javase_adv_homework@javapassion.com">javase_adv_homework@javapassion.com</a>
+with <span style="font-weight: bold;">Subject </span>as <span
+ style="font-weight: bold;"></span><span style="font-weight: bold;">javase_jmx.</span><br>
+<span style="font-weight: bold;"></span></div>
+<ul style="margin-left: 40px;">
+  <li>Zip file of the the<span style="font-weight: bold;">
+MyCelsiusConverter</span>
+NetBeans project.&nbsp; (Someone else
+should be able to open and run it as a NetBeans project.)&nbsp; You can
+use your favorite zip utility or you can use "jar" utility that comes
+with JDK as following.<br>
+  </li>
+  <ul>
+    <li>cd &lt;parent directory that contains <span
+ style="font-weight: bold;">MyCelsiusConverter</span>
+directory&gt;
+(assuming you named your project as <span style="font-weight: bold;">MyCelsiusConverter</span>)<br>
+    </li>
+    <li>jar cvf MyCelsiusConverter.zip MyCelsiusConverter
+(<span style="font-weight: bold;">MyCelsiusConverter </span>should
+contain <span style="font-weight: bold;">nbproject </span>directory)</li>
+  </ul>
+  <li>Captured output screen&nbsp;<span style="font-weight: bold;"> </span>-
+name it as <span style="font-weight: bold;">javase_jmx.gif</span>
+or<span style="font-weight: bold;">javase_jmx</span><span
+ style="font-weight: bold;">.jpg</span> (or javase_jmx.&lt;whatever
+graphics format&gt;)</li>
+  <ul>
+    <li>Any screen capture (just one of them) that shows that your
+program is working is
+good enough.&nbsp; No cosmetic polishment is required.</li>
+  </ul>
+  <li>If you decide to use
+different IDE other than NetBeans, the zip
+file should contain all the files that are needed for rebuilding the
+project.</li>
+</ul>
+<br>
+<div style="margin-left: 40px;">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;<a href="index.html#Tutorial_Exercises">return to
+top of the document</a><br>
+<br>
+</div>
+<br>
+<br>
+<br>
+</div>
+<br>
+<p> </p>
+<!-- ======================================================================================== -->
+</body>
+</html>
